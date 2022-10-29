@@ -16,7 +16,9 @@
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "airbnb-base",
+        "airbnb-typescript/base"
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
@@ -34,7 +36,11 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "import/prefer-default-export": "off",
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "linebreak-style": ["error", "windows"],
+        "max-len": ["error", { "comments": 120 }]
       }
     },
     {
