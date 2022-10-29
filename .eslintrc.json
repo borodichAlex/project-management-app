@@ -1,22 +1,17 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
-        "project": [
-          "tsconfig.json"
-        ],
+        "project": ["tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended",
         "airbnb-base",
         "airbnb-typescript/base"
       ],
@@ -39,17 +34,32 @@
         ],
         "import/prefer-default-export": "off",
         "no-console": ["error", { "allow": ["warn", "error"] }],
-        "max-len": ["error", { "comments": 120 }]
+        "max-len": ["error", { "comments": 120 }],
+        "prettier/prettier": [
+          "error",
+          {
+            "trailingComma": "all",
+            "tabWidth": 2,
+            "semi": true,
+            "singleQuote": true
+          }
+        ]
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
+      "files": ["*.html"],
       "extends": [
-        "plugin:@angular-eslint/template/recommended"
+        "plugin:@angular-eslint/template/recommended",
+        "plugin:prettier/recommended"
       ],
-      "rules": {}
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "parser": "angular"
+          }
+        ]
+      }
     }
   ]
 }
