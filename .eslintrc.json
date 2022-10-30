@@ -41,9 +41,11 @@
             "trailingComma": "all",
             "tabWidth": 2,
             "semi": true,
-            "singleQuote": true
+            "singleQuote": true,
+            "endOfLine": "auto"
           }
-        ]
+        ],
+        "linebreak-style": "off"
       }
     },
     {
@@ -56,7 +58,8 @@
         "prettier/prettier": [
           "error",
           {
-            "parser": "angular"
+            "parser": "angular",
+            "endOfLine": "auto"
           }
         ]
       }
