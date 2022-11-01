@@ -4,7 +4,9 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { LoggingService } from './core/services/logging.service';
 import { AppLanguageService } from './translate/app-language.service';
 
 @Component({
@@ -16,19 +18,36 @@ import { AppLanguageService } from './translate/app-language.service';
 export class AppComponent implements OnInit, OnDestroy {
   private langChangeSubscription!: Subscription;
 
-  constructor(private appLangService: AppLanguageService) {}
+  private loggingSubscription!: Subscription;
+
+  constructor(
+    private appLangService: AppLanguageService,
+    private loggingService: LoggingService,
+    private router: Router,
+  ) {}
 
   public ngOnInit(): void {
     this.initAppLanguage();
+    this.checkLogging();
   }
 
   public ngOnDestroy(): void {
     this.langChangeSubscription.unsubscribe();
+    this.loggingSubscription.unsubscribe();
   }
 
   private initAppLanguage(): void {
     this.appLangService.init('en');
     this.langChangeSubscription =
       this.appLangService.initSaveOnLangChangeObserver();
+  }
+
+  private checkLogging(): void {
+    this.loggingSubscription = this.loggingService.isLoggedIn$.subscribe(
+      (isLogged) => {
+        if (isLogged) this.router.navigate(['boards']);
+        this.router.navigate(['welcome']);
+      },
+    );
   }
 }
