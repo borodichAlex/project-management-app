@@ -1,3 +1,6 @@
 {
-  "appTitle": "Project management app"
+  "appTitle": "Project management app",
+  "logInButtonLabel": "Sign In",
+  "signUpButtonLabel": "Sign Up",
+  "logOutButtonLabel": "Log Out"
 }

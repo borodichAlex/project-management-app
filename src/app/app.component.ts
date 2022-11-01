@@ -45,8 +45,11 @@ export class AppComponent implements OnInit, OnDestroy {
   private checkLogging(): void {
     this.loggingSubscription = this.loggingService.isLoggedIn$.subscribe(
       (isLogged) => {
-        if (isLogged) this.router.navigate(['boards']);
-        this.router.navigate(['welcome']);
+        if (isLogged) {
+          this.router.navigate(['boards']);
+        } else {
+          this.router.navigate(['welcome']);
+        }
       },
     );
   }

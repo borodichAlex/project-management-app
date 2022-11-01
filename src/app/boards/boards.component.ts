@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { LoggingService } from '../core/services/logging.service';
 
 @Component({
   selector: 'app-boards',
@@ -7,5 +8,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardsComponent {
-  // constructor() {}
+  constructor(private loggingService: LoggingService) {}
+
+  public logout() {
+    this.loggingService.logOut();
+  }
 }
