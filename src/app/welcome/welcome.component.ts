@@ -14,7 +14,7 @@ export class WelcomeComponent {
   // eslint-disable-next-line class-methods-use-this
   public onLogIn() {
     // this.router.navigate(['login']); //for production
-    this.loggingService.logIn(); // for debugging
+    this.loggingService.logIn('user1', '123456'); // for debugging
     // eslint-disable-next-line no-console
     console.log('redirect to login');
   }
