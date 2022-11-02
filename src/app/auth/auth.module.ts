@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
 
@@ -12,13 +12,12 @@ import { AuthRoutingModule } from './auth-routing.module';
   declarations: [LoginComponent],
   imports: [
     CommonModule,
+    AuthRoutingModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    FormsModule,
     ReactiveFormsModule,
-    AuthRoutingModule,
   ],
 })
 export class AuthModule {}

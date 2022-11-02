@@ -5,10 +5,9 @@
     <input
       formControlName="login"
       matInput
-      type="email"
-      name="email"
+      type="text"
+      name="login"
       #inputEmail
-      [(ngModel)]="email"
     />
   </mat-form-field>
   <mat-form-field appearance="fill">
@@ -19,7 +18,6 @@
       type="password"
       name="password"
       #inputPassword
-      [(ngModel)]="password"
     />
   </mat-form-field>
   <button mat-flat-button type="submit" class="login-button">Login</button>
