@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ViewChild,
-  ElementRef,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
@@ -17,23 +12,4 @@ export class LoginComponent {
     login: new FormControl(''),
     password: new FormControl(''),
   });
-
-  public email = '';
-
-  public password = '';
-
-  @ViewChild('loginForm') loginForm!: ElementRef<HTMLFormElement>;
-
-  @ViewChild('inputEmail') inputEmail!: ElementRef<HTMLInputElement>;
-
-  @ViewChild('inputPassword') inputPassword!: ElementRef<HTMLInputElement>;
-
-  loginCheck(email: string, password: string): void {
-    if (email && password) {
-      // this.authService.logIn(email);
-      this.loginForm?.nativeElement.reset();
-      this.inputEmail?.nativeElement.blur();
-      this.inputPassword?.nativeElement.blur();
-    }
-  }
 }
