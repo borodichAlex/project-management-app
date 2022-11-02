@@ -1,0 +1,26 @@
+<form [formGroup]="user" class="loginField" #loginForm>
+  <h2>Login</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>login</mat-label>
+    <input
+      formControlName="login"
+      matInput
+      type="email"
+      name="email"
+      #inputEmail
+      [(ngModel)]="email"
+    />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>password</mat-label>
+    <input
+      formControlName="password"
+      matInput
+      type="password"
+      name="password"
+      #inputPassword
+      [(ngModel)]="password"
+    />
+  </mat-form-field>
+  <button mat-flat-button type="submit" class="login-button">Login</button>
+</form>
