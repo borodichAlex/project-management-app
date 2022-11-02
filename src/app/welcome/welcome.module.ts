@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
 import { WelcomeRoutingModule } from './welcome-routing.module';
-import { WelcomeComponent } from './welcome.component';
 import { NgxTranslateModule } from '../translate/translate.module';
+
+import { WelcomeComponent } from './welcome.component';
 
 @NgModule({
   declarations: [WelcomeComponent],

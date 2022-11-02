@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 // eslint-disable-next-line object-curly-newline
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -22,32 +21,30 @@ export class LoggingService {
   }
 
   public logIn(login: string, password: string) {
-    // eslint-disable-next-line no-console
     console.log('logged in');
     this.token = 'mocked-token';
     this.signInRequest({
       login,
       password,
-    } as ILoginRequest).subscribe(
-      (response) => {
+    } as ILoginRequest).subscribe({
+      next: (response) => {
         console.log(response.status);
         console.log(response.statusText);
         console.log(response.body);
       },
-      (err) => {
+      error: (err) => {
         console.log(err.statusText);
       },
-    );
+    });
     window.localStorage.setItem(TOKEN_KEY, this.token);
     this.isLoggedIn$.next(!!this.token);
   }
 
   public logOut() {
-    // eslint-disable-next-line no-console
     console.log('logged out');
     this.token = '';
     window.localStorage.removeItem(TOKEN_KEY);
-    this.isLoggedIn$.next(!!this.token);
+    this.isLoggedIn$.next(false);
   }
 
   private signInRequest(user: ILoginRequest) {

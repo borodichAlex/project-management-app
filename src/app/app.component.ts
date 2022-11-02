@@ -7,6 +7,7 @@ import {
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { LoggingService } from './core/services/logging.service';
+import { ROUTES } from './shared/constants';
 import { AppLanguageService } from './translate/app-language.service';
 
 @Component({
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.initAppLanguage();
-    this.checkLogging();
+    this.redirectOnLogStatus();
   }
 
   public ngOnDestroy(): void {
@@ -42,13 +43,13 @@ export class AppComponent implements OnInit, OnDestroy {
       this.appLangService.initSaveOnLangChangeObserver();
   }
 
-  private checkLogging(): void {
+  private redirectOnLogStatus(): void {
     this.loggingSubscription = this.loggingService.isLoggedIn$.subscribe(
       (isLogged) => {
         if (isLogged) {
-          this.router.navigate(['boards']);
+          this.router.navigate([ROUTES.boards]);
         } else {
-          this.router.navigate(['welcome']);
+          this.router.navigate([ROUTES.welcome]);
         }
       },
     );

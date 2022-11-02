@@ -1,15 +1,21 @@
-/* eslint-disable prettier/prettier */
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { NotFoundComponent } from './core/pages/not-found/not-found.component';
+import { ROUTES } from './shared/constants';
 
 const routes: Routes = [
   {
-    path: 'welcome',
-    loadChildren: () => import('./welcome/welcome.module').then((m) => m.WelcomeModule),
+    path: ROUTES.welcome,
+    loadChildren: () =>
+      import('./welcome/welcome.module').then((m) => m.WelcomeModule),
   },
   {
-    path: 'boards',
-    loadChildren: () => import('./boards/boards.module').then((m) => m.BoardsModule),
+    path: ROUTES.notfound,
+    component: NotFoundComponent,
+  },
+  {
+    path: '**',
+    redirectTo: ROUTES.notfound,
   },
 ];
 

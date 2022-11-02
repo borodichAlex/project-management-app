@@ -1,6 +1,8 @@
 {
   "appTitle": "Project management app",
-  "logInButtonLabel": "Sign In",
-  "signUpButtonLabel": "Sign Up",
-  "logOutButtonLabel": "Log Out"
-}
+  "welcomePage": {
+    "logInButtonLabel": "Sign In",
+    "signUpButtonLabel": "Sign Up",
+    "welcome": "WELCOME!! We are glad to see you! Please, log in or sign up!"
+  }
+ }
