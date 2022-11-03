@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { WelcomeRoutingModule } from './welcome-routing.module';
-import { NgxTranslateModule } from '../translate/translate.module';
 
 import { WelcomeComponent } from './welcome.component';
 
@@ -12,8 +11,8 @@ import { WelcomeComponent } from './welcome.component';
   imports: [
     CommonModule,
     WelcomeRoutingModule,
-    NgxTranslateModule,
     MatButtonModule,
+    TranslateModule,
   ],
 })
 export class WelcomeModule {}
