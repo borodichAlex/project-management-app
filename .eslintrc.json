@@ -33,7 +33,7 @@
           }
         ],
         "import/prefer-default-export": "off",
-        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
         "max-len": ["error", { "comments": 140, "code": 100 }],
         "prettier/prettier": [
           "error",
@@ -47,6 +47,7 @@
         ],
         "linebreak-style": "off",
         "operator-linebreak": "off",
+        "implicit-arrow-linebreak": "off",
         "object-curly-newline": ["error", {
           "ObjectExpression": "always",
           "ObjectPattern": { "multiline": true },

@@ -6,9 +6,10 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { LoggingService } from './core/services/logging.service';
 import { ROUTES } from './shared/constants';
-import { AppLanguageService } from './translate/app-language.service';
+import { AppLanguageService } from './shared/services/translate/app-language.service';
 
 @Component({
   selector: 'app-root',
