@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { LangCode, LangStorageKey } from './interfaces';
-import { NgxTranslateModule } from './translate.module';
+import { LangCode, LangStorageKey } from '../../interfaces/translate.interface';
 
 @Injectable({
-  providedIn: NgxTranslateModule,
+  providedIn: 'root',
 })
 export class AppLanguageService {
   private defaultLanguage: LangCode = 'en';
