@@ -1,21 +1,32 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/guards/auth.guard';
+
+import { NotAuthGuard } from './core/guards/not-auth.guard';
 import { NotFoundComponent } from './core/pages/not-found/not-found.component';
-import { ROUTES } from './shared/constants';
+import { ROUTEPATHS } from './shared/constants';
 
 const routes: Routes = [
   {
-    path: ROUTES.welcome,
+    path: '',
+    redirectTo: ROUTEPATHS.boards,
+    pathMatch: 'full',
+  },
+  {
+    path: ROUTEPATHS.welcome,
     loadChildren: () =>
       import('./welcome/welcome.module').then((m) => m.WelcomeModule),
+    canActivate: [NotAuthGuard],
   },
   {
-    path: ROUTES.notfound,
+    path: ROUTEPATHS.boards,
     component: NotFoundComponent,
+    canActivate: [AuthGuard],
   },
+
   {
     path: '**',
-    redirectTo: ROUTES.notfound,
+    component: NotFoundComponent,
   },
 ];
 

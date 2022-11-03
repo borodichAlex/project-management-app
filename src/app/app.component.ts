@@ -7,8 +7,7 @@ import {
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { LoggingService } from './core/services/logging.service';
-import { ROUTES } from './shared/constants';
+// import { ROUTEPATHS } from './shared/constants';
 import { AppLanguageService } from './shared/services/translate/app-language.service';
 
 @Component({
@@ -24,18 +23,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private appLangService: AppLanguageService,
-    private loggingService: LoggingService,
     private router: Router,
   ) {}
 
   public ngOnInit(): void {
     this.initAppLanguage();
-    this.redirectOnLogStatus();
+    // this.redirectOnLogStatus();
   }
 
   public ngOnDestroy(): void {
     this.langChangeSubscription.unsubscribe();
-    this.loggingSubscription.unsubscribe();
+    // this.loggingSubscription.unsubscribe();
   }
 
   private initAppLanguage(): void {
@@ -44,15 +42,15 @@ export class AppComponent implements OnInit, OnDestroy {
       this.appLangService.initSaveOnLangChangeObserver();
   }
 
-  private redirectOnLogStatus(): void {
-    this.loggingSubscription = this.loggingService.isLoggedIn$.subscribe(
-      (isLogged) => {
-        if (isLogged) {
-          this.router.navigate([ROUTES.boards]);
-        } else {
-          this.router.navigate([ROUTES.welcome]);
-        }
-      },
-    );
-  }
+  // private redirectOnLogStatus(): void {
+  //   this.loggingSubscription = this.loggingService.isLoggedIn$.subscribe(
+  //     (isLogged) => {
+  //       if (isLogged) {
+  //         this.router.navigate([ROUTEPATHS.boards]);
+  //       } else {
+  //         this.router.navigate([ROUTEPATHS.welcome]);
+  //       }
+  //     },
+  //   );
+  // }
 }

@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { LoggingService } from '../core/services/logging.service';
-import { ROUTES } from '../shared/constants';
+import { ROUTEPATHS } from '../shared/constants';
 
 @Component({
   selector: 'app-welcome',
@@ -10,15 +9,15 @@ import { ROUTES } from '../shared/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WelcomeComponent {
-  constructor(private loggingService: LoggingService, private router: Router) {}
+  constructor(private router: Router) {}
 
   public onLogInClick() {
-    this.router.navigate([ROUTES.login]);
+    this.router.navigate([ROUTEPATHS.login]);
     console.log('redirect to login');
   }
 
   public onSignUpClick() {
-    this.router.navigate([ROUTES.signup]);
+    this.router.navigate([ROUTEPATHS.signup]);
     console.log('redirect to sign up');
   }
 }
