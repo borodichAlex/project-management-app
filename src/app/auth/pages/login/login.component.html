@@ -1,24 +1,24 @@
-<form [formGroup]="user" class="loginField" #loginForm>
+<form [formGroup]="user" class="loginField">
   <h2>Login</h2>
   <mat-form-field appearance="fill">
     <mat-label>login</mat-label>
-    <input
-      formControlName="login"
-      matInput
-      type="text"
-      name="login"
-      #inputLogin
-    />
+    <input formControlName="login" matInput autocomplete="off" />
   </mat-form-field>
+  <div *ngIf="login.invalid && (login.touched || login.dirty)">
+    <span *ngIf="login.errors?.['required']" class="alert"
+      >Field is required</span
+    >
+  </div>
   <mat-form-field appearance="fill">
     <mat-label>password</mat-label>
-    <input
-      formControlName="password"
-      matInput
-      type="password"
-      name="password"
-      #inputPassword
-    />
+    <input formControlName="password" matInput autocomplete="off" />
   </mat-form-field>
-  <button mat-flat-button type="submit" class="login-button">Login</button>
+  <div *ngIf="password.invalid && (password.touched || password.dirty)">
+    <span *ngIf="password.errors?.['required']" class="alert"
+      >Field is required</span
+    >
+  </div>
+  <button mat-flat-button class="login-button" [disabled]="buttonDisabled">
+    Login
+  </button>
 </form>

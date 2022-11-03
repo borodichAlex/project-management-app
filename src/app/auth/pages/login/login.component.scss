@@ -1,14 +1,21 @@
 $textColorWhite: #FFFFFF;
 $bgButtonColorBlue: #2F80ED;
 $bgColor: #F2F2F2;
+$bgAlertColor: red;
 
 :host {
   box-sizing: border-box;
 
+  .alert {
+    margin-left: 20px;
+    position: relative;
+    top: -15px;
+    color: $bgAlertColor;
+  }
+
   .loginField {
     margin: 0 auto;
     width: 344px;
-    height: 248px;
     background-color: $bgColor;
     display: flex;
     flex-direction: column;
@@ -22,11 +29,10 @@ $bgColor: #F2F2F2;
     mat-form-field {
       margin: 0 0 5px 20px;
       width: 304px;
-      height: 53px;
     }
 
     .login-button {
-      margin: 17px 20px 0 auto;
+      margin: 17px 20px 17px auto;
       width: 124px;
       height: 30px;
       font-size: 12px;
