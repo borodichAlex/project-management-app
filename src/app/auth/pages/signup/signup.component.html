@@ -1,5 +1,5 @@
 <form [formGroup]="user" class="loginField">
-  <h2>Signup</h2>
+  <h2>Sign up</h2>
   <mat-form-field appearance="fill">
     <mat-label>name</mat-label>
     <input formControlName="name" matInput autocomplete="off" />
@@ -27,7 +27,12 @@
       >Field is required</span
     >
   </div>
-  <button mat-flat-button class="signup-button" [disabled]="buttonDisabled">
-    Signup
+  <button
+    mat-flat-button
+    color="primary"
+    class="signup-button"
+    [disabled]="buttonDisabled"
+  >
+    Sign up
   </button>
 </form>

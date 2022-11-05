@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,18 +7,20 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   public user = new FormGroup({
     login: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    button: new FormControl(),
   });
 
   public buttonDisabled = true;
 
-  private _subscription = this.user.statusChanges.subscribe((status) => {
-    if (status === 'VALID') this.buttonDisabled = !this.buttonDisabled;
-    else this.buttonDisabled = true;
+  private subscription = this.user.statusChanges.subscribe((status) => {
+    this.buttonDisabled = status !== 'VALID';
   });
 
   get login() {
