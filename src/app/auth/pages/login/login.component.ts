@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-/* eslint-disable-next-line object-curly-newline */
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
