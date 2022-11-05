@@ -1,4 +1,3 @@
-// eslint-disable-next-line max-classes-per-file
 import { Injectable } from '@angular/core';
 import {
   HttpRequest,
@@ -8,23 +7,13 @@ import {
   HttpErrorResponse,
 } from '@angular/common/http';
 import { catchError, EMPTY, Observable, throwError } from 'rxjs';
-import { Router } from '@angular/router';
+import { UserTokenService } from '../services/user-token.service';
 
 const UNAUTHORIZED_STATUS_CODE = 401;
 
-class MockUserTokenService {
-  // eslint-disable-next-line class-methods-use-this
-  public getToken(): string {
-    return 'access token';
-  }
-}
-
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
-  constructor(
-    private router: Router,
-    private userTokenService: MockUserTokenService,
-  ) {}
+  constructor(private userTokenService: UserTokenService) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -55,7 +44,8 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     return source.pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === UNAUTHORIZED_STATUS_CODE) {
-          this.router.navigateByUrl('');
+          this.userTokenService.removeToken();
+          // TODO: authService.logout()
 
           return EMPTY;
         }
