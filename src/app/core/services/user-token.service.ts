@@ -6,14 +6,14 @@ const TOKEN_KEY = 'token';
 @Injectable({
   providedIn: 'root',
 })
-export class UsertokenService {
+export class UserTokenService {
   // private token: string;
 
-  public isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public isLoggedIn$: BehaviorSubject<boolean>;
 
   constructor() {
     const token = window.localStorage.getItem(TOKEN_KEY) || '';
-    this.isLoggedIn$.next(!!token);
+    this.isLoggedIn$ = new BehaviorSubject(!!token);
   }
 
   public removeToken() {
@@ -24,14 +24,16 @@ export class UsertokenService {
   public setToken(token: string) {
     if (token) {
       window.localStorage.setItem(TOKEN_KEY, token);
+      this.isLoggedIn$.next(true);
     } else {
       this.removeToken();
     }
-    this.isLoggedIn$.next(!!token);
   }
 
   // eslint-disable-next-line class-methods-use-this
   public getToken() {
-    return window.localStorage.getItem(TOKEN_KEY) || '';
+    const token = window.localStorage.getItem(TOKEN_KEY) || '';
+    if (!token) this.removeToken();
+    return token;
   }
 }

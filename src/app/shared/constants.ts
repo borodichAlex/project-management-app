@@ -4,7 +4,7 @@ export enum ENDPOINTS {
   signup = 'signup',
 }
 
-export enum ROUTEPATHS {
+export enum RoutePaths {
   welcome = 'welcome',
   boards = 'boards',
   notfound = '404',

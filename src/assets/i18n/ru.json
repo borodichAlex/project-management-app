@@ -1,6 +1,8 @@
 {
   "appTitle": "Система управления проектами",
-  "logInButtonLabel": "Войти",
-  "signUpButtonLabel": "Зарегистрироваться",
-  "logOutButtonLabel": "Выйти"
+  "welcomePage": {
+    "logInButtonLabel": "Войти",
+    "signUpButtonLabel": "Зарегистрироваться",
+    "welcome": "Привет! Зарегистрируйтесь для входа"
+  }
 }
