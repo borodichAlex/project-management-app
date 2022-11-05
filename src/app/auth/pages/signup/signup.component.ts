@@ -8,16 +8,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent {
-  user = new FormGroup({
+  public user = new FormGroup({
     name: new FormControl('', [Validators.required]),
     login: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
     button: new FormControl(),
   });
 
-  buttonDisabled = true;
+  public buttonDisabled = true;
 
-  subscription = this.user.statusChanges.subscribe((status) => {
+  private _subscription = this.user.statusChanges.subscribe((status) => {
     if (status === 'VALID') this.buttonDisabled = !this.buttonDisabled;
     else this.buttonDisabled = true;
   });
