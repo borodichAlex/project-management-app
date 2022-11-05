@@ -19,6 +19,10 @@ const routes: Routes = [
     canActivate: [NotAuthGuard],
   },
   {
+    path: '',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: ROUTEPATHS.boards,
     component: NotFoundComponent,
     canActivate: [AuthGuard],
