@@ -8,14 +8,14 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { ROUTEPATHS } from 'src/app/shared/constants';
-import { UsertokenService } from '../services/usertoken.service';
+import { RoutePaths } from 'src/app/shared/constants';
+import { UserTokenService } from '../services/user-token.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NotAuthGuard implements CanActivate {
-  constructor(private usertoken: UsertokenService, private router: Router) {}
+export class GuestGuard implements CanActivate {
+  constructor(private userToken: UserTokenService, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -25,7 +25,7 @@ export class NotAuthGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.usertoken.getToken()) return true;
-    return this.router.createUrlTree([ROUTEPATHS.boards]);
+    const isGuest = !this.userToken.getToken();
+    return isGuest;
   }
 }
