@@ -1,0 +1,35 @@
+@import '../../color-vars.scss';
+
+:host {
+  box-sizing: border-box;
+
+  .alert {
+    margin-left: 20px;
+    position: relative;
+    top: -15px;
+    color: $bgAlertColor;
+  }
+
+  .loginField {
+    margin: 0 auto;
+    width: 344px;
+    background-color: $bgColor;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      margin: 28px 0 11px 20px;
+      width: 310px;
+      height: 22px;
+    }
+
+    mat-form-field {
+      margin: 0 0 5px 20px;
+      width: 304px;
+    }
+
+    .login-button {
+      margin: 17px 20px 17px auto;
+    }
+  }
+}

@@ -19,6 +19,10 @@ const routes: Routes = [
     canActivate: [GuestGuard],
   },
   {
+    path: '',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
     path: RoutePaths.boards,
     component: NotFoundComponent,
     canActivate: [AuthGuard],

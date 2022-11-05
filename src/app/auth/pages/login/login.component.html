@@ -1,0 +1,29 @@
+<form [formGroup]="user" class="loginField">
+  <h2>Login</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>login</mat-label>
+    <input formControlName="login" matInput autocomplete="off" />
+  </mat-form-field>
+  <div *ngIf="login.invalid && (login.touched || login.dirty)">
+    <span *ngIf="login.errors?.['required']" class="alert"
+      >Field is required</span
+    >
+  </div>
+  <mat-form-field appearance="fill">
+    <mat-label>password</mat-label>
+    <input formControlName="password" matInput autocomplete="off" />
+  </mat-form-field>
+  <div *ngIf="password.invalid && (password.touched || password.dirty)">
+    <span *ngIf="password.errors?.['required']" class="alert"
+      >Field is required</span
+    >
+  </div>
+  <button
+    mat-flat-button
+    color="primary"
+    class="login-button"
+    [disabled]="buttonDisabled"
+  >
+    Login
+  </button>
+</form>
