@@ -1,3 +1,6 @@
 {
-  "appTitle": "Система управления проектами"
+  "appTitle": "Система управления проектами",
+  "logInButtonLabel": "Войти",
+  "signUpButtonLabel": "Зарегистрироваться",
+  "logOutButtonLabel": "Выйти"
 }
