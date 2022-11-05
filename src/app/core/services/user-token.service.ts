@@ -30,7 +30,6 @@ export class UserTokenService {
     }
   }
 
-  // eslint-disable-next-line class-methods-use-this
   public getToken() {
     const token = window.localStorage.getItem(TOKEN_KEY) || '';
     if (!token) this.removeToken();
