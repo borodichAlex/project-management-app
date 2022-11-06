@@ -30,4 +30,10 @@ export class LoginComponent implements OnDestroy {
   get password() {
     return this.user.get('password')!;
   }
+
+  public sendRequest() {
+    const token = window.localStorage.getItem('testt') || '';
+    console.log(this.buttonDisabled);
+    console.log(token);
+  }
 }
