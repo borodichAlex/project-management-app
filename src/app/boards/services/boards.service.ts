@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -9,34 +9,23 @@ import {
   TBoard,
   TConfirmationModal,
 } from '../interfaces/boards.interface';
+import { ApiBoardsService } from './api-boards.service';
 
-const API_BOARDS = 'api/boards';
-
-function httpOptions() {
-  return {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-}
-
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class BoardsService {
   public boardsSubject$ = new BehaviorSubject<IBoard[]>([]);
 
   public isLoading$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private matDialog: MatDialog) {}
-
-  private getBoard(id: string) {
-    return this.http.get<TBoard>(`${API_BOARDS}/${id}`);
-  }
+  constructor(
+    private http: HttpClient,
+    private matDialog: MatDialog,
+    private apiBoards: ApiBoardsService,
+  ) {}
 
   public getBoards() {
     this.isLoading$.next(true);
-    this.http.get<IBoard[]>(API_BOARDS).subscribe((boards) => {
+    this.apiBoards.getBoardsRequest().subscribe((boards) => {
       this.boardsSubject$.next(boards);
       this.isLoading$.next(false);
     });
@@ -56,15 +45,10 @@ export class BoardsService {
           title,
           description,
         };
-        this.http
-          .post<IBoard>(API_BOARDS, board, httpOptions())
-          .subscribe((newBoard) => {
-            const newBoards: IBoard[] = [
-              ...this.boardsSubject$.value,
-              newBoard,
-            ];
-            this.boardsSubject$.next(newBoards);
-          });
+        this.apiBoards.createBoardRequest(board).subscribe((newBoard) => {
+          const newBoards: IBoard[] = [...this.boardsSubject$.value, newBoard];
+          this.boardsSubject$.next(newBoards);
+        });
       }
     });
   }
@@ -86,8 +70,8 @@ export class BoardsService {
           title: result.title,
           description: result.description,
         };
-        this.http
-          .put<IBoard>(`${API_BOARDS}/${id}`, updatedBoard, httpOptions())
+        this.apiBoards
+          .updateBoardRequest(id, updatedBoard)
           .subscribe((boardForUpdate) => {
             const currentBoards = [...this.boardsSubject$.value];
             currentBoards.splice(currentBoardIndex, 1, boardForUpdate);
@@ -104,7 +88,7 @@ export class BoardsService {
     };
     this.openDialog(message).subscribe((result) => {
       if (result) {
-        this.http.delete(`${API_BOARDS}/${id}`).subscribe(() => {
+        this.apiBoards.deleteBoardRequest(id).subscribe(() => {
           const filteredBoards = this.boardsSubject$.value.filter(
             (board) => board.id !== id,
           );

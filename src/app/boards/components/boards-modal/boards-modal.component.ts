@@ -23,12 +23,12 @@ import { TConfirmationModal } from '../../interfaces/boards.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardsModalComponent {
-  form = this.fb.group({
+  public form = this.fb.group({
     title: [this.data.title, Validators.required],
     description: [this.data.description, Validators.required],
   });
 
-  maxLength = {
+  public maxLength = {
     title: 50,
     description: 150,
   };
@@ -37,12 +37,4 @@ export class BoardsModalComponent {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: TConfirmationModal,
   ) {}
-
-  get title() {
-    return this.form.get('title');
-  }
-
-  get description() {
-    return this.form.get('description');
-  }
 }

@@ -35,7 +35,9 @@
   </form>
 </div>
 <div class="dialog-actions" mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="" color="warn">Cancel</button>
+  <button mat-raised-button [mat-dialog-close]="null" color="warn">
+    Cancel
+  </button>
   <button
     mat-raised-button
     [mat-dialog-close]="form.value"

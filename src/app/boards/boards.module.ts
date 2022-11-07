@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsComponent } from './pages/boards/boards.component';
+import { BoardsService } from './services/boards.service';
+import { ApiBoardsService } from './services/api-boards.service';
 
 @NgModule({
   declarations: [BoardsComponent],
@@ -21,5 +23,6 @@ import { BoardsComponent } from './pages/boards/boards.component';
     MatIconModule,
     TranslateModule,
   ],
+  providers: [ApiBoardsService, BoardsService],
 })
 export class BoardsModule {}
