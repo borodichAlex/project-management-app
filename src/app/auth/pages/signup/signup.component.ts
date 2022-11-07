@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -10,9 +10,7 @@ import { Subscription } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent implements OnDestroy {
-  constructor(private http: HttpClient) {}
-
-  SIGNUP_URL = 'http://localhost:4000/signup';
+  constructor(private authService: AuthService) {}
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
@@ -45,21 +43,19 @@ export class SignupComponent implements OnDestroy {
     return this.user.get('password')!;
   }
 
-  sendSignupReq() {
-    console.log('the signup request has been sent');
-    return this.http.post(this.SIGNUP_URL, {
-      name: this.user.value.name!,
-      login: this.user.value.login!,
-      password: this.user.value.password!,
-    });
-  }
-
   private signupSubscription!: Subscription;
 
-  signup() {
-    const request = this.sendSignupReq();
-    this.signupSubscription = request.subscribe((x) => {
-      console.log(x);
+  signUp() {
+    const request = this.authService.signUp(
+      this.user.value.name!,
+      this.user.value.login!,
+      this.user.value.password!,
+    );
+    this.signupSubscription = request.subscribe(() => {
+      this.authService.signIn(
+        this.user.value.login!,
+        this.user.value.password!,
+      );
     });
   }
 }

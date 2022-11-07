@@ -8,9 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SignupComponent } from './pages/signup/signup.component';
+import { LogoutComponent } from './pages/logout/logout.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, LogoutComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

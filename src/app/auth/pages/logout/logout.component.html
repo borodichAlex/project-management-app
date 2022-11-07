@@ -1,0 +1,15 @@
+<div class="logoutField">
+  <button mat-icon-button class="close" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+  <h2>Logout</h2>
+  <button
+    mat-flat-button
+    color="primary"
+    class="logout-button"
+    [disabled]="buttonDisabled"
+    (click)="logOut()"
+  >
+    Logout
+  </button>
+</div>
