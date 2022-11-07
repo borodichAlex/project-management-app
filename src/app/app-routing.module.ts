@@ -24,7 +24,8 @@ const routes: Routes = [
   },
   {
     path: RoutePaths.boards,
-    component: NotFoundComponent,
+    loadChildren: () =>
+      import('./boards/boards.module').then((m) => m.BoardsModule),
     canActivate: [AuthGuard],
   },
 
