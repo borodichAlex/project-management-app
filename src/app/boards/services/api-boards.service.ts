@@ -15,19 +15,19 @@ function httpOptions() {
 export class ApiBoardsService {
   constructor(private http: HttpClient) {}
 
-  public getBoardRequest(id: string) {
+  public getById(id: string) {
     return this.http.get<TBoard>(`${API_BOARDS}/${id}`);
   }
 
-  public getBoardsRequest() {
+  public getAll() {
     return this.http.get<IBoard[]>(API_BOARDS);
   }
 
-  public createBoardRequest(board: TBoard) {
+  public create(board: TBoard) {
     return this.http.post<IBoard>(API_BOARDS, board, httpOptions());
   }
 
-  public updateBoardRequest(id: string, updatedBoard: TBoard) {
+  public update(id: string, updatedBoard: TBoard) {
     return this.http.put<IBoard>(
       `${API_BOARDS}/${id}`,
       updatedBoard,
@@ -35,7 +35,7 @@ export class ApiBoardsService {
     );
   }
 
-  public deleteBoardRequest(id: string) {
+  public delete(id: string) {
     return this.http.delete(`${API_BOARDS}/${id}`);
   }
 }

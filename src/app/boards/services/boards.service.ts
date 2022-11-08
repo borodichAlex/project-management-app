@@ -25,7 +25,7 @@ export class BoardsService {
 
   public getBoards() {
     this.isLoading$.next(true);
-    this.apiBoards.getBoardsRequest().subscribe((boards) => {
+    this.apiBoards.getAll().subscribe((boards) => {
       this.boardsSubject$.next(boards);
       this.isLoading$.next(false);
     });
@@ -45,7 +45,7 @@ export class BoardsService {
           title,
           description,
         };
-        this.apiBoards.createBoardRequest(board).subscribe((newBoard) => {
+        this.apiBoards.create(board).subscribe((newBoard) => {
           const newBoards: IBoard[] = [...this.boardsSubject$.value, newBoard];
           this.boardsSubject$.next(newBoards);
         });
@@ -70,13 +70,11 @@ export class BoardsService {
           title: result.title,
           description: result.description,
         };
-        this.apiBoards
-          .updateBoardRequest(id, updatedBoard)
-          .subscribe((boardForUpdate) => {
-            const currentBoards = [...this.boardsSubject$.value];
-            currentBoards.splice(currentBoardIndex, 1, boardForUpdate);
-            this.boardsSubject$.next(currentBoards);
-          });
+        this.apiBoards.update(id, updatedBoard).subscribe((boardForUpdate) => {
+          const currentBoards = [...this.boardsSubject$.value];
+          currentBoards.splice(currentBoardIndex, 1, boardForUpdate);
+          this.boardsSubject$.next(currentBoards);
+        });
       }
     });
   }
@@ -88,7 +86,7 @@ export class BoardsService {
     };
     this.openDialog(message).subscribe((result) => {
       if (result) {
-        this.apiBoards.deleteBoardRequest(id).subscribe(() => {
+        this.apiBoards.delete(id).subscribe(() => {
           const filteredBoards = this.boardsSubject$.value.filter(
             (board) => board.id !== id,
           );
