@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
+import { RoutePaths } from 'src/app/shared/constants';
 import { AuthService } from '../../services/auth.service';
+import { UserTokenService } from '../../../core/services/user-token.service';
 
 @Component({
   selector: 'app-signup',
@@ -35,33 +38,34 @@ export class SignupComponent implements OnDestroy {
     return this.user.get('password')!;
   }
 
-  private userSubscription: Subscription = this.user.statusChanges.subscribe(
-    (status) => {
-      this.buttonDisabled = status !== 'VALID';
-    },
-  );
+  private subscription!: Subscription;
 
-  private signupSubscription!: Subscription;
-
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private userTokenService: UserTokenService,
+  ) {
+    this.initFormStatusChangesObserver();
+  }
 
   public ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-    this.signupSubscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public signUp() {
-    const request = this.authService.signUp(
-      this.user.value.name!,
-      this.user.value.login!,
-      this.user.value.password!,
+    const { name, login, password } = this.user.value;
+    const request = this.authService.signUp(name!, login!, password!);
+    this.subscription.add(
+      request.subscribe(() => {
+        const signInRequest = this.authService.signIn(login!, password!);
+        this.subscription.add(
+          signInRequest.subscribe((x) => {
+            this.userTokenService.setToken(x.token);
+            this.router.navigate([RoutePaths.boards]);
+          }),
+        );
+      }),
     );
-    this.signupSubscription = request.subscribe(() => {
-      this.authService.signIn(
-        this.user.value.login!,
-        this.user.value.password!,
-      );
-    });
   }
 
   public getErrorMessage() {
@@ -70,5 +74,11 @@ export class SignupComponent implements OnDestroy {
     }
 
     return '';
+  }
+
+  private initFormStatusChangesObserver(): void {
+    this.subscription = this.user.statusChanges.subscribe((status) => {
+      this.buttonDisabled = status !== 'VALID';
+    });
   }
 }

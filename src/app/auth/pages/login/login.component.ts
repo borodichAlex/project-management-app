@@ -45,10 +45,8 @@ export class LoginComponent implements OnDestroy {
   }
 
   public logIn() {
-    const request = this.authService.signIn(
-      this.user.value.login!,
-      this.user.value.password!,
-    );
+    const { login, password } = this.user.value;
+    const request = this.authService.signIn(login!, password!);
     this.subscription.add(
       request.subscribe((x) => {
         this.userTokenService.setToken(x.token);
