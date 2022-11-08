@@ -9,7 +9,17 @@ export class BoardsService {
 
   private isLoading$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private apiBoards: ApiBoardsService) {}
+  constructor(private apiBoards: ApiBoardsService) {
+    this.loadAll();
+  }
+
+  private loadAll(): void {
+    this.isLoading$.next(true);
+    this.apiBoards.getAll().subscribe((boards) => {
+      this.boards$.next(boards);
+      this.isLoading$.next(false);
+    });
+  }
 
   public get boards(): Observable<IBoard[]> {
     return this.boards$.asObservable();
@@ -17,14 +27,6 @@ export class BoardsService {
 
   public get isLoading(): Observable<boolean> {
     return this.isLoading$.asObservable();
-  }
-
-  public getAll(): void {
-    this.isLoading$.next(true);
-    this.apiBoards.getAll().subscribe((boards) => {
-      this.boards$.next(boards);
-      this.isLoading$.next(false);
-    });
   }
 
   public getByIdForUpdate(id: string): {

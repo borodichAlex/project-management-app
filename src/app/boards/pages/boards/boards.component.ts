@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { BoardsService } from '../../services/boards.service';
@@ -17,7 +17,7 @@ import { ConfirmationComponent } from '../../../shared/components/confirmation/c
   styleUrls: ['./boards.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardsComponent implements OnInit {
+export class BoardsComponent {
   public boards$: Observable<IBoard[]> = this.boardsService.boards;
 
   public isLoading$: Observable<boolean> = this.boardsService.isLoading;
@@ -26,10 +26,6 @@ export class BoardsComponent implements OnInit {
     private boardsService: BoardsService,
     private matDialog: MatDialog,
   ) {}
-
-  ngOnInit(): void {
-    this.boardsService.getAll();
-  }
 
   onClickDeleteBoard(id: string): void {
     const message = {
