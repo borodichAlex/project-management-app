@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ITokenResponce } from 'src/app/core/services/types';
+import { SERVER_URL, ENDPOINTS } from 'src/app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +10,8 @@ import { ITokenResponce } from 'src/app/core/services/types';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  SIGNUP_URL = 'http://localhost:4000/signup';
-
-  SIGNIN_URL = 'http://localhost:4000/signin';
-
   signUp(name: string, login: string, password: string) {
-    return this.http.post(this.SIGNUP_URL, {
+    return this.http.post(`${SERVER_URL}/${ENDPOINTS.signup}`, {
       name: name!,
       login: login!,
       password: password!,
@@ -22,7 +19,7 @@ export class AuthService {
   }
 
   signIn(login: string, password: string): Observable<ITokenResponce> {
-    return this.http.post<ITokenResponce>(this.SIGNIN_URL, {
+    return this.http.post<ITokenResponce>(`${SERVER_URL}/${ENDPOINTS.signin}`, {
       login: login!,
       password: password!,
     });
