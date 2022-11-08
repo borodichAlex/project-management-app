@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IBoard, TBoard } from '../interfaces/boards.interface';
@@ -10,7 +9,7 @@ export class BoardsService {
 
   private isLoading$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private http: HttpClient, private apiBoards: ApiBoardsService) {}
+  constructor(private apiBoards: ApiBoardsService) {}
 
   public get boards(): Observable<IBoard[]> {
     return this.boards$.asObservable();
@@ -20,7 +19,7 @@ export class BoardsService {
     return this.isLoading$.asObservable();
   }
 
-  public getBoards(): void {
+  public getAll(): void {
     this.isLoading$.next(true);
     this.apiBoards.getAll().subscribe((boards) => {
       this.boards$.next(boards);
@@ -28,7 +27,7 @@ export class BoardsService {
     });
   }
 
-  public getBoardById(id: string): {
+  public getByIdForUpdate(id: string): {
     board: IBoard;
     boardIndex: number;
   } {
@@ -43,14 +42,14 @@ export class BoardsService {
     };
   }
 
-  public createBoard(board: TBoard): void {
+  public create(board: TBoard): void {
     this.apiBoards.create(board).subscribe((newBoard) => {
       const newBoards: IBoard[] = [...this.boards$.value, newBoard];
       this.boards$.next(newBoards);
     });
   }
 
-  public updateBoard(id: string, board: TBoard, boardIndex: number): void {
+  public update(id: string, board: TBoard, boardIndex: number): void {
     this.apiBoards.update(id, board).subscribe((newBoard) => {
       const currentBoards = [...this.boards$.value];
       currentBoards.splice(boardIndex, 1, newBoard);
@@ -58,7 +57,7 @@ export class BoardsService {
     });
   }
 
-  public deleteBoard(id: string): void {
+  public delete(id: string): void {
     this.apiBoards.delete(id).subscribe(() => {
       const newBoards = this.boards$.value.filter((board) => board.id !== id);
       this.boards$.next(newBoards);

@@ -28,7 +28,7 @@ export class BoardsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.boardsService.getBoards();
+    this.boardsService.getAll();
   }
 
   onClickDeleteBoard(id: string): void {
@@ -38,7 +38,7 @@ export class BoardsComponent implements OnInit {
     };
     this.openDialog(message).subscribe((result) => {
       if (result) {
-        this.boardsService.deleteBoard(id);
+        this.boardsService.delete(id);
       }
     });
   }
@@ -52,7 +52,7 @@ export class BoardsComponent implements OnInit {
     };
     this.openModalWindow(modalConfig).subscribe((newBoard) => {
       if (newBoard) {
-        this.boardsService.createBoard(newBoard);
+        this.boardsService.create(newBoard);
       }
     });
   }
@@ -61,7 +61,7 @@ export class BoardsComponent implements OnInit {
     const {
       board: { title, description },
       boardIndex,
-    } = this.boardsService.getBoardById(id);
+    } = this.boardsService.getByIdForUpdate(id);
     const modalConfig: TConfirmationModal = {
       title,
       description,
@@ -70,7 +70,7 @@ export class BoardsComponent implements OnInit {
     };
     this.openModalWindow(modalConfig).subscribe((newBoard) => {
       if (newBoard) {
-        this.boardsService.updateBoard(id, newBoard, boardIndex);
+        this.boardsService.update(id, newBoard, boardIndex);
       }
     });
   }
