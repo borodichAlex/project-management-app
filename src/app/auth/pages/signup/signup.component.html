@@ -3,30 +3,49 @@
   <mat-form-field appearance="fill">
     <mat-label>name</mat-label>
     <input formControlName="name" matInput autocomplete="off" />
+    <mat-error *ngIf="name.errors?.['required']">{{
+      getErrorMessage()
+    }}</mat-error>
   </mat-form-field>
-  <div *ngIf="name.invalid && (name.touched || name.dirty)">
+  <!-- <div *ngIf="name.invalid && (name.touched || name.dirty)">
     <span *ngIf="name.errors?.['required']" class="alert"
       >Field is required</span
     >
-  </div>
-  <mat-form-field appearance="fill">
+  </div> -->
+  <mat-form-field hintLabel="Min 5 characters" appearance="fill">
     <mat-label>login</mat-label>
     <input formControlName="login" matInput autocomplete="off" />
-  </mat-form-field>
-  <div *ngIf="login.invalid && (login.touched || login.dirty)">
-    <span *ngIf="login.errors?.['required']" class="alert"
-      >Field is required</span
+    <mat-hint align="end"
+      >{{ login.value?.length || 0 }} (min 5 chars)</mat-hint
     >
-  </div>
-  <mat-form-field appearance="fill">
+    <mat-error *ngIf="login.errors?.['required']">{{
+      getErrorMessage()
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field hintLabel="Min 6 characters" appearance="fill">
     <mat-label>password</mat-label>
-    <input formControlName="password" matInput autocomplete="off" />
-  </mat-form-field>
-  <div *ngIf="password.invalid && (password.touched || password.dirty)">
-    <span *ngIf="password.errors?.['required']" class="alert"
-      >Field is required</span
+    <input
+      formControlName="password"
+      matInput
+      autocomplete="off"
+      [type]="hide ? 'password' : 'text'"
+    />
+    <mat-hint align="end"
+      >{{ password.value?.length || 0 }} (min 6 chars)</mat-hint
     >
-  </div>
+    <mat-error *ngIf="password.errors?.['required']">{{
+      getErrorMessage()
+    }}</mat-error>
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </mat-form-field>
   <button
     mat-flat-button
     color="primary"

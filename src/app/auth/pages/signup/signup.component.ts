@@ -19,9 +19,14 @@ export class SignupComponent implements OnDestroy {
 
   public user = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    login: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    login: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
   });
+
+  public hide = true;
 
   public buttonDisabled = true;
 
@@ -57,5 +62,13 @@ export class SignupComponent implements OnDestroy {
         this.user.value.password!,
       );
     });
+  }
+
+  getErrorMessage() {
+    if (this.name.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return '';
   }
 }
