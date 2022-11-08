@@ -10,16 +10,16 @@ import { UserTokenService } from '../../../core/services/user-token.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LogoutComponent implements OnInit {
+  public buttonDisabled = true;
+
   constructor(
     private userTokenService: UserTokenService,
     private router: Router,
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.buttonDisabled = !this.userTokenService.isLoggedIn$.value;
   }
-
-  public buttonDisabled = true;
 
   public logOut() {
     this.userTokenService.removeToken();

@@ -13,48 +13,53 @@ import { UserTokenService } from '../../../core/services/user-token.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent implements OnDestroy {
-  constructor(
-    private authService: AuthService,
-    private userTokenService: UserTokenService,
-    private router: Router,
-  ) {}
+  public hide = true;
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.signinSubscription.unsubscribe();
-  }
+  public buttonDisabled = true;
 
   public user = new FormGroup({
     login: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
-  public hide = true;
-
-  public buttonDisabled = true;
-
-  private subscription = this.user.statusChanges.subscribe((status) => {
-    this.buttonDisabled = status !== 'VALID';
-  });
-
-  get login() {
+  public get login() {
     return this.user.get('login')!;
   }
 
-  get password() {
+  public get password() {
     return this.user.get('password')!;
   }
 
-  private signinSubscription!: Subscription;
+  private subscription!: Subscription;
+
+  constructor(
+    private authService: AuthService,
+    private userTokenService: UserTokenService,
+    private router: Router,
+  ) {
+    this.initFormStatusChangesObserver();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   public logIn() {
     const request = this.authService.signIn(
       this.user.value.login!,
       this.user.value.password!,
     );
-    this.signinSubscription = request.subscribe((x) => {
-      this.userTokenService.setToken(x.token);
-      this.router.navigate([RoutePaths.boards]);
+    this.subscription.add(
+      request.subscribe((x) => {
+        this.userTokenService.setToken(x.token);
+        this.router.navigate([RoutePaths.boards]);
+      }),
+    );
+  }
+
+  private initFormStatusChangesObserver(): void {
+    this.subscription = this.user.statusChanges.subscribe((status) => {
+      this.buttonDisabled = status !== 'VALID';
     });
   }
 }

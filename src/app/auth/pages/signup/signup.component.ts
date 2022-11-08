@@ -10,12 +10,9 @@ import { AuthService } from '../../services/auth.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupComponent implements OnDestroy {
-  constructor(private authService: AuthService) {}
+  public hide = true;
 
-  ngOnDestroy(): void {
-    this.userSubscription.unsubscribe();
-    this.signupSubscription.unsubscribe();
-  }
+  public buttonDisabled = true;
 
   public user = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -26,9 +23,17 @@ export class SignupComponent implements OnDestroy {
     ]),
   });
 
-  public hide = true;
+  public get name() {
+    return this.user.get('name')!;
+  }
 
-  public buttonDisabled = true;
+  public get login() {
+    return this.user.get('login')!;
+  }
+
+  public get password() {
+    return this.user.get('password')!;
+  }
 
   private userSubscription: Subscription = this.user.statusChanges.subscribe(
     (status) => {
@@ -36,21 +41,16 @@ export class SignupComponent implements OnDestroy {
     },
   );
 
-  get name() {
-    return this.user.get('name')!;
-  }
-
-  get login() {
-    return this.user.get('login')!;
-  }
-
-  get password() {
-    return this.user.get('password')!;
-  }
-
   private signupSubscription!: Subscription;
 
-  signUp() {
+  constructor(private authService: AuthService) {}
+
+  public ngOnDestroy(): void {
+    this.userSubscription.unsubscribe();
+    this.signupSubscription.unsubscribe();
+  }
+
+  public signUp() {
     const request = this.authService.signUp(
       this.user.value.name!,
       this.user.value.login!,
@@ -64,7 +64,7 @@ export class SignupComponent implements OnDestroy {
     });
   }
 
-  getErrorMessage() {
+  public getErrorMessage() {
     if (this.name.hasError('required')) {
       return 'You must enter a value';
     }

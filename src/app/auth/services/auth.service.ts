@@ -10,18 +10,18 @@ import { SERVER_URL, ENDPOINTS } from 'src/app/shared/constants';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  signUp(name: string, login: string, password: string) {
+  public signUp(name: string, login: string, password: string) {
     return this.http.post(`${SERVER_URL}/${ENDPOINTS.signup}`, {
-      name: name!,
-      login: login!,
-      password: password!,
+      name,
+      login,
+      password,
     });
   }
 
-  signIn(login: string, password: string): Observable<ITokenResponce> {
+  public signIn(login: string, password: string): Observable<ITokenResponce> {
     return this.http.post<ITokenResponce>(`${SERVER_URL}/${ENDPOINTS.signin}`, {
-      login: login!,
-      password: password!,
+      login,
+      password,
     });
   }
 }
