@@ -1,116 +1,67 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationComponent } from '../../shared/components/confirmation/confirmation.component';
-import { BoardsModalComponent } from '../components/boards-modal/boards-modal.component';
-import {
-  IBoard,
-  TBoard,
-  TConfirmationModal,
-} from '../interfaces/boards.interface';
+import { IBoard, TBoard } from '../interfaces/boards.interface';
 import { ApiBoardsService } from './api-boards.service';
 
 @Injectable()
 export class BoardsService {
-  public boardsSubject$ = new BehaviorSubject<IBoard[]>([]);
+  private boards$ = new BehaviorSubject<IBoard[]>([]);
 
-  public isLoading$ = new BehaviorSubject<boolean>(false);
+  private isLoading$ = new BehaviorSubject<boolean>(false);
 
-  constructor(
-    private http: HttpClient,
-    private matDialog: MatDialog,
-    private apiBoards: ApiBoardsService,
-  ) {}
+  constructor(private http: HttpClient, private apiBoards: ApiBoardsService) {}
 
-  public getBoards() {
+  public get boards(): Observable<IBoard[]> {
+    return this.boards$.asObservable();
+  }
+
+  public get isLoading(): Observable<boolean> {
+    return this.isLoading$.asObservable();
+  }
+
+  public getBoards(): void {
     this.isLoading$.next(true);
     this.apiBoards.getAll().subscribe((boards) => {
-      this.boardsSubject$.next(boards);
+      this.boards$.next(boards);
       this.isLoading$.next(false);
     });
   }
 
-  public createBoard() {
-    const modalConfig: TConfirmationModal = {
-      title: '',
-      description: '',
-      confirmationTitleText: 'Create new Board',
-      confirmationButtonText: 'Create',
-    };
-    this.openModalWindow(modalConfig).subscribe((result) => {
-      if (result) {
-        const { title, description } = result;
-        const board: TBoard = {
-          title,
-          description,
-        };
-        this.apiBoards.create(board).subscribe((newBoard) => {
-          const newBoards: IBoard[] = [...this.boardsSubject$.value, newBoard];
-          this.boardsSubject$.next(newBoards);
-        });
-      }
-    });
-  }
-
-  public updateBoard(id: string) {
-    const currentBoardIndex: number = this.boardsSubject$.value.findIndex(
+  public getBoardById(id: string): {
+    board: IBoard;
+    boardIndex: number;
+  } {
+    const boardIndex: number = this.boards$.value.findIndex(
       (board) => board.id === id,
     );
-    const currentBoard: IBoard = this.boardsSubject$.value[currentBoardIndex];
-    const modalConfig: TConfirmationModal = {
-      title: currentBoard.title,
-      description: currentBoard.description,
-      confirmationTitleText: 'Update the Board',
-      confirmationButtonText: 'Update',
+    const board: IBoard = this.boards$.value[boardIndex];
+
+    return {
+      board,
+      boardIndex,
     };
-    this.openModalWindow(modalConfig).subscribe((result) => {
-      if (result) {
-        const updatedBoard: TBoard = {
-          title: result.title,
-          description: result.description,
-        };
-        this.apiBoards.update(id, updatedBoard).subscribe((boardForUpdate) => {
-          const currentBoards = [...this.boardsSubject$.value];
-          currentBoards.splice(currentBoardIndex, 1, boardForUpdate);
-          this.boardsSubject$.next(currentBoards);
-        });
-      }
+  }
+
+  public createBoard(board: TBoard): void {
+    this.apiBoards.create(board).subscribe((newBoard) => {
+      const newBoards: IBoard[] = [...this.boards$.value, newBoard];
+      this.boards$.next(newBoards);
     });
   }
 
-  public deleteBoard(id: string) {
-    const message = {
-      title: 'Delete Board',
-      description: 'Would you like to delete this Board?',
-    };
-    this.openDialog(message).subscribe((result) => {
-      if (result) {
-        this.apiBoards.delete(id).subscribe(() => {
-          const filteredBoards = this.boardsSubject$.value.filter(
-            (board) => board.id !== id,
-          );
-          this.boardsSubject$.next(filteredBoards);
-        });
-      }
+  public updateBoard(id: string, board: TBoard, boardIndex: number): void {
+    this.apiBoards.update(id, board).subscribe((newBoard) => {
+      const currentBoards = [...this.boards$.value];
+      currentBoards.splice(boardIndex, 1, newBoard);
+      this.boards$.next(currentBoards);
     });
   }
 
-  private openModalWindow(data: TConfirmationModal): Observable<TBoard> {
-    const dialogRef = this.matDialog.open(BoardsModalComponent, {
-      width: '300px',
-      data,
-      disableClose: true,
+  public deleteBoard(id: string): void {
+    this.apiBoards.delete(id).subscribe(() => {
+      const newBoards = this.boards$.value.filter((board) => board.id !== id);
+      this.boards$.next(newBoards);
     });
-
-    return dialogRef.afterClosed();
-  }
-
-  private openDialog(message: TBoard): Observable<boolean> {
-    const dialogRef = this.matDialog.open(ConfirmationComponent, {
-      data: message,
-    });
-
-    return dialogRef.afterClosed();
   }
 }

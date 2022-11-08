@@ -1,7 +1,15 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { BoardsService } from '../../services/boards.service';
-import { IBoard } from '../../interfaces/boards.interface';
+import {
+  IBoard,
+  TBoard,
+  TConfirmationModal,
+} from '../../interfaces/boards.interface';
+import { BoardsModalComponent } from '../../components/boards-modal/boards-modal.component';
+// eslint-disable-next-line max-len
+import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-boards',
@@ -10,25 +18,78 @@ import { IBoard } from '../../interfaces/boards.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardsComponent implements OnInit {
-  boards$: BehaviorSubject<IBoard[]> = this.boardsService.boardsSubject$;
+  public boards$: Observable<IBoard[]> = this.boardsService.boards;
 
-  isLoading$: BehaviorSubject<boolean> = this.boardsService.isLoading$;
+  public isLoading$: Observable<boolean> = this.boardsService.isLoading;
 
-  constructor(private boardsService: BoardsService) {}
+  constructor(
+    private boardsService: BoardsService,
+    private matDialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.boardsService.getBoards();
   }
 
-  onClickDeleteBoard(id: string) {
-    this.boardsService.deleteBoard(id);
+  onClickDeleteBoard(id: string): void {
+    const message = {
+      title: 'Delete Board',
+      description: 'Would you like to delete this Board?',
+    };
+    this.openDialog(message).subscribe((result) => {
+      if (result) {
+        this.boardsService.deleteBoard(id);
+      }
+    });
   }
 
-  onClickCreateBoard() {
-    this.boardsService.createBoard();
+  onClickCreateBoard(): void {
+    const modalConfig: TConfirmationModal = {
+      title: '',
+      description: '',
+      confirmationTitleText: 'Create new Board',
+      confirmationButtonText: 'Create',
+    };
+    this.openModalWindow(modalConfig).subscribe((newBoard) => {
+      if (newBoard) {
+        this.boardsService.createBoard(newBoard);
+      }
+    });
   }
 
-  onClickUpdateBoard(id: string) {
-    this.boardsService.updateBoard(id);
+  onClickUpdateBoard(id: string): void {
+    const {
+      board: { title, description },
+      boardIndex,
+    } = this.boardsService.getBoardById(id);
+    const modalConfig: TConfirmationModal = {
+      title,
+      description,
+      confirmationTitleText: 'Update the Board',
+      confirmationButtonText: 'Update',
+    };
+    this.openModalWindow(modalConfig).subscribe((newBoard) => {
+      if (newBoard) {
+        this.boardsService.updateBoard(id, newBoard, boardIndex);
+      }
+    });
+  }
+
+  private openModalWindow(data: TConfirmationModal): Observable<TBoard> {
+    const dialogRef = this.matDialog.open(BoardsModalComponent, {
+      width: '300px',
+      data,
+      disableClose: true,
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  private openDialog(message: TBoard): Observable<boolean> {
+    const dialogRef = this.matDialog.open(ConfirmationComponent, {
+      data: message,
+    });
+
+    return dialogRef.afterClosed();
   }
 }
