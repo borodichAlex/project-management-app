@@ -29,6 +29,8 @@ export class LoginComponent implements OnDestroy {
     password: new FormControl('', [Validators.required]),
   });
 
+  public hide = true;
+
   public buttonDisabled = true;
 
   private subscription = this.user.statusChanges.subscribe((status) => {

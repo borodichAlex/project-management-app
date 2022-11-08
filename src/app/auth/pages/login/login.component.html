@@ -11,7 +11,21 @@
   </div>
   <mat-form-field appearance="fill">
     <mat-label>password</mat-label>
-    <input formControlName="password" matInput autocomplete="off" />
+    <input
+      formControlName="password"
+      matInput
+      autocomplete="off"
+      [type]="hide ? 'password' : 'text'"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
   </mat-form-field>
   <div *ngIf="password.invalid && (password.touched || password.dirty)">
     <span *ngIf="password.errors?.['required']" class="alert"

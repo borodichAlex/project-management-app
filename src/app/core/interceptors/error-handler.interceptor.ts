@@ -21,8 +21,13 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
+        const loginErrorMessage = 'Login or password is incorrect';
+        const backendMessage = 'User was not founded!';
         const data: IData = {
-          reason: error && error.error.message ? error.error.message : '',
+          reason:
+            error && error.error.message !== backendMessage
+              ? error.error.message
+              : loginErrorMessage,
           status: error.status,
         };
         this.errorDialogService.openDialog(data);
