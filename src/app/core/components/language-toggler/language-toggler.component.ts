@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { LangCode } from 'src/app/shared/interfaces/translate.interface';
-import { AppLanguageService } from '../../shared/services/translate/app-language.service';
+import { AppLanguageService } from '../../../shared/services/translate/app-language.service';
 
 @Component({
   selector: 'app-language-toggler',
@@ -12,13 +12,10 @@ import { AppLanguageService } from '../../shared/services/translate/app-language
 export class LanguageTogglerComponent implements OnInit {
   public langControl = new FormControl('');
 
-  private lang!: LangCode;
-
   constructor(private appLangService: AppLanguageService) {}
 
   ngOnInit(): void {
-    this.langControl.setValue('en');
-    this.appLangService.change(this.langControl.value as LangCode);
+    this.langControl.setValue(this.appLangService.currentLang);
   }
 
   onChange(): void {

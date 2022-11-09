@@ -4,5 +4,9 @@
     "logInButtonLabel": "Войти",
     "signUpButtonLabel": "Зарегистрироваться",
     "welcome": "Привет! Зарегистрируйтесь для входа"
+  },
+  "header": {
+    "editProfile": "Редактировать",
+    "logout": "Выйти"
   }
 }
