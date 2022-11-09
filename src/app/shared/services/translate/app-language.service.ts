@@ -7,6 +7,10 @@ import { LangCode, LangStorageKey } from '../../interfaces/translate.interface';
   providedIn: 'root',
 })
 export class AppLanguageService {
+  public get currentLang(): LangCode {
+    return this.translate.currentLang as LangCode;
+  }
+
   private defaultLanguage: LangCode = 'en';
 
   private storageKey: LangStorageKey = 'lang';
