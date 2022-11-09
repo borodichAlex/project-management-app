@@ -4,5 +4,35 @@
     "logInButtonLabel": "Войти",
     "signUpButtonLabel": "Зарегистрироваться",
     "welcome": "Привет! Зарегистрируйтесь для входа"
+  },
+  "signupPage": {
+    "title": "Регистрация",
+    "nameLable": "имя",
+    "loginLable": "логин",
+    "passwordLable": "пароль",
+    "signup": "Зарегистрироваться",
+    "loginHintLabel": "Минимум 5 символов",
+    "passwordHintLabel": "Минимум 6 символов",
+    "You must enter a value": "Вы должны ввести значение"
+  },
+  "loginPage": {
+    "title": "Авторизация",
+    "loginLable": "логин",
+    "passwordLable": "пароль",
+    "formCondition": "Поле обязательно для заполнения",
+    "login": "Войти"
+  },
+  "logoutPage": {
+    "title": "Выход",
+    "logout": "Выйти"
+  },
+  "errorDialog": {
+    "reason": "Причина:",
+    "status": "Статус:",
+    "error": "Ошибка"
+  },
+  "errors": {
+    "User was not founded!": "Неверный логин или пароль!",
+    "User login already exists!": "Логин пользователя уже существует!"
   }
 }

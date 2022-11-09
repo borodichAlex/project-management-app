@@ -2,7 +2,7 @@
   <button mat-icon-button class="close" (click)="close()">
     <mat-icon>close</mat-icon>
   </button>
-  <h2>Logout</h2>
+  <h2>{{ 'logoutPage.title' | translate }}</h2>
   <button
     mat-flat-button
     color="primary"
@@ -10,6 +10,6 @@
     [disabled]="buttonDisabled"
     (click)="logOut()"
   >
-    Logout
+    {{ 'logoutPage.logout' | translate }}
   </button>
 </div>

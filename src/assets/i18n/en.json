@@ -4,5 +4,35 @@
     "logInButtonLabel": "Sign In",
     "signUpButtonLabel": "Sign Up",
     "welcome": "WELCOME!! We are glad to see you! Please, log in or sign up!"
+  },
+  "signupPage": {
+    "title": "Sign up",
+    "nameLable": "name",
+    "loginLable": "login",
+    "passwordLable": "password",
+    "signup": "Sign up",
+    "loginHintLabel": "Min 5 characters",
+    "passwordHintLabel": "Min 6 characters",
+    "You must enter a value": "You must enter a value"
+  },
+  "loginPage": {
+    "title": "Login",
+    "loginLable": "login",
+    "passwordLable": "password",
+    "formCondition": "Field is required",
+    "login": "Login"
+  },
+  "logoutPage": {
+    "title": "Logout",
+    "logout": "Logout"
+  },
+  "errorDialog": {
+    "reason": "Reason:",
+    "status": "Status:",
+    "error": "Error"
+  },
+  "errors": {
+    "User was not founded!": "Login or password is incorrect!",
+    "User login already exists!": "User login already exists!"
   }
- }
+}
