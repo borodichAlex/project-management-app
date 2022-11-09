@@ -1,0 +1,47 @@
+@import "abstracts/variables";
+
+.boards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  cursor: pointer;
+}
+
+.board {
+  width: 250px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: 0.2s;
+
+  &:hover {
+    filter: drop-shadow(2px 4px 6px $borders-drop-shadow-color);
+  }
+}
+
+.board__header {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons-group {
+  display: flex;
+  justify-content: right;
+  padding-bottom: 1rem;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.spinner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}

@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
-import { MatDialogModule } from '@angular/material/dialog';
-import { httpInterceptorProviders } from './core/interceptors/index';
-
+import { httpInterceptorProviders } from './core/interceptors';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
@@ -19,7 +19,6 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatDialogModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -30,6 +29,7 @@ import { CoreModule } from './core/core.module';
       },
     }),
     CoreModule,
+    MatDialogModule,
   ],
   providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
