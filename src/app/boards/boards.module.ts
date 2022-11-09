@@ -10,9 +10,10 @@ import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsComponent } from './pages/boards/boards.component';
 import { BoardsService } from './services/boards.service';
 import { ApiBoardsService } from './services/api-boards.service';
+import { BoardComponent } from './pages/board/board.component';
 
 @NgModule({
-  declarations: [BoardsComponent],
+  declarations: [BoardsComponent, BoardComponent],
   imports: [
     CommonModule,
     BoardsRoutingModule,

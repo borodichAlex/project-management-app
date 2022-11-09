@@ -17,6 +17,7 @@
       class="board"
       *ngFor="let board of boards$ | async"
       [attr.id]="board.id"
+      (click)="onBoardClick(board.id)"
     >
       <div class="buttons-group">
         <button
@@ -25,7 +26,7 @@
           aria-label="edit button"
           matTooltip="Edit"
           matTooltipPosition="above"
-          (click)="onClickUpdateBoard(board.id)"
+          (click)="onClickUpdateBoard($event, board.id)"
         >
           <mat-icon>edit</mat-icon>
         </button>
@@ -35,7 +36,7 @@
           aria-label="delete button"
           matTooltip="Delete"
           matTooltipPosition="above"
-          (click)="onClickDeleteBoard(board.id)"
+          (click)="onClickDeleteBoard($event, board.id)"
         >
           <mat-icon>delete</mat-icon>
         </button>
