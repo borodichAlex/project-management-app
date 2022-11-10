@@ -9,10 +9,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { LoginComponent } from './pages/login/login.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { SignupComponent } from './pages/signup/signup.component';
-import { LogoutComponent } from './pages/logout/logout.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent, LogoutComponent],
+  declarations: [LoginComponent, SignupComponent],
   imports: [
     CommonModule,
     AuthRoutingModule,

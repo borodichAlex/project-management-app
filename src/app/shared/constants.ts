@@ -13,5 +13,4 @@ export enum RoutePaths {
   authPrefix = 'auth/',
   login = 'login',
   signup = 'signup',
-  logout = 'logout',
 }
