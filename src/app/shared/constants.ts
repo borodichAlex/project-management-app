@@ -9,7 +9,15 @@ export enum ENDPOINTS {
 export enum RoutePaths {
   welcome = 'welcome',
   boards = 'boards',
+  columns = 'columns',
+  tasks = 'tasks',
   notfound = '404',
   login = 'login',
   signup = 'signup',
+}
+
+export function columnApi(boardId: string, columnId?: string): string {
+  return columnId
+    ? `${API_BOARDS}/${boardId}/${RoutePaths.columns}/${columnId}`
+    : `${API_BOARDS}/${boardId}/${RoutePaths.columns}`;
 }

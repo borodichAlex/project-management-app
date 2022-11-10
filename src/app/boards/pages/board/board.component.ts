@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { ColumnsService } from '../../services/columns.service';
+import { TColumn } from '../../interfaces/column.interface';
 
 @Component({
   selector: 'app-board',
@@ -8,12 +11,20 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardComponent implements OnInit {
-  id: string = this.route.snapshot.params['id'];
+  boardId: string = this.route.snapshot.params['id'];
 
-  constructor(private route: ActivatedRoute) {}
+  columns$!: Observable<TColumn[]>;
+
+  isLoading$!: Observable<boolean>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private columnsService: ColumnsService,
+  ) {}
 
   ngOnInit(): void {
-    // eslint-disable-next-line no-console
-    console.log('board id:', this.id);
+    this.isLoading$ = this.columnsService.isLoading;
+    this.columnsService.loadAll(this.boardId);
+    this.columns$ = this.columnsService.columns;
   }
 }

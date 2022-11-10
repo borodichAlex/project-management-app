@@ -1,1 +1,20 @@
-<p>board works!</p>
+<h2>Board Column:</h2>
+<a routerLink=".."><-- Back to Boards</a>
+<!-- Spinner -->
+<mat-spinner
+  class="spinner"
+  *ngIf="isLoading$ | async; else columnsContainer"
+></mat-spinner>
+<!-- END Spinner -->
+<!-- Columns -->
+<ng-template #columnsContainer>
+  <!-- [column]="column" -->
+  <div class="board">
+    <app-column
+      *ngFor="let column of columns$ | async"
+      [attr.columnId]="column.id"
+      [column]="column"
+    ></app-column>
+  </div>
+</ng-template>
+<!-- END Columns -->

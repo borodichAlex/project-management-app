@@ -6,14 +6,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
+import { RouterLinkWithHref } from '@angular/router';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsComponent } from './pages/boards/boards.component';
 import { BoardsService } from './services/boards.service';
 import { ApiBoardsService } from './services/api-boards.service';
 import { BoardComponent } from './pages/board/board.component';
+import { ColumnsService } from './services/columns.service';
+import { ApiColumnsService } from './services/api-columns.service';
+import { ColumnComponent } from './components/column/column.component';
 
 @NgModule({
-  declarations: [BoardsComponent, BoardComponent],
+  declarations: [BoardsComponent, BoardComponent, ColumnComponent],
   imports: [
     CommonModule,
     BoardsRoutingModule,
@@ -23,7 +27,13 @@ import { BoardComponent } from './pages/board/board.component';
     MatTooltipModule,
     MatIconModule,
     TranslateModule,
+    RouterLinkWithHref,
   ],
-  providers: [ApiBoardsService, BoardsService],
+  providers: [
+    ApiBoardsService,
+    BoardsService,
+    ApiColumnsService,
+    ColumnsService,
+  ],
 })
 export class BoardsModule {}

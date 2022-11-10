@@ -30,8 +30,8 @@ export class BoardsComponent {
     private router: Router,
   ) {}
 
-  onBoardClick(id: string): void {
-    this.router.navigate([`${RoutePaths.boards}/${id}`]);
+  onBoardClick(boardId: string): void {
+    this.router.navigate([`${RoutePaths.boards}/${boardId}`]);
   }
 
   onClickDeleteBoard(event: MouseEvent, id: string): void {
