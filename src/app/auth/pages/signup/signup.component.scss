@@ -3,13 +3,6 @@
 :host {
   box-sizing: border-box;
 
-  .alert {
-    margin-left: 20px;
-    position: relative;
-    top: -15px;
-    color: $bgAlertColor;
-  }
-
   .loginField {
     margin: 0 auto;
     width: 344px;
