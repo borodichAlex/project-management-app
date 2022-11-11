@@ -18,10 +18,10 @@ const routes: Routes = [
       import('./welcome/welcome.module').then((m) => m.WelcomeModule),
     canActivate: [GuestGuard],
   },
-  // {
-  //   path: '',
-  //   loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
-  // },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
   {
     path: RoutePaths.boards,
     loadChildren: () =>

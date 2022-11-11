@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
 import { SignupComponent } from './pages/signup/signup.component';
+import { LoginComponent } from './pages/login/login.component';
+import { RoutePaths } from '../shared/constants';
+import { GuestGuard } from '../core/guards/guest.guard';
 
 const routes: Routes = [
   {
-    path: 'login',
-    component: LoginComponent,
+    path: RoutePaths.signup,
+    component: SignupComponent,
+    canActivate: [GuestGuard],
   },
   {
-    path: 'signup',
-    component: SignupComponent,
+    path: RoutePaths.login,
+    component: LoginComponent,
+    canActivate: [GuestGuard],
   },
 ];
 
