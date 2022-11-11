@@ -16,6 +16,6 @@ export class ApiColumnsService {
   }
 
   public delete(columnId: string, boardId: string) {
-    return this.http.delete(columnApi(columnId, boardId));
+    return this.http.delete(columnApi(boardId, columnId));
   }
 }

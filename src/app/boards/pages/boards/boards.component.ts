@@ -11,7 +11,7 @@ import {
 import { BoardsModalComponent } from '../../components/boards-modal/boards-modal.component';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import { RoutePaths } from '../../../shared/constants';
+import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
 
 @Component({
   selector: 'app-boards',
@@ -82,7 +82,7 @@ export class BoardsComponent {
 
   private openModalWindow(data: TConfirmationModal): Observable<TBoard> {
     const dialogRef = this.matDialog.open(BoardsModalComponent, {
-      width: '300px',
+      width: MODAL_WIDTH,
       data,
       disableClose: true,
     });
