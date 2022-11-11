@@ -4,6 +4,7 @@ export const API_BOARDS = 'api/boards';
 export enum ENDPOINTS {
   signin = 'signin',
   signup = 'signup',
+  users = 'users',
 }
 
 export enum RoutePaths {
