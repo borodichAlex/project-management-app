@@ -1,2 +1,7 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<app-header
+  class="auth-header"
+  *ngIf="userToken.isLoggedIn$ | async"
+></app-header>
+<section class="content">
+  <router-outlet></router-outlet>
+</section>

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/auth/services/auth.service';
 import { UserTokenService } from '../../services/user-token.service';
 
 @Component({
@@ -10,19 +11,18 @@ import { UserTokenService } from '../../services/user-token.service';
 export class HeaderComponent implements OnInit {
   public userName!: string;
 
-  constructor(public userToken: UserTokenService) {}
+  constructor(public userToken: UserTokenService, private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.userName = 'username!!';
+    this.userName = '@USERNAME';
   }
 
   public onEditProfileClick() {
     console.log(`Edit user ${this.userName}`);
-    // router.navigate(RoutePaths.edit);
+    // call editProfile modal window / component
   }
 
   public onLogoutClick() {
-    console.log(`Logout user ${this.userName}`);
-    // this.auth.logout();
+    this.auth.logOut();
   }
 }

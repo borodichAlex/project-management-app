@@ -1,8 +1,10 @@
-<header>
+<header class="wrapper">
   <app-language-toggler></app-language-toggler>
   <!--ng-container *ngIf="userToken.isLoggedIn$ | async" -->
   <ng-container>
-    <button mat-button [matMenuTriggerFor]="menu">{{ userName }}</button>
+    <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">
+      {{ userName }}
+    </button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onEditProfileClick()">
         {{ 'header.editProfile' | translate }}

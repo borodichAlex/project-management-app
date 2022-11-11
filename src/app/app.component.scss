@@ -1,0 +1,11 @@
+@import "abstracts/variables";
+
+.auth-header + .content {
+  padding-top: $header-default-height;
+}
+.content {
+  height: calc(100vh - $header-default-height - $footer-height);
+  max-width: 1200px;
+  padding: 0px $wrapper-1200-padding;
+  margin: 0 auto;
+}
