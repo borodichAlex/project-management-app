@@ -1,0 +1,15 @@
+.block {
+  padding: 10px 1rem;
+}
+
+.wrapper {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-button {
+  align-self: flex-start;
+  margin: .25em 0; // fix mat-form-field margin
+  font-size: 0.85rem;
+  padding: 0.2em 1.5em;
+}

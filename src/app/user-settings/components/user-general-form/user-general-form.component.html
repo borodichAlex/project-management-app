@@ -1,0 +1,28 @@
+<h2 class="mat-display-1 heading">
+  {{ translateBasePath + '.heading' | translate }}
+</h2>
+
+<form [formGroup]="userGeneralForm" class="user-general-form">
+  <ng-container *ngFor="let fieldData of userGeneralFields; last as isLast">
+    <app-user-edit-field-wrapper
+      [buttonText]="translateData.btn"
+      [labelText]="translateData.fields[fieldData.translateKey].label"
+      (editFieldClick)="onChangeField(fieldData.name)"
+    >
+      <mat-form-field
+        class="global-user-edit-field"
+        floatLabel="never"
+        appearance="outline"
+      >
+        <input
+          class="user-edit-input"
+          [formControlName]="fieldData.name"
+          matInput
+          autocomplete="off"
+        />
+      </mat-form-field>
+    </app-user-edit-field-wrapper>
+
+    <mat-divider *ngIf="!isLast"></mat-divider>
+  </ng-container>
+</form>
