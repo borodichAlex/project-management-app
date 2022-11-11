@@ -18,12 +18,14 @@ import { UserSettingsService } from './services/user-settings.service';
 import { UserSettingsPageComponent } from './pages/user-settings-page.component';
 import { UserGeneralFormComponent } from './components/user-general-form/user-general-form.component';
 import { UserEditFieldWrapperComponent } from './components/user-edit-field-wrapper/user-edit-field-wrapper.component';
+import { ConfirmationDialogPasswordComponent } from './components/confirmation-dialog-password/confirmation-dialog-password.component';
 
 @NgModule({
   declarations: [
     UserSettingsPageComponent,
     UserGeneralFormComponent,
     UserEditFieldWrapperComponent,
+    ConfirmationDialogPasswordComponent,
   ],
   imports: [
     CommonModule,
