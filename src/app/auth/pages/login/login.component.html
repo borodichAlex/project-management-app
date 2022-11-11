@@ -1,29 +1,45 @@
 <form [formGroup]="user" class="loginField">
-  <h2>Login</h2>
+  <h2>{{ 'loginPage.title' | translate }}</h2>
   <mat-form-field appearance="fill">
-    <mat-label>login</mat-label>
+    <mat-label>{{ 'loginPage.loginLable' | translate }}</mat-label>
     <input formControlName="login" matInput autocomplete="off" />
   </mat-form-field>
   <div *ngIf="login.invalid && (login.touched || login.dirty)">
-    <span *ngIf="login.errors?.['required']" class="alert"
-      >Field is required</span
-    >
+    <span *ngIf="login.errors?.['required']" class="alert">{{
+      'loginPage.formCondition' | translate
+    }}</span>
   </div>
   <mat-form-field appearance="fill">
-    <mat-label>password</mat-label>
-    <input formControlName="password" matInput autocomplete="off" />
+    <mat-label>{{ 'loginPage.passwordLable' | translate }}</mat-label>
+    <input
+      formControlName="password"
+      matInput
+      autocomplete="off"
+      [type]="hide ? 'password' : 'text'"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
   </mat-form-field>
   <div *ngIf="password.invalid && (password.touched || password.dirty)">
-    <span *ngIf="password.errors?.['required']" class="alert"
-      >Field is required</span
-    >
+    <span *ngIf="password.errors?.['required']" class="alert">{{
+      'loginPage.formCondition' | translate
+    }}</span>
   </div>
   <button
     mat-flat-button
     color="primary"
     class="login-button"
     [disabled]="buttonDisabled"
+    (click)="logIn()"
   >
-    Login
+    {{ 'loginPage.login' | translate }}
   </button>
 </form>

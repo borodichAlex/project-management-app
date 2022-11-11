@@ -7,6 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLinkWithHref } from '@angular/router';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsComponent } from './pages/boards/boards.component';
 import { BoardsService } from './services/boards.service';
@@ -28,6 +29,7 @@ import { ColumnComponent } from './components/column/column.component';
     MatIconModule,
     TranslateModule,
     RouterLinkWithHref,
+    DragDropModule,
   ],
   providers: [
     ApiBoardsService,
