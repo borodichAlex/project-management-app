@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TColumn } from '../interfaces/column.interface';
+import { TColumn, TNewColumn } from '../interfaces/column.interface';
 import { ApiColumnsService } from './api-columns.service';
 
 @Injectable()
@@ -25,5 +25,21 @@ export class ColumnsService {
 
   public get isLoading(): Observable<boolean> {
     return this.isLoading$.asObservable();
+  }
+
+  public create(column: TNewColumn, boardId: string): void {
+    this.apiColumns.create(column, boardId).subscribe((newColumn) => {
+      const newColumns: TColumn[] = [...this.columns$.value, newColumn];
+      this.columns$.next(newColumns);
+    });
+  }
+
+  public delete(columnId: string, boardId: string): void {
+    this.apiColumns.delete(columnId, boardId).subscribe(() => {
+      const newColumns = this.columns$.value.filter(
+        (column) => column.id !== columnId,
+      );
+      this.columns$.next(newColumns);
+    });
   }
 }
