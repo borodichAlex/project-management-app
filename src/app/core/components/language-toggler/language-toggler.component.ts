@@ -20,6 +20,5 @@ export class LanguageTogglerComponent implements OnInit {
 
   onChange(): void {
     this.appLangService.change(this.langControl.value as LangCode);
-    console.log(this.langControl.value);
   }
 }

@@ -1,8 +1,12 @@
+<app-language-toggler></app-language-toggler>
+<section class="buttons">
+  <button mat-raised-button color="primary" (click)="onLogInClick()">
+    {{ 'welcomePage.logInButtonLabel' | translate }}
+  </button>
+  <button mat-raised-button color="warn" (click)="onSignUpClick()">
+    {{ 'welcomePage.signUpButtonLabel' | translate }}
+  </button>
+</section>
+
 <h2>{{ 'welcomePage.welcome' | translate }}</h2>
 <h1>{{ 'appTitle' | translate }}</h1>
-<button mat-raised-button color="primary" (click)="onLogInClick()">
-  {{ 'welcomePage.logInButtonLabel' | translate }}
-</button>
-<button mat-raised-button color="warn" (click)="onSignUpClick()">
-  {{ 'welcomePage.signUpButtonLabel' | translate }}
-</button>

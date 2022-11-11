@@ -3,7 +3,7 @@
   "welcomePage": {
     "logInButtonLabel": "Войти",
     "signUpButtonLabel": "Зарегистрироваться",
-    "welcome": "Привет! Зарегистрируйтесь для входа"
+    "welcome": "Привет! Войдите или зарегистрируйтесь для входа"
   },
   "header": {
     "editProfile": "Редактировать",
