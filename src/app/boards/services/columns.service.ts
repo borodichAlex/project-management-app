@@ -33,4 +33,13 @@ export class ColumnsService {
       this.columns$.next(newColumns);
     });
   }
+
+  public delete(columnId: string, boardId: string): void {
+    this.apiColumns.delete(columnId, boardId).subscribe(() => {
+      const newColumns = this.columns$.value.filter(
+        (column) => column.id !== columnId,
+      );
+      this.columns$.next(newColumns);
+    });
+  }
 }
