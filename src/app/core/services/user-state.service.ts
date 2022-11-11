@@ -1,34 +1,45 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { UserData } from './types';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-type UserStorageKey = 'userData';
+import { User, UserData, UserSecretData } from '../interfaces/user.interface';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class UserStateService {
-  private userData$: Subject<UserData> = new Subject();
-
-  private storageKey: UserStorageKey = 'userData';
-
-  public get userData(): Observable<UserData> {
+  public get user$(): Observable<UserData> {
     return this.userData$.asObservable();
   }
 
-  constructor() {
-    this.init();
+  public get user(): UserData {
+    return this.userData$.getValue();
   }
 
-  public init(): void {
-    const userDataOfStorage = window.localStorage.getItem(this.storageKey);
-    if (userDataOfStorage) {
-      this.userData$.next(JSON.parse(userDataOfStorage));
-    }
+  private userData$!: BehaviorSubject<UserData>;
+
+  private userSecretData!: UserSecretData;
+
+  public get userSecret(): UserSecretData {
+    return this.userSecretData;
   }
 
-  public saveUser(user: UserData): void {
-    window.localStorage.setItem(this.storageKey, JSON.stringify(user));
-    this.userData$.next(user);
+  private set userSecret(value: UserSecretData) {
+    this.userSecretData = value;
+  }
+
+  public init(user: UserData): void {
+    this.userData$ = new BehaviorSubject<UserData>(user);
+  }
+
+  public saveUser({ id, name, login, password }: User): void {
+    const userSecretData = {
+      password,
+    };
+    const userData = {
+      id,
+      name,
+      login,
+    };
+    this.userData$.next(userData);
+
+    this.userSecret = userSecretData;
   }
 }

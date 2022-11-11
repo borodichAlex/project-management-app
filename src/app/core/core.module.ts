@@ -1,17 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+
 import { TranslateModule } from '@ngx-translate/core';
-import { NotFoundComponent } from './pages/not-found/not-found.component';
+
 import { UserTokenService } from './services/user-token.service';
-import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
+import { UserStateService } from './services/user-state.service';
+
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
+import { ErrorDialogComponent } from './components/error-dialog/error-dialog.component';
 
 @NgModule({
   declarations: [NotFoundComponent, ErrorDialogComponent],
   imports: [CommonModule, TranslateModule],
   providers: [
     UserTokenService,
+    UserStateService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerInterceptor,
