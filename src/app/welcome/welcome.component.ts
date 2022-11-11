@@ -12,10 +12,10 @@ export class WelcomeComponent {
   constructor(private router: Router) {}
 
   public onLogInClick() {
-    this.router.navigate([RoutePaths.login]);
+    this.router.navigate([RoutePaths.authPrefix + RoutePaths.login]);
   }
 
   public onSignUpClick() {
-    this.router.navigate([RoutePaths.signup]);
+    this.router.navigate([RoutePaths.authPrefix + RoutePaths.signup]);
   }
 }
