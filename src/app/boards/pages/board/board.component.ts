@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnsService } from '../../services/columns.service';
 import {
@@ -57,18 +56,5 @@ export class BoardComponent implements OnInit {
       disableClose: true,
     });
     return dialogRef.afterClosed();
-  }
-
-  timePeriods = [
-    'Bronze age',
-    'Iron age',
-    'Middle ages',
-    'Early modern period',
-    'Long nineteenth century',
-  ];
-
-  drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.timePeriods, event.previousIndex, event.currentIndex);
-    // console.log(event.item.element.nativeElement.innerText);
   }
 }
