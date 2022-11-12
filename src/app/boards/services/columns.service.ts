@@ -28,8 +28,17 @@ export class ColumnsService {
   }
 
   public create(column: TNewColumn, boardId: string): void {
-    this.apiColumns.create(column, boardId).subscribe((newBoard) => {
-      const newColumns: TColumn[] = [...this.columns$.value, newBoard];
+    this.apiColumns.create(column, boardId).subscribe((newColumn) => {
+      const newColumns: TColumn[] = [...this.columns$.value, newColumn];
+      this.columns$.next(newColumns);
+    });
+  }
+
+  public delete(columnId: string, boardId: string): void {
+    this.apiColumns.delete(columnId, boardId).subscribe(() => {
+      const newColumns = this.columns$.value.filter(
+        (column) => column.id !== columnId,
+      );
       this.columns$.next(newColumns);
     });
   }

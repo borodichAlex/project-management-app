@@ -1,4 +1,4 @@
-<h2>Board Column:</h2>
+<h2>Board Columns:</h2>
 <a routerLink=".."><-- Back to Boards</a>
 <br /><br />
 <button mat-raised-button color="primary" (click)="onClickCreateColumn()">
@@ -18,18 +18,8 @@
       *ngFor="let column of columns$ | async"
       [attr.columnId]="column.id"
       [column]="column"
+      [boardId]="boardId"
     ></app-column>
   </div>
 </ng-template>
 <!-- END Columns -->
-<br /><br />
-<div
-  cdkDropList
-  cdkDropListOrientation="horizontal"
-  class="example-list"
-  (cdkDropListDropped)="drop($event)"
->
-  <div class="example-box" *ngFor="let timePeriod of timePeriods" cdkDrag>
-    {{ timePeriod }}
-  </div>
-</div>

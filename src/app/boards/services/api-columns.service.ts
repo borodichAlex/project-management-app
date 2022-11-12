@@ -14,4 +14,8 @@ export class ApiColumnsService {
   public create(column: TNewColumn, boardId: string) {
     return this.http.post<TColumn>(columnApi(boardId), column);
   }
+
+  public delete(columnId: string, boardId: string) {
+    return this.http.delete(columnApi(boardId, columnId));
+  }
 }
