@@ -19,19 +19,15 @@ export class ApiColumnsService {
     return this.http.delete(columnApi(boardId, columnId));
   }
 
-  public put(boardId: string, previousItem: TColumn, currentItem: TColumn) {
-    const response = this.http.put(columnApi(boardId, currentItem.id), {
-      title: currentItem.title,
-      order: currentItem.order,
+  public put(boardId: string, item: TColumn, currentIndex: number) {
+    const currentOrder = currentIndex + 1;
+    const response = this.http.put(columnApi(boardId, item.id), {
+      title: item.title,
+      order: currentOrder,
     });
-    response.subscribe((x) => {
-      console.log(x);
-    });
+    // response.subscribe((x) => {
+    //   console.log(x);
+    // });
     return response;
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  public check(item: TColumn) {
-    console.log(item.order);
   }
 }

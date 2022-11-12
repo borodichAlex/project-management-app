@@ -59,13 +59,10 @@ export class BoardComponent implements OnInit {
       event.previousIndex,
       event.currentIndex,
     );
-    // this.apiColumnsService.put(
-    //   this.boardId,
-    //   this.columnsService.columnsArr[event.previousIndex],
-    //   this.columnsService.columnsArr[event.currentIndex],
-    // );
-    this.apiColumnsService.check(
+    this.apiColumnsService.put(
+      this.boardId,
       this.columnsService.columnsArr[event.currentIndex],
+      event.currentIndex,
     );
   }
 
