@@ -12,6 +12,7 @@ import {
 
 import { ColumnsModalComponent } from '../../components/columns-modal/columns-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
+import { ApiColumnsService } from '../../services/api-columns.service';
 
 @Component({
   selector: 'app-board',
@@ -30,6 +31,7 @@ export class BoardComponent implements OnInit {
     private route: ActivatedRoute,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
+    private apiColumnsService: ApiColumnsService,
   ) {}
 
   public ngOnInit(): void {
@@ -52,11 +54,18 @@ export class BoardComponent implements OnInit {
   }
 
   public drop(event: CdkDragDrop<TColumn[]>) {
-    // console.log(this.columnsService.columnsArr);
     moveItemInArray(
       this.columnsService.columnsArr,
       event.previousIndex,
       event.currentIndex,
+    );
+    // this.apiColumnsService.put(
+    //   this.boardId,
+    //   this.columnsService.columnsArr[event.previousIndex],
+    //   this.columnsService.columnsArr[event.currentIndex],
+    // );
+    this.apiColumnsService.check(
+      this.columnsService.columnsArr[event.currentIndex],
     );
   }
 

@@ -15,6 +15,7 @@ export class ColumnsService {
     this.isLoading$.next(true);
     this.apiColumns.getAll(boardId).subscribe((columns) => {
       this.columns$.next(columns);
+      console.log(boardId, columns);
       this.isLoading$.next(false);
     });
   }
