@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnsService } from '../../services/columns.service';
 import {
-  TColumn,
+  IColumnFull,
   TConfirmationModal,
   TNewColumn,
 } from '../../interfaces/column.interface';
@@ -21,7 +21,7 @@ import { MODAL_WIDTH } from '../../../shared/constants';
 export class BoardComponent implements OnInit {
   public boardId: string = this.route.snapshot.params['id'];
 
-  public columns$!: Observable<TColumn[]>;
+  public columns$!: Observable<IColumnFull[]>;
 
   public isLoading$!: Observable<boolean>;
 

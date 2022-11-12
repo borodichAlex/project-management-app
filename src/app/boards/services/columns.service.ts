@@ -1,15 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, mergeMap, Observable } from 'rxjs';
-import {
-  IColumnFull,
-  TColumn,
-  TNewColumn,
-} from '../interfaces/column.interface';
+import { IColumnFull, TNewColumn } from '../interfaces/column.interface';
 import { ApiColumnsService } from './api-columns.service';
 
 @Injectable()
 export class ColumnsService {
-  private columns$ = new BehaviorSubject<TColumn[]>([]);
+  private columns$ = new BehaviorSubject<IColumnFull[]>([]);
 
   private isLoading$ = new BehaviorSubject<boolean>(false);
 
@@ -35,7 +31,7 @@ export class ColumnsService {
       });
   }
 
-  public get columns(): Observable<TColumn[]> {
+  public get columns(): Observable<IColumnFull[]> {
     return this.columns$.asObservable();
   }
 
@@ -45,7 +41,7 @@ export class ColumnsService {
 
   public create(column: TNewColumn, boardId: string): void {
     this.apiColumns.create(boardId, column).subscribe((newColumn) => {
-      const newColumns: TColumn[] = [...this.columns$.value, newColumn];
+      const newColumns: IColumnFull[] = [...this.columns$.value, newColumn];
       this.columns$.next(newColumns);
     });
   }
