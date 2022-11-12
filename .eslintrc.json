@@ -53,7 +53,8 @@
           "ObjectPattern": { "multiline": true },
           "ImportDeclaration": { "multiline": true },
           "ExportDeclaration": { "multiline": true, "minProperties": 3 }
-        }]
+        }],
+        "function-paren-newline": "off"
       }
     },
     {
