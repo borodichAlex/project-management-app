@@ -1,8 +1,8 @@
 $borders-drop-shadow-color: #a5a5a5;
 
 $header-default-height: 6rem;
-$footer-height: 5rem;
-
+$footer-height: 4rem;
+$footer-height-mobile: 7rem;
 //--breakpoints
 $content-width: 1200px;//desktop
 
@@ -12,3 +12,15 @@ $min-mobile-width: 320px;
 
 $wrapper-1200-padding: 40px;
 $wrapper-708-padding: 30px;
+
+//--colors
+$dark-text-color: black;
+
+//--mixin
+@mixin media-tablet {
+  @media screen and (max-width: $max-tablet-width) { @content; }
+}
+
+@mixin media-mobile {
+  @media screen and (max-width: $max-mobile-width) { @content; }
+}

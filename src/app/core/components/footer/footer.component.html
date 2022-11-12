@@ -1,36 +1,77 @@
-<p>footer works!</p>
-<footer className="footer">
-  <div className="wrapper footer__wrapper">
+<div class="wrapper">
+  <a
+    class="footer__logo"
+    href="https://rs.school/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <mat-icon svgIcon="rss-logo" color="primary" class="logo-icon"></mat-icon>
+  </a>
+  <p>2022</p>
+  <div class="team">
     <a
-      className="footer__logo"
-      href="https://rs.school/js/"
+      mat-button
+      color="accent"
+      class="git-nickname"
+      href="https://github.com/"
       target="_blank"
       rel="noopener noreferrer"
     >
+      <mat-icon
+        svgIcon="git-logo"
+        color="accent"
+        class="ghlogo-icon"
+      ></mat-icon>
+      <span class="nickname">Alexander</span>
     </a>
-    <p>2022</p>
-    <div className="footer__team">
-      <a
-        className="git-nickname"
-        href="https://github.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        >ff</a
-      >
-      <a
-        className="git-nickname"
-        href="https://github.com/BlueOwll"
-        target="_blank"
-        rel="noopener noreferrer"
-        >BlueOwll</a
-      >
-      <a
-        className="git-nickname"
-        href="https://github.com/"
-        target="_blank"
-        rel="noopener noreferrer"
-        >fff</a
-      >
-    </div>
+    <a
+      mat-button
+      color="accent"
+      class="git-nickname"
+      href="https://github.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      #tooltip1="matTooltip"
+      matTooltip="Pavel"
+      matTooltipHideDelay="100"
+    >
+      <mat-icon
+        svgIcon="git-logo"
+        color="accent"
+        class="ghlogo-icon"
+      ></mat-icon>
+      <span class="nickname">Pavel</span>
+    </a>
+    <a
+      mat-button
+      color="accent"
+      class="git-nickname"
+      href="https://github.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <mat-icon
+        svgIcon="git-logo"
+        color="accent"
+        class="ghlogo-icon"
+      ></mat-icon>
+      <span class="nickname">Yurij</span>
+    </a>
+    <a
+      mat-button
+      aria-label="BlueOwll"
+      color="accent"
+      class="git-nickname"
+      href="https://github.com/BlueOwll"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <mat-icon
+        svgIcon="git-logo"
+        color="accent"
+        class="ghlogo-icon"
+      ></mat-icon>
+      <span class="nickname">BlueOwll</span>
+    </a>
   </div>
-</footer>
+</div>

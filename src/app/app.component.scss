@@ -5,8 +5,9 @@
 }
 .content {
   box-sizing: border-box;
-  height: calc(100vh - $footer-height);
+  height: 100%;
   min-width: $min-mobile-width;
   padding: $wrapper-1200-padding;
+  padding-bottom: calc($footer-height + $wrapper-1200-padding);
   margin: 0 auto;
 }
