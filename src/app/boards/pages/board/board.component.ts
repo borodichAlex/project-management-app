@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnsService } from '../../services/columns.service';
 import {
   TColumn,
@@ -48,6 +49,15 @@ export class BoardComponent implements OnInit {
         this.columnsService.create(newColumn, this.boardId);
       }
     });
+  }
+
+  public drop(event: CdkDragDrop<TColumn[]>) {
+    // console.log(this.columnsService.columnsArr);
+    moveItemInArray(
+      this.columnsService.columnsArr,
+      event.previousIndex,
+      event.currentIndex,
+    );
   }
 
   private openModalWindow(data: TConfirmationModal): Observable<TNewColumn> {

@@ -23,6 +23,10 @@ export class ColumnsService {
     return this.columns$.asObservable();
   }
 
+  public get columnsArr(): TColumn[] {
+    return this.columns$.value;
+  }
+
   public get isLoading(): Observable<boolean> {
     return this.isLoading$.asObservable();
   }
