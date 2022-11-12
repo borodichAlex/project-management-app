@@ -2,13 +2,11 @@
 
 .auth-header + .content {
   padding-top: $header-default-height;
-  height: calc(100vh - $header-default-height - $footer-height);
 }
 .content {
   box-sizing: border-box;
   height: calc(100vh - $footer-height);
-  max-width: $content-width;
   min-width: $min-mobile-width;
-  padding: 0px $wrapper-1200-padding;
+  padding: $wrapper-1200-padding;
   margin: 0 auto;
 }
