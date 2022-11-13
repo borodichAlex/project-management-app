@@ -12,7 +12,7 @@ export class SortByOrderPipe implements PipeTransform {
     }
     return value
       .map((item) => {
-        item.tasks.sort((a, b) => a.order - b.order);
+        item?.tasks?.sort((a, b) => a.order - b.order);
         return item;
       })
       .sort((a, b) => a.order - b.order);
