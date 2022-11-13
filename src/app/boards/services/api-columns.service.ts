@@ -25,9 +25,12 @@ export class ApiColumnsService {
       title: item.title,
       order: currentOrder,
     });
-    // response.subscribe((x) => {
-    //   console.log(x);
-    // });
     return response;
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  // public check(boardId: string, item: TColumn, currentIndex: number) {
+  //   console.log(boardId, item.id, currentIndex + 1);
+  //   console.log(columnApi(boardId, item.id));
+  // }
 }

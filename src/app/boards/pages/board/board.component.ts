@@ -1,6 +1,11 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnsService } from '../../services/columns.service';
@@ -20,12 +25,14 @@ import { ApiColumnsService } from '../../services/api-columns.service';
   styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   public boardId: string = this.route.snapshot.params['id'];
 
   public columns$!: Observable<TColumn[]>;
 
   public isLoading$!: Observable<boolean>;
+
+  private subscription!: Subscription;
 
   constructor(
     private route: ActivatedRoute,
@@ -38,6 +45,10 @@ export class BoardComponent implements OnInit {
     this.isLoading$ = this.columnsService.isLoading;
     this.columnsService.loadAll(this.boardId);
     this.columns$ = this.columnsService.columns;
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public onClickCreateColumn(): void {
@@ -59,11 +70,13 @@ export class BoardComponent implements OnInit {
       event.previousIndex,
       event.currentIndex,
     );
-    this.apiColumnsService.put(
-      this.boardId,
-      this.columnsService.columnsArr[event.currentIndex],
-      event.currentIndex,
-    );
+    this.subscription = this.apiColumnsService
+      .put(
+        this.boardId,
+        this.columnsService.columnsArr[event.currentIndex],
+        event.currentIndex,
+      )
+      .subscribe();
   }
 
   private openModalWindow(data: TConfirmationModal): Observable<TNewColumn> {
