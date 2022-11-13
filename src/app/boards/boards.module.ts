@@ -16,9 +16,17 @@ import { BoardComponent } from './pages/board/board.component';
 import { ColumnsService } from './services/columns.service';
 import { ApiColumnsService } from './services/api-columns.service';
 import { ColumnComponent } from './components/column/column.component';
+import { TaskComponent } from './components/task/task.component';
+import { SortByOrderPipe } from '../shared/pipes/sort-by-order.pipe';
 
 @NgModule({
-  declarations: [BoardsComponent, BoardComponent, ColumnComponent],
+  declarations: [
+    BoardsComponent,
+    BoardComponent,
+    ColumnComponent,
+    TaskComponent,
+    SortByOrderPipe,
+  ],
   imports: [
     CommonModule,
     BoardsRoutingModule,

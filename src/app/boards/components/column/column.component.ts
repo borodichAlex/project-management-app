@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { TColumn, TNewColumn } from '../../interfaces/column.interface';
+import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
@@ -13,7 +13,7 @@ import { ConfirmationComponent } from '../../../shared/components/confirmation/c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent {
-  @Input() column!: TColumn;
+  @Input() column!: IColumnFull;
 
   @Input() boardId!: string;
 

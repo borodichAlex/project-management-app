@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnsService } from '../../services/columns.service';
 import {
-  TColumn,
+  IColumnFull,
   TConfirmationModal,
   TNewColumn,
 } from '../../interfaces/column.interface';
@@ -28,7 +28,7 @@ import { ApiColumnsService } from '../../services/api-columns.service';
 export class BoardComponent implements OnInit, OnDestroy {
   public boardId: string = this.route.snapshot.params['id'];
 
-  public columns$!: Observable<TColumn[]>;
+  public columns$!: Observable<IColumnFull[]>;
 
   public isLoading$!: Observable<boolean>;
 
