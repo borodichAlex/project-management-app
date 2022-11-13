@@ -17,6 +17,9 @@ export class ColumnsService {
       .getAll(boardId)
       .pipe(
         mergeMap((column) => {
+          if (!column.length) {
+            this.isLoading$.next(false);
+          }
           const arr: Observable<IColumnFull>[] = column.map((item) =>
             this.apiColumns.getAllById(boardId, item.id),
           );
