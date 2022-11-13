@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { UserSettingsRoutingModule } from './user-settings-routing.module';
 
@@ -37,6 +38,7 @@ import { ConfirmationDialogPasswordComponent } from './components/confirmation-d
     MatButtonModule,
     MatFormFieldModule,
     MatDividerModule,
+    MatDialogModule,
   ],
   providers: [UserSettingsService],
 })
