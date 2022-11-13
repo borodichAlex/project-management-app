@@ -27,8 +27,6 @@ export class ColumnsService {
         }),
       )
       .subscribe((columns: IColumnFull[]) => {
-        // eslint-disable-next-line no-console
-        console.log('columns:', columns);
         this.columns$.next(columns);
         this.isLoading$.next(false);
       });
@@ -38,7 +36,7 @@ export class ColumnsService {
     return this.columns$.asObservable();
   }
 
-  public get columnsArr(): TColumn[] {
+  public get columnsArr(): IColumnFull[] {
     return this.columns$.value;
   }
 

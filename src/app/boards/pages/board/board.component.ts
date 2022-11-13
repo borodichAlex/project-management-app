@@ -64,7 +64,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  public drop(event: CdkDragDrop<TColumn[]>) {
+  public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
       this.columnsService.columnsArr,
       event.previousIndex,
