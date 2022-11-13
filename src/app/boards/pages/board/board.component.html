@@ -15,7 +15,7 @@
   <!-- [column]="column" -->
   <div class="board">
     <app-column
-      *ngFor="let column of columns$ | async"
+      *ngFor="let column of columns$ | async | sortByOrder"
       [attr.columnId]="column.id"
       [column]="column"
       [boardId]="boardId"
