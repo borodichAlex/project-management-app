@@ -1,13 +1,19 @@
 @import "abstracts/variables";
 
-.auth-header + .content {
+.auth-header + .main {
   padding-top: $header-default-height;
 }
-.content {
+.main {
   box-sizing: border-box;
   height: 100%;
   min-width: $min-mobile-width;
-  padding: $wrapper-1200-padding;
-  padding-bottom: calc($footer-height + $wrapper-1200-padding);
+  padding-bottom: $footer-height;
   margin: 0 auto;
+}
+.content{
+  transition: all 0.3s ease-in;
+  box-sizing: border-box;
+  overflow-y: auto;
+  height: 100%;
+  padding: $wrapper-1200-padding;
 }
