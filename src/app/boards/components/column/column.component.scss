@@ -4,6 +4,10 @@
   min-height: 100px;
 }
 
+.column__title {
+  cursor: pointer;
+}
+
 .buttons-group {
   display: flex;
   justify-content: right;

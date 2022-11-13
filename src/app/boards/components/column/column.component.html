@@ -11,12 +11,20 @@
       <mat-icon>delete</mat-icon>
     </button>
   </div>
-
   <mat-card-header>
-    <mat-card-title>{{ column.title }}</mat-card-title>
+    <mat-card-title
+      class="column__title"
+      matTooltip="Change Column title"
+      matTooltipPosition="above"
+      >{{ column.title }}</mat-card-title
+    >
   </mat-card-header>
-
   <mat-card-content class="tasks">
     <app-task *ngFor="let task of column.tasks" [task]="task"></app-task>
   </mat-card-content>
+  <button mat-icon-button>
+    <mat-icon color="primary" matTooltip="Add Task" matTooltipPosition="right"
+      >note_add
+    </mat-icon>
+  </button>
 </mat-card>
