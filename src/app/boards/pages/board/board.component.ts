@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnsService } from '../../services/columns.service';
 import {
   IColumnFull,
@@ -11,6 +17,7 @@ import {
 
 import { ColumnsModalComponent } from '../../components/columns-modal/columns-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
+import { ApiColumnsService } from '../../services/api-columns.service';
 
 @Component({
   selector: 'app-board',
@@ -18,23 +25,30 @@ import { MODAL_WIDTH } from '../../../shared/constants';
   styleUrls: ['./board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
   public boardId: string = this.route.snapshot.params['id'];
 
   public columns$!: Observable<IColumnFull[]>;
 
   public isLoading$!: Observable<boolean>;
 
+  private subscription!: Subscription;
+
   constructor(
     private route: ActivatedRoute,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
+    private apiColumnsService: ApiColumnsService,
   ) {}
 
   public ngOnInit(): void {
     this.isLoading$ = this.columnsService.isLoading;
     this.columnsService.loadAll(this.boardId);
     this.columns$ = this.columnsService.columns;
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public onClickCreateColumn(): void {
@@ -48,6 +62,21 @@ export class BoardComponent implements OnInit {
         this.columnsService.create(newColumn, this.boardId);
       }
     });
+  }
+
+  public drop(event: CdkDragDrop<IColumnFull[]>) {
+    moveItemInArray(
+      this.columnsService.columnsArr,
+      event.previousIndex,
+      event.currentIndex,
+    );
+    this.subscription = this.apiColumnsService
+      .put(
+        this.boardId,
+        this.columnsService.columnsArr[event.currentIndex],
+        event.currentIndex,
+      )
+      .subscribe();
   }
 
   private openModalWindow(data: TConfirmationModal): Observable<TNewColumn> {

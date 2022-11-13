@@ -13,12 +13,18 @@
 <!-- Columns -->
 <ng-template #columnsContainer>
   <!-- [column]="column" -->
-  <div class="board">
+  <div
+    class="board"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
+  >
     <app-column
       *ngFor="let column of columns$ | async | sortByOrder"
       [attr.columnId]="column.id"
       [column]="column"
       [boardId]="boardId"
+      cdkDrag
     ></app-column>
   </div>
 </ng-template>

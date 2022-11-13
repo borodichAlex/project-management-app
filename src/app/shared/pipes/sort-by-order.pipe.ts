@@ -10,11 +10,10 @@ export class SortByOrderPipe implements PipeTransform {
     if (!value) {
       return [];
     }
-    return value
-      .map((item) => {
-        item?.tasks?.sort((a, b) => a.order - b.order);
-        return item;
-      })
-      .sort((a, b) => a.order - b.order);
+    return value.sort((a, b) => a.order - b.order);
+    // .map((item) => {
+    //   item?.tasks?.sort((a, b) => a.order - b.order);
+    //   return item;
+    // });
   }
 }

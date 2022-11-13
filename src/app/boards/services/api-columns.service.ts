@@ -30,4 +30,13 @@ export class ApiColumnsService {
   public delete(boardId: string, columnId: string) {
     return this.http.delete(columnApi(boardId, columnId));
   }
+
+  public put(boardId: string, item: TColumn, currentIndex: number) {
+    const currentOrder = currentIndex + 1;
+    const response = this.http.put(columnApi(boardId, item.id), {
+      title: item.title,
+      order: currentOrder,
+    });
+    return response;
+  }
 }
