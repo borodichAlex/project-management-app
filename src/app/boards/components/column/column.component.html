@@ -14,7 +14,7 @@
   <mat-card-header>
     <mat-card-title
       class="column__title"
-      matTooltip="Change Column title"
+      matTooltip="Change the Column title"
       matTooltipPosition="above"
       >{{ column.title }}</mat-card-title
     >
@@ -22,9 +22,8 @@
   <mat-card-content class="tasks">
     <app-task *ngFor="let task of column.tasks" [task]="task"></app-task>
   </mat-card-content>
-  <button mat-icon-button>
-    <mat-icon color="primary" matTooltip="Add Task" matTooltipPosition="right"
-      >note_add
-    </mat-icon>
+  <button mat-icon-button (click)="onClickCreateTask()">
+    <mat-icon color="primary">note_add</mat-icon>
+    Add a Task
   </button>
 </mat-card>

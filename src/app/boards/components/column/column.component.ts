@@ -5,6 +5,8 @@ import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
+import { TasksService } from '../../services/tasks.service';
+import { UserStateService } from '../../../core/services/user-state.service';
 
 @Component({
   selector: 'app-column',
@@ -20,9 +22,11 @@ export class ColumnComponent {
   constructor(
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
+    private tasksService: TasksService,
+    private userStateService: UserStateService,
   ) {}
 
-  onClickDeleteColumn(event: MouseEvent, boardId: string) {
+  public onClickDeleteColumn(event: MouseEvent, boardId: string) {
     event.stopPropagation();
     const message = {
       title: 'Delete Column',
@@ -41,5 +45,19 @@ export class ColumnComponent {
     });
 
     return dialogRef.afterClosed();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public onClickCreateTask() {
+    // eslint-disable-next-line no-console
+    console.log('create task');
+    /* console.log('user:', this.userStateService.user.id);
+    const modalConfig: TTaskConfirmationModal = {
+      title: '',
+      description: '',
+      userId: this.userStateService.user.id,
+      confirmationTitleText: 'Create new Task',
+      confirmationButtonText: 'Create',
+    }; */
   }
 }

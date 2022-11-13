@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { ITask } from './task.interface';
 
 export interface IColumnFull {
@@ -19,7 +20,6 @@ export type TConfirmationButtonText = {
   confirmationButtonText: 'Create' | 'Update';
 };
 
-/* eslint-disable @typescript-eslint/indent */
 export type TConfirmationModal = TNewColumn &
   TConfirmationTitleText &
   TConfirmationButtonText;

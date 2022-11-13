@@ -12,7 +12,7 @@ import {
 export class ApiColumnsService {
   constructor(private http: HttpClient) {}
 
-  public getAll(boardId: string) {
+  public getAll(boardId: string): Observable<TColumn[]> {
     return this.http.get<TColumn[]>(columnApi(boardId));
   }
 
@@ -23,7 +23,7 @@ export class ApiColumnsService {
     return this.http.get<IColumnFull>(columnApi(boardId, columnId));
   }
 
-  public create(boardId: string, column: TNewColumn) {
+  public create(boardId: string, column: TNewColumn): Observable<IColumnFull> {
     return this.http.post<IColumnFull>(columnApi(boardId), column);
   }
 
