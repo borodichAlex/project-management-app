@@ -51,7 +51,7 @@ export class UserGeneralFormComponent implements OnInit, OnDestroy {
 
   public userGeneralForm!: FormGroup;
 
-  public readonly translateBasePath = 'userSettingsPage.userEditSection';
+  public readonly translateBasePath = 'userSettingsPage.userGeneralSection';
 
   public translateData!: TranslateUserGeneralData;
 
