@@ -16,13 +16,15 @@ export class ColumnsService {
     this.apiColumns
       .getAll(boardId)
       .pipe(
-        mergeMap((column) => {
-          if (!column.length) {
+        mergeMap((columns) => {
+          if (!columns.length) {
+            this.columns$.next([]);
             this.isLoading$.next(false);
           }
-          const arr: Observable<IColumnFull>[] = column.map((item) =>
+          const arr: Observable<IColumnFull>[] = columns.map((item) =>
             this.apiColumns.getAllById(boardId, item.id),
           );
+
           return forkJoin(arr);
         }),
       )
