@@ -1,10 +1,14 @@
+.user-general-form {
+  --general-color: #eee;
+}
+
 .heading {
   margin-bottom: 1rem;
 }
 
 .user-general-form {
   border-radius: 10px;
-  border: 1px solid #eee;
+  border: 1px solid var(--general-color);
 
   display: flex;
   flex-direction: column;

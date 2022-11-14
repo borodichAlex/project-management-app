@@ -1,3 +1,7 @@
+section.page {
+  --danger-color: rgb(241, 188, 188);
+}
+
 .page {
   display: grid;
   justify-content: space-around;
@@ -12,7 +16,7 @@
 
 .danger-zone__inner {
   border-radius: 10px;
-  border: 1px solid rgb(241, 188, 188);
+  border: 1px solid var(--danger-color);
 
   display: flex;
   flex-direction: column;
