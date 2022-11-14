@@ -1,13 +1,14 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  OnInit,
   OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Location } from '@angular/common';
 import { ColumnsService } from '../../services/columns.service';
 import {
   IColumnFull,
@@ -39,6 +40,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private apiColumnsService: ApiColumnsService,
+    private location: Location,
   ) {}
 
   public ngOnInit(): void {
@@ -48,7 +50,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   public onClickCreateColumn(): void {
@@ -86,5 +88,9 @@ export class BoardComponent implements OnInit, OnDestroy {
       disableClose: true,
     });
     return dialogRef.afterClosed();
+  }
+
+  onClickBack() {
+    this.location.back();
   }
 }

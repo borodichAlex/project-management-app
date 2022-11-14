@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TTask, TTaskWithId } from '../interfaces/task.interface';
-import { columnApi } from '../../shared/constants';
+import { columnApi, taskApi } from '../../shared/constants';
 
 @Injectable()
 export class ApiTasksService {
@@ -14,5 +14,9 @@ export class ApiTasksService {
     task: TTask,
   ): Observable<TTaskWithId> {
     return this.http.post<TTaskWithId>(columnApi(boardId, columnId), task);
+  }
+
+  public delete(boardId: string, columnId: string, taskId: string) {
+    return this.http.delete(taskApi(boardId, columnId, taskId));
   }
 }

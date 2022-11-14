@@ -1,4 +1,16 @@
 <mat-card class="task">
+  <div class="buttons-group">
+    <button
+      mat-icon-button
+      color="warn"
+      aria-label="delete button"
+      matTooltip="Delete the Task"
+      matTooltipPosition="above"
+      (click)="onClickDeleteTask($event, {boardId, columnId, taskId: task.id})"
+    >
+      <mat-icon>highlight_off</mat-icon>
+    </button>
+  </div>
   <mat-card-header>
     <mat-card-title>{{ task.title }}</mat-card-title>
   </mat-card-header>

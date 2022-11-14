@@ -61,4 +61,19 @@ export class ColumnsService {
       this.columns$.next(newColumns);
     });
   }
+
+  public deleteTask(boardId: string, columnId: string, taskId: string) {
+    const newColumns: IColumnFull[] = this.columns$.value.map((column) => {
+      if (column.id !== columnId) {
+        return column;
+      }
+      const newColumn = {
+        ...column,
+        tasks: column.tasks.filter((task) => task.id !== taskId),
+      };
+
+      return newColumn;
+    });
+    this.columns$.next(newColumns);
+  }
 }

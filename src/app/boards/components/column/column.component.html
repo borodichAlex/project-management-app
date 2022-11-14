@@ -4,11 +4,11 @@
       mat-icon-button
       color="warn"
       aria-label="delete button"
-      matTooltip="Delete"
+      matTooltip="Delete the Column"
       matTooltipPosition="above"
       (click)="onClickDeleteColumn($event, boardId)"
     >
-      <mat-icon>delete</mat-icon>
+      <mat-icon>delete_forever</mat-icon>
     </button>
   </div>
   <mat-card-header>
@@ -20,7 +20,12 @@
     >
   </mat-card-header>
   <mat-card-content class="tasks">
-    <app-task *ngFor="let task of column.tasks" [task]="task"></app-task>
+    <app-task
+      *ngFor="let task of column.tasks"
+      [boardId]="boardId"
+      [columnId]="column.id"
+      [task]="task"
+    ></app-task>
   </mat-card-content>
   <button mat-icon-button (click)="onClickCreateTask()">
     <mat-icon color="primary">note_add</mat-icon>
