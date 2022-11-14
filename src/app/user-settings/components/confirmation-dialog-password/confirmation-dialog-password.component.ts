@@ -15,11 +15,7 @@ export type ConfirmationDialogPasswordData = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmationDialogPasswordComponent {
-  public passwordControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-    Validators.maxLength(32),
-  ]);
+  public passwordControl = new FormControl('', [Validators.required]);
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmationDialogPasswordComponent>,
