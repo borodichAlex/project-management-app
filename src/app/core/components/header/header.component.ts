@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { UserStateService } from '../../services/user-state.service';
 import { UserTokenService } from '../../services/user-token.service';
 
 @Component({
@@ -11,9 +12,14 @@ import { UserTokenService } from '../../services/user-token.service';
 export class HeaderComponent implements OnInit {
   public userName!: string;
 
-  constructor(public userToken: UserTokenService, private auth: AuthService) {}
+  constructor(
+    public userToken: UserTokenService,
+    private auth: AuthService,
+    private userState: UserStateService,
+  ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
+    // this.userName = this.userState.user.name;
     this.userName = '@USERNAME';
   }
 
