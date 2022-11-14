@@ -11,29 +11,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 
-import { UserData, UserDataKeys } from 'src/app/core/interfaces/user.interface';
-
-type TranslateUserGeneralData = {
-  heading: string;
-  btn: string;
-  fields: {
-    userName: {
-      label: string;
-    };
-    userLogin: {
-      label: string;
-    };
-  };
-};
-
-type TranslateFieldsKeys = 'userName' | 'userLogin';
-
-type UserGeneralFieldsKeys = UserDataKeys;
-
-type UserGeneralField = {
-  name: UserGeneralFieldsKeys;
-  translateKey: TranslateFieldsKeys;
-};
+import { UserData } from 'src/app/core/interfaces/user.interface';
+import {
+  TranslateUserGeneralData,
+  UserGeneralField,
+  UserGeneralFieldsKeys,
+} from './user-general-form.interface';
 
 @Component({
   selector: 'app-user-general-form',
