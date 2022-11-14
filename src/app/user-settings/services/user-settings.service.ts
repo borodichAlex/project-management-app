@@ -4,12 +4,12 @@ import {
   UserSecretData,
 } from 'src/app/core/interfaces/user.interface';
 import { UserStateService } from 'src/app/core/services/user-state.service';
-import { UsersRestApiService } from 'src/app/core/services/users-rest-api.service';
+import { UsersApiService } from 'src/app/core/services/users-rest-api.service';
 
 @Injectable()
 export class UserSettingsService {
   constructor(
-    private usersApiService: UsersRestApiService,
+    private usersApiService: UsersApiService,
     private userStateService: UserStateService,
   ) {}
 

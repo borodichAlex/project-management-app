@@ -13,7 +13,7 @@ type UserResponse = {
 };
 
 @Injectable()
-export class UsersRestApiService {
+export class UsersApiService {
   constructor(private http: HttpClient) {}
 
   public getAll(): Observable<UserResponse[]> {
