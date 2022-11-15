@@ -13,6 +13,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { UserStateService } from './services/user-state.service';
 import { UsersApiService } from './services/users-api.service';
+import { UserAuthenticationService } from './services/user-auth.service';
 
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
@@ -44,6 +45,7 @@ import { FooterComponent } from './components/footer/footer.component';
   providers: [
     UserStateService,
     UsersApiService,
+    UserAuthenticationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerInterceptor,
