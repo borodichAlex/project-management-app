@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
+import { TTaskConfirmationModal } from '../../interfaces/task.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
@@ -47,17 +48,19 @@ export class ColumnComponent {
     return dialogRef.afterClosed();
   }
 
+  /* eslint-disable no-console */
   // eslint-disable-next-line class-methods-use-this
   public onClickCreateTask() {
-    // eslint-disable-next-line no-console
     console.log('create task');
-    /* console.log('user:', this.userStateService.user.id);
+    console.log('user:', this.userStateService.user.id);
     const modalConfig: TTaskConfirmationModal = {
       title: '',
       description: '',
-      userId: this.userStateService.user.id,
+      userId: '',
+      //   userId: this.userStateService.user.id,
       confirmationTitleText: 'Create new Task',
       confirmationButtonText: 'Create',
-    }; */
+    };
+    console.log(modalConfig);
   }
 }
