@@ -36,7 +36,6 @@ const routes: Routes = [
       import('./boards/boards.module').then((m) => m.BoardsModule),
     canActivate: [AuthGuard],
   },
-
   {
     path: '**',
     component: NotFoundComponent,

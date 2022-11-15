@@ -11,6 +11,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { AuthGuard } from './guards/auth.guard';
+import { GuestGuard } from './guards/guest.guard';
+
 import { UserStateService } from './services/user-state.service';
 import { UsersApiService } from './services/users-api.service';
 import { UserAuthenticationService } from './services/user-auth.service';
@@ -46,6 +49,8 @@ import { FooterComponent } from './components/footer/footer.component';
     UserStateService,
     UsersApiService,
     UserAuthenticationService,
+    AuthGuard,
+    GuestGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ErrorHandlerInterceptor,
