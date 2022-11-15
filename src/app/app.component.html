@@ -1,3 +1,7 @@
-<h1>{{ 'appTitle' | translate }}</h1>
-
-<router-outlet></router-outlet>
+<app-header class="auth-header"></app-header>
+<main class="main">
+  <section class="content">
+    <router-outlet></router-outlet>
+  </section>
+</main>
+<app-footer></app-footer>
