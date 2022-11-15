@@ -38,5 +38,29 @@
   "errors": {
     "User was not founded!": "Login or password is incorrect!",
     "User login already exists!": "User login already exists!"
+  },
+  "userSettingsPage": {
+    "userGeneralSection": {
+      "heading": "General",
+      "btn": "Rename",
+      "fields": {
+        "userName": {
+          "label": "User name"
+        },
+        "userLogin": {
+          "label": "Login"
+        }
+      }
+    },
+    "userDangerSection": {
+      "heading": "Danger Zone",
+      "fields": {
+        "delete": {
+          "title": "Delete account",
+          "btn": "Delete"
+        }
+      }
+    }
   }
+
 }

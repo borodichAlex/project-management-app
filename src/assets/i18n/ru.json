@@ -38,5 +38,28 @@
   "errors": {
     "User was not founded!": "Неверный логин или пароль!",
     "User login already exists!": "Логин пользователя уже существует!"
+  },
+  "userSettingsPage": {
+    "userGeneralSection": {
+      "heading": "Основные",
+      "btn": "Переименовать",
+      "fields": {
+        "userName": {
+          "label": "Имя пользователя"
+        },
+        "userLogin": {
+          "label": "Логин"
+        }
+      }
+    },
+    "userDangerSection": {
+      "heading": "Опасная зона",
+      "fields": {
+        "delete": {
+          "title": "Удалить аккаунт",
+          "btn": "Удалить"
+        }
+      }
+    }
   }
 }
