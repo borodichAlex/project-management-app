@@ -14,10 +14,11 @@
   </div>
   <div class="team">
     <a
+      *ngFor="let contact of contacts"
       mat-button
       color="accent"
       class="git-nickname"
-      href="https://github.com/"
+      [href]="contact.url"
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -26,53 +27,7 @@
         color="accent"
         class="ghlogo-icon"
       ></mat-icon>
-      <span class="nickname">Alexander</span>
-    </a>
-    <a
-      mat-button
-      color="accent"
-      class="git-nickname"
-      href="https://github.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <mat-icon
-        svgIcon="git-logo"
-        color="accent"
-        class="ghlogo-icon"
-      ></mat-icon>
-      <span class="nickname">Pavel</span>
-    </a>
-    <a
-      mat-button
-      color="accent"
-      class="git-nickname"
-      href="https://github.com/"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <mat-icon
-        svgIcon="git-logo"
-        color="accent"
-        class="ghlogo-icon"
-      ></mat-icon>
-      <span class="nickname">Yurij</span>
-    </a>
-    <a
-      mat-button
-      aria-label="BlueOwll"
-      color="accent"
-      class="git-nickname"
-      href="https://github.com/BlueOwll"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <mat-icon
-        svgIcon="git-logo"
-        color="accent"
-        class="ghlogo-icon"
-      ></mat-icon>
-      <span class="nickname">BlueOwll</span>
+      <span class="nickname">{{ contact.nickname }}</span>
     </a>
   </div>
 </div>
