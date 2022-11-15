@@ -3,3 +3,7 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.global-user-edit-field .mat-form-field-infix {
+  border-top: 0;
+}

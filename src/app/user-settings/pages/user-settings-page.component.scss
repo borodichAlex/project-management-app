@@ -1,0 +1,41 @@
+section.page {
+  --danger-color: rgb(241, 188, 188);
+}
+
+.page {
+  display: grid;
+  justify-content: space-around;
+
+  padding: 2rem;
+  gap: 2rem;
+}
+
+.danger-zone__heading {
+  margin-bottom: 1rem;
+}
+
+.danger-zone__inner {
+  border-radius: 10px;
+  border: 1px solid var(--danger-color);
+
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 100px;
+
+  padding: 10px 1rem;
+}
+
+.item__title {
+  margin-bottom: 0;
+}
+
+.item__btn {
+  font-size: .85rem;
+  padding: 0.2em 1.5em;
+}

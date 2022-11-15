@@ -5,10 +5,15 @@ import {
   OnInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { UserTokenService } from './core/services/user-token.service';
+import { UserStateService } from './core/services/user-state.service';
 
 import { AppLanguageService } from './shared/services/translate/app-language.service';
 
+const mockUserData = {
+  id: 'id-user',
+  name: 'Vasya',
+  login: 'user012',
+};
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -20,11 +25,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private appLangService: AppLanguageService,
-    public userToken: UserTokenService,
+    private userStateService: UserStateService,
   ) {}
 
   public ngOnInit(): void {
     this.initAppLanguage();
+    this.userStateService.init(mockUserData);
   }
 
   public ngOnDestroy(): void {
