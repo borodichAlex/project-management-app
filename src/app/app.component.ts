@@ -5,6 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { UserTokenService } from './core/services/user-token.service';
 
 import { AppLanguageService } from './shared/services/translate/app-language.service';
 
@@ -17,7 +18,10 @@ import { AppLanguageService } from './shared/services/translate/app-language.ser
 export class AppComponent implements OnInit, OnDestroy {
   private langChangeSubscription!: Subscription;
 
-  constructor(private appLangService: AppLanguageService) {}
+  constructor(
+    private appLangService: AppLanguageService,
+    public userToken: UserTokenService,
+  ) {}
 
   public ngOnInit(): void {
     this.initAppLanguage();
