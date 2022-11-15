@@ -34,8 +34,8 @@ export class ColumnsService {
       });
   }
 
-  public get columns(): Observable<IColumnFull[]> {
-    return this.columns$.asObservable();
+  public get columns(): BehaviorSubject<IColumnFull[]> {
+    return this.columns$;
   }
 
   public get columnsArr(): IColumnFull[] {
@@ -60,20 +60,5 @@ export class ColumnsService {
       );
       this.columns$.next(newColumns);
     });
-  }
-
-  public deleteTask(boardId: string, columnId: string, taskId: string) {
-    const newColumns: IColumnFull[] = this.columns$.value.map((column) => {
-      if (column.id !== columnId) {
-        return column;
-      }
-      const newColumn = {
-        ...column,
-        tasks: column.tasks.filter((task) => task.id !== taskId),
-      };
-
-      return newColumn;
-    });
-    this.columns$.next(newColumns);
   }
 }
