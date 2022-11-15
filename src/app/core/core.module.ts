@@ -6,7 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 
 import { UserTokenService } from './services/user-token.service';
 import { UserStateService } from './services/user-state.service';
-import { UsersApiService } from './services/users-rest-api.service';
+import { UsersApiService } from './services/users-api.service';
 
 import { ErrorHandlerInterceptor } from './interceptors/error-handler.interceptor';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
