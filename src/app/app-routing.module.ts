@@ -19,6 +19,14 @@ const routes: Routes = [
     canActivate: [GuestGuard],
   },
   {
+    path: RoutePaths.userProfile,
+    loadChildren: () =>
+      import('./user-settings/user-settings.module').then(
+        (m) => m.UserSettingsModule,
+      ),
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },

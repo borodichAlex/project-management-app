@@ -5,6 +5,10 @@
     "signUpButtonLabel": "Sign Up",
     "welcome": "WELCOME!! We are glad to see you! Please, log in or sign up!"
   },
+  "header": {
+    "editProfile": "Edit Profile",
+    "logout": "Log  Out"
+  },
   "signupPage": {
     "title": "Sign up",
     "nameLable": "name",
@@ -34,5 +38,29 @@
   "errors": {
     "User was not founded!": "Login or password is incorrect!",
     "User login already exists!": "User login already exists!"
+  },
+  "userSettingsPage": {
+    "userGeneralSection": {
+      "heading": "General",
+      "btn": "Rename",
+      "fields": {
+        "userName": {
+          "label": "User name"
+        },
+        "userLogin": {
+          "label": "Login"
+        }
+      }
+    },
+    "userDangerSection": {
+      "heading": "Danger Zone",
+      "fields": {
+        "delete": {
+          "title": "Delete account",
+          "btn": "Delete"
+        }
+      }
+    }
   }
+
 }

@@ -5,6 +5,7 @@ export const MODAL_WIDTH = '300px';
 export enum ENDPOINTS {
   signin = 'signin',
   signup = 'signup',
+  users = 'users',
 }
 
 export enum RoutePaths {
@@ -16,6 +17,7 @@ export enum RoutePaths {
   authPrefix = 'auth/',
   login = 'login',
   signup = 'signup',
+  userProfile = 'user-profile',
 }
 
 export function columnApi(boardId: string, columnId?: string): string {

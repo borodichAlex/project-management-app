@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>{{ data.confirmationTitleText }}</h1>
+<div mat-dialog-content>
+  <form class="create-form" [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>Title</mat-label>
+      <input
+        #title
+        class="form-input"
+        value="New Task"
+        matInput
+        formControlName="title"
+        [maxlength]="maxLength.title"
+        placeholder="Please enter a title"
+        autocomplete="off"
+      />
+      <mat-hint align="end"
+        >{{ title.value.length }} / {{ maxLength.title }}</mat-hint
+      >
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea
+        #description
+        class="form-description"
+        matInput
+        formControlName="description"
+        [maxlength]="maxLength.description"
+        placeholder="Please enter a description"
+        autocomplete="off"
+      ></textarea>
+      <mat-hint align="end"
+        >{{ description.value.length }} / {{ maxLength.description }}</mat-hint
+      >
+    </mat-form-field>
+  </form>
+</div>
+<div class="dialog-actions" mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="null" color="warn">
+    Cancel
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="form.value"
+    color="primary"
+    [disabled]="!form.valid"
+  >
+    {{ data.confirmationButtonText }}
+  </button>
+</div>

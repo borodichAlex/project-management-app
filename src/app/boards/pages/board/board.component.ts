@@ -16,7 +16,7 @@ import {
   TNewColumn,
 } from '../../interfaces/column.interface';
 
-import { ColumnsModalComponent } from '../../components/columns-modal/columns-modal.component';
+import { ColumnsModalComponent } from '../../modals/columns/columns-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
 import { ApiColumnsService } from '../../services/api-columns.service';
 
