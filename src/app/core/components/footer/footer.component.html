@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <a
+    class="footer__logo"
+    href="https://rs.school/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <mat-icon svgIcon="rss-logo" color="primary" class="logo-icon"></mat-icon>
+  </a>
+  <p>2022</p>
+  <div class="copyright">
+    <mat-icon color="accent">copyright</mat-icon>
+    <span>team_6</span>
+  </div>
+  <div class="team">
+    <a
+      *ngFor="let contact of contacts"
+      mat-button
+      color="accent"
+      class="git-nickname"
+      [href]="contact.url"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <mat-icon
+        svgIcon="git-logo"
+        color="accent"
+        class="ghlogo-icon"
+      ></mat-icon>
+      <span class="nickname">{{ contact.nickname }}</span>
+    </a>
+  </div>
+</div>
