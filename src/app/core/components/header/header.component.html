@@ -1,7 +1,7 @@
 <header class="wrapper">
   <app-language-toggler></app-language-toggler>
   <button
-    *ngIf="userToken.isLoggedIn$ | async"
+    *ngIf="isAuthUser$ | async"
     mat-stroked-button
     [matMenuTriggerFor]="menu"
     color="primary"
@@ -16,7 +16,7 @@
       {{ 'header.logout' | translate }}
     </button>
   </mat-menu>
-  <section *ngIf="(userToken.isLoggedIn$ | async) === false" class="buttons">
+  <section *ngIf="(isAuthUser$ | async) === false" class="buttons">
     <button mat-raised-button color="primary" (click)="onLogInClick()">
       {{ 'welcomePage.logInButtonLabel' | translate }}
     </button>

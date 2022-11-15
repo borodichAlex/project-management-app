@@ -5,15 +5,16 @@ import { User, UserData, UserSecretData } from '../interfaces/user.interface';
 
 @Injectable()
 export class UserStateService {
-  public get user$(): Observable<UserData> {
+  public get user$(): Observable<UserData | null> {
     return this.userData$.asObservable();
   }
 
-  public get user(): UserData {
+  public get user(): UserData | null {
     return this.userData$.getValue();
   }
 
-  private userData$!: BehaviorSubject<UserData>;
+  private userData$: BehaviorSubject<UserData | null> =
+    new BehaviorSubject<UserData | null>(null);
 
   private userSecretData!: UserSecretData;
 
@@ -26,7 +27,7 @@ export class UserStateService {
   }
 
   public init(user: UserData): void {
-    this.userData$ = new BehaviorSubject<UserData>(user);
+    this.userData$.next(user);
   }
 
   public saveUser({ id, name, login, password }: User): void {
@@ -41,5 +42,9 @@ export class UserStateService {
     this.userData$.next(userData);
 
     this.userSecret = userSecretData;
+  }
+
+  public removeUser(): void {
+    this.userData$.next(null);
   }
 }

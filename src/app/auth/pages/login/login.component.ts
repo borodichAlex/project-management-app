@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { RoutePaths } from 'src/app/shared/constants';
-import { AuthService } from '../../services/auth.service';
-import { UserTokenService } from '../../../core/services/user-token.service';
+import { UserAuthenticationService } from 'src/app/core/services/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -32,11 +29,7 @@ export class LoginComponent implements OnDestroy {
 
   private subscription!: Subscription;
 
-  constructor(
-    private authService: AuthService,
-    private userTokenService: UserTokenService,
-    private router: Router,
-  ) {
+  constructor(private userAuthService: UserAuthenticationService) {
     this.initFormStatusChangesObserver();
   }
 
@@ -46,13 +39,12 @@ export class LoginComponent implements OnDestroy {
 
   public logIn() {
     const { login, password } = this.user.value;
-    const request = this.authService.signIn(login!, password!);
-    this.subscription.add(
-      request.subscribe((x) => {
-        this.userTokenService.setToken(x.token);
-        this.router.navigate([RoutePaths.boards]);
-      }),
-    );
+    if (login && password) {
+      this.userAuthService.signIn({
+        login,
+        password,
+      });
+    }
   }
 
   private initFormStatusChangesObserver(): void {

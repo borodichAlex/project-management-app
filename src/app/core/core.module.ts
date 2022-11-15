@@ -24,6 +24,7 @@ import { ErrorDialogComponent } from './components/error-dialog/error-dialog.com
 import { LanguageTogglerComponent } from './components/language-toggler/language-toggler.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { UserTokenService } from './services/user-token.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   providers: [
     UserStateService,
+    UserTokenService,
     UsersApiService,
     UserAuthenticationService,
     AuthGuard,
