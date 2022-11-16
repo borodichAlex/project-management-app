@@ -8,7 +8,7 @@ import {
   TBoard,
   TConfirmationModal,
 } from '../../interfaces/boards.interface';
-import { BoardsModalComponent } from '../../components/boards-modal/boards-modal.component';
+import { BoardsModalComponent } from '../../modals/boards/boards-modal.component';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
