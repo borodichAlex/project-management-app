@@ -16,17 +16,13 @@ import { BoardComponent } from './pages/board/board.component';
 import { ColumnsService } from './services/columns.service';
 import { ApiColumnsService } from './services/api-columns.service';
 import { ColumnComponent } from './components/column/column.component';
-import { TaskComponent } from './components/task/task.component';
 import { SortByOrderPipe } from '../shared/pipes/sort-by-order.pipe';
-import { ApiTasksService } from './services/api-tasks.service';
-import { TasksService } from './services/tasks.service';
 
 @NgModule({
   declarations: [
     BoardsComponent,
     BoardComponent,
     ColumnComponent,
-    TaskComponent,
     SortByOrderPipe,
   ],
   imports: [
@@ -46,8 +42,6 @@ import { TasksService } from './services/tasks.service';
     BoardsService,
     ApiColumnsService,
     ColumnsService,
-    ApiTasksService,
-    TasksService,
   ],
 })
 export class BoardsModule {}
