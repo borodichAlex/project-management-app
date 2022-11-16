@@ -13,7 +13,21 @@ export class TasksService {
 
   public create(boardId: string, columnId: string, task: TTask): void {
     this.apiTasks.create(boardId, columnId, task).subscribe((newTask) => {
-      this.columnsService.createTask(columnId, newTask);
+      const newColumns: IColumnFull[] = this.columnsService.columns.value.map(
+        (column) => {
+          if (column.id !== columnId) {
+            return column;
+          }
+          column.tasks.push(newTask);
+          const newColumn = {
+            ...column,
+            tasks: column.tasks,
+          };
+
+          return newColumn;
+        },
+      );
+      this.columnsService.columns.next(newColumns);
     });
   }
 

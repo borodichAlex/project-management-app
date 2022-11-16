@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, mergeMap, Observable } from 'rxjs';
 import { IColumnFull, TNewColumn } from '../interfaces/column.interface';
-import { ITask } from '../interfaces/task.interface';
 import { ApiColumnsService } from './api-columns.service';
 
 @Injectable()
@@ -61,21 +60,5 @@ export class ColumnsService {
       );
       this.columns$.next(newColumns);
     });
-  }
-
-  public createTask(columnId: string, newTask: ITask) {
-    const newColumns: IColumnFull[] = this.columns$.value.map((column) => {
-      if (column.id !== columnId) {
-        return column;
-      }
-      column.tasks.push(newTask);
-      const newColumn = {
-        ...column,
-        tasks: column.tasks,
-      };
-
-      return newColumn;
-    });
-    this.columns$.next(newColumns);
   }
 }

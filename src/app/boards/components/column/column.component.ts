@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { UserStateService } from 'src/app/core/services/user-state.service';
 import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
 import { ColumnsService } from '../../services/columns.service';
@@ -8,6 +9,7 @@ import { ColumnsService } from '../../services/columns.service';
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
+import { TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'app-column',
@@ -23,6 +25,8 @@ export class ColumnComponent {
   constructor(
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
+    private userStateService: UserStateService,
+    private tasksService: TasksService,
   ) {}
 
   public onClickDeleteColumn(event: MouseEvent, boardId: string) {
@@ -50,7 +54,7 @@ export class ColumnComponent {
     const modalConfig: TTaskConfirmationModal = {
       title: '',
       description: '',
-      userId: this.userStateService.user.id,
+      userId: this.userStateService.user!.id,
       confirmationTitleText: 'Create new Task',
       confirmationButtonText: 'Create',
     };
