@@ -19,4 +19,16 @@
       >{{ column.title }}</mat-card-title
     >
   </mat-card-header>
+  <mat-card-content class="tasks">
+    <app-task
+      *ngFor="let task of column.tasks"
+      [boardId]="boardId"
+      [columnId]="column.id"
+      [task]="task"
+    ></app-task>
+  </mat-card-content>
+  <button mat-icon-button (click)="onClickCreateTask()">
+    <mat-icon color="primary">note_add</mat-icon>
+    Add a Task
+  </button>
 </mat-card>

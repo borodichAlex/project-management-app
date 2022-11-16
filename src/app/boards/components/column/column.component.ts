@@ -5,6 +5,11 @@ import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
+import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
+import { UserStateService } from '../../../core/services/user-state.service';
+import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
+import { MODAL_WIDTH } from '../../../shared/constants';
+import { TasksService } from '../../services/tasks.service';
 
 @Component({
   selector: 'app-column',
@@ -20,6 +25,8 @@ export class ColumnComponent {
   constructor(
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
+    private userStateService: UserStateService,
+    private tasksService: TasksService,
   ) {}
 
   public onClickDeleteColumn(event: MouseEvent, boardId: string) {
@@ -38,6 +45,31 @@ export class ColumnComponent {
   private openDialog(message: TNewColumn): Observable<boolean> {
     const dialogRef = this.matDialog.open(ConfirmationComponent, {
       data: message,
+    });
+
+    return dialogRef.afterClosed();
+  }
+
+  public onClickCreateTask(): void {
+    const modalConfig: TTaskConfirmationModal = {
+      title: '',
+      description: '',
+      userId: this.userStateService.user!.id,
+      confirmationTitleText: 'Create new Task',
+      confirmationButtonText: 'Create',
+    };
+    this.openModalWindow(modalConfig).subscribe((newTask) => {
+      if (newTask) {
+        this.tasksService.create(this.boardId, this.column.id, newTask);
+      }
+    });
+  }
+
+  private openModalWindow(data: TTaskConfirmationModal): Observable<TTask> {
+    const dialogRef = this.matDialog.open(TasksModalComponent, {
+      width: MODAL_WIDTH,
+      data,
+      disableClose: true,
     });
 
     return dialogRef.afterClosed();
