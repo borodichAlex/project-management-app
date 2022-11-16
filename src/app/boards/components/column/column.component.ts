@@ -6,8 +6,6 @@ import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import { TasksService } from '../../services/tasks.service';
-import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
 
@@ -25,8 +23,6 @@ export class ColumnComponent {
   constructor(
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
-    private tasksService: TasksService,
-    private userStateService: UserStateService,
   ) {}
 
   public onClickDeleteColumn(event: MouseEvent, boardId: string) {
