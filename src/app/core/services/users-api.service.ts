@@ -6,7 +6,7 @@ import { ENDPOINTS, SERVER_URL } from 'src/app/shared/constants';
 import { getURLPath } from 'src/app/shared/helpers/path-url-separator';
 import { User } from '../interfaces/user.interface';
 
-type UserResponse = {
+export type UserResponse = {
   id: string;
   name: string;
   login: string;

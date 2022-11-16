@@ -1,9 +1,21 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { Observable, Subscription } from 'rxjs';
+import {
+  ConfirmationComponent,
+  DialogData,
+} from 'src/app/shared/components/confirmation/confirmation.component';
 import { RoutePaths } from 'src/app/shared/constants';
+import { UserData } from '../../interfaces/user.interface';
+import { UserAuthenticationService } from '../../services/user-auth.service';
 import { UserStateService } from '../../services/user-state.service';
-import { UserTokenService } from '../../services/user-token.service';
 
 @Component({
   selector: 'app-header',
@@ -11,19 +23,28 @@ import { UserTokenService } from '../../services/user-token.service';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
   public userName!: string;
 
+  public isAuthUser$!: Observable<boolean>;
+
+  public subscription!: Subscription;
+
   constructor(
-    public userToken: UserTokenService,
-    private auth: AuthService,
-    private userState: UserStateService,
+    private userAuthService: UserAuthenticationService,
+    private userStateService: UserStateService,
     private router: Router,
+    private matDialog: MatDialog,
+    private CDRef: ChangeDetectorRef,
   ) {}
 
   public ngOnInit(): void {
-    // this.userName = this.userState.user.name;
-    this.userName = '@USERNAME';
+    this.isAuthUser$ = this.userAuthService.isAuth$;
+    this.initUserNameObserver();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   public onLogInClick() {
@@ -35,11 +56,36 @@ export class HeaderComponent implements OnInit {
   }
 
   public onEditProfileClick() {
-    console.log(`Edit user ${this.userName}`);
-    // call editProfile modal window / component
+    this.router.navigate([RoutePaths.userProfile]);
   }
 
   public onLogoutClick() {
-    this.auth.logOut();
+    const message = {
+      title: 'Logout',
+      description: 'Would you like to log out?',
+    };
+    this.logOutConfirmation(message).subscribe((isConfirm) => {
+      if (isConfirm) {
+        this.userAuthService.logout();
+      }
+    });
+  }
+
+  private logOutConfirmation(message: DialogData): Observable<boolean> {
+    const dialogRef = this.matDialog.open(ConfirmationComponent, {
+      data: message,
+    });
+    return dialogRef.afterClosed();
+  }
+
+  private initUserNameObserver(): void {
+    this.subscription = this.userStateService.user$.subscribe(
+      (user: UserData | null) => {
+        if (user) {
+          this.userName = user.name;
+          this.CDRef.detectChanges();
+        }
+      },
+    );
   }
 }
