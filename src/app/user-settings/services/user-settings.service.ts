@@ -3,6 +3,7 @@ import {
   UserData,
   UserSecretData,
 } from 'src/app/core/interfaces/user.interface';
+import { UserAuthenticationService } from 'src/app/core/services/user-auth.service';
 import { UserStateService } from 'src/app/core/services/user-state.service';
 import { UsersApiService } from 'src/app/core/services/users-api.service';
 
@@ -11,13 +12,14 @@ export class UserSettingsService {
   constructor(
     private usersApiService: UsersApiService,
     private userStateService: UserStateService,
+    private userAuthService: UserAuthenticationService,
   ) {}
 
   public editUser(
     partialUser: Partial<UserData>,
     userPassword: UserSecretData,
   ): void {
-    const { id, name, login } = this.userStateService.user;
+    const { id, name, login } = this.userStateService.user!;
 
     // TODO: add handle error (show snackbar with mistake)
     if (id) {
@@ -38,11 +40,11 @@ export class UserSettingsService {
   }
 
   public deleteUser(): void {
-    const { id } = this.userStateService.user;
+    const { id } = this.userStateService.user!;
 
     this.usersApiService.delete(id).subscribe((res) => {
       if (res === 204) {
-        // TODO: add call AuthService.logout()
+        this.userAuthService.logout();
       }
     });
   }

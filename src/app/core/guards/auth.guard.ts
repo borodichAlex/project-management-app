@@ -1,31 +1,18 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Injectable } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  CanActivate,
-  Router,
-  RouterStateSnapshot,
-  UrlTree,
-} from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 import { RoutePaths } from 'src/app/shared/constants';
-import { UserTokenService } from '../services/user-token.service';
+import { ICanActivateReturnValue } from '../interfaces/common-guard.interface';
+import { UserAuthenticationService } from '../services/user-auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private userToken: UserTokenService, private router: Router) {}
+  constructor(
+    private userAuthService: UserAuthenticationService,
+    private router: Router,
+  ) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    if (this.userToken.getToken()) return true;
+  canActivate(): ICanActivateReturnValue {
+    if (this.userAuthService.isAuth) return true;
     return this.router.createUrlTree([RoutePaths.welcome]);
   }
 }
