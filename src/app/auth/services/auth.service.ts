@@ -1,28 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ITokenResponce } from 'src/app/core/services/types';
-import { SERVER_URL, ENDPOINTS, RoutePaths } from 'src/app/shared/constants';
-// eslint-disable-next-line max-len
-import { ConfirmationComponent } from 'src/app/shared/components/confirmation/confirmation.component';
-import { UserTokenService } from 'src/app/core/services/user-token.service';
-import { Router } from '@angular/router';
-import { TBoard } from 'src/app/boards/interfaces/boards.interface';
+import { UserResponse } from 'src/app/core/services/users-api.service';
+import { SERVER_URL, ENDPOINTS } from 'src/app/shared/constants';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
-  constructor(
-    private http: HttpClient,
-    private matDialog: MatDialog,
-    private userTokenService: UserTokenService,
-    private router: Router,
-  ) {}
+export class AuthApiService {
+  constructor(private http: HttpClient) {}
 
-  public signUp(name: string, login: string, password: string) {
-    return this.http.post(`${SERVER_URL}/${ENDPOINTS.signup}`, {
+  public signUp(
+    name: string,
+    login: string,
+    password: string,
+  ): Observable<UserResponse> {
+    return this.http.post<UserResponse>(`${SERVER_URL}/${ENDPOINTS.signup}`, {
       name,
       login,
       password,
@@ -34,26 +28,5 @@ export class AuthService {
       login,
       password,
     });
-  }
-
-  public logOut(): void {
-    const message = {
-      title: 'Logout',
-      description: 'Would you like to log out?',
-    };
-    this.logOutConfirmation(message).subscribe((result) => {
-      if (result) {
-        this.userTokenService.removeToken();
-        this.router.navigate([RoutePaths.welcome]);
-      }
-    });
-  }
-
-  private logOutConfirmation(message: TBoard): Observable<boolean> {
-    const dialogRef = this.matDialog.open(ConfirmationComponent, {
-      data: message,
-    });
-
-    return dialogRef.afterClosed();
   }
 }
