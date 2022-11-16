@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { columnApi } from '../../shared/constants';
 import {
   IColumnFull,
   TColumn,
   TNewColumn,
 } from '../interfaces/column.interface';
+import { columnApi } from '../../shared/utils/api';
 
 @Injectable()
 export class ApiColumnsService {

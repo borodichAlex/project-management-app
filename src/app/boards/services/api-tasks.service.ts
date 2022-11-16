@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TTask, TTaskWithId } from '../interfaces/task.interface';
-import { columnApi, taskApi } from '../../shared/constants';
+import { columnApi, taskApi } from '../../shared/utils/api';
 
 @Injectable()
 export class ApiTasksService {
