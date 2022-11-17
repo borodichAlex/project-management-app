@@ -1,15 +1,26 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
+import {
+  TTaskConfirmationModal,
+  TTask,
+  ITask,
+} from '../../interfaces/task.interface';
 import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
 import { TasksService } from '../../services/tasks.service';
+import { ApiTasksService } from '../../services/api-tasks.service';
 
 @Component({
   selector: 'app-column',
@@ -17,17 +28,24 @@ import { TasksService } from '../../services/tasks.service';
   styleUrls: ['./column.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent {
+export class ColumnComponent implements OnDestroy {
   @Input() column!: IColumnFull;
 
   @Input() boardId!: string;
+
+  private subscription!: Subscription;
 
   constructor(
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private userStateService: UserStateService,
     private tasksService: TasksService,
+    private apiTasksService: ApiTasksService,
   ) {}
+
+  public ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 
   public onClickDeleteColumn(event: MouseEvent) {
     event.stopPropagation();
@@ -55,6 +73,18 @@ export class ColumnComponent {
         this.tasksService.create(this.boardId, this.column.id, newTask);
       }
     });
+  }
+
+  public drop(event: CdkDragDrop<ITask[]>) {
+    moveItemInArray(this.column.tasks, event.previousIndex, event.currentIndex);
+    this.subscription = this.apiTasksService
+      .put(
+        this.boardId,
+        this.column.id,
+        this.column.tasks[event.currentIndex],
+        event.currentIndex,
+      )
+      .subscribe();
   }
 
   private openDialog(message: TNewColumn): Observable<boolean> {

@@ -27,12 +27,17 @@
       >{{ column.title }}</mat-card-title
     >
   </mat-card-header>
-  <mat-card-content class="tasks">
+  <mat-card-content
+    class="tasks"
+    cdkDropList
+    (cdkDropListDropped)="drop($event)"
+  >
     <app-task
-      *ngFor="let task of column.tasks"
+      *ngFor="let task of column.tasks | sortTasksByOrder"
       [boardId]="boardId"
       [columnId]="column.id"
       [task]="task"
+      cdkDrag
     ></app-task>
   </mat-card-content>
   <button mat-icon-button (click)="onClickCreateTask()">

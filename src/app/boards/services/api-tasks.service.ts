@@ -25,4 +25,22 @@ export class ApiTasksService {
       taskApi(boardId, columnId, taskId),
     );
   }
+
+  public put(
+    boardId: string,
+    columnId: string,
+    task: ITask,
+    currentIndex: number,
+  ) {
+    const currentOrder = currentIndex + 1;
+    const response = this.http.put(taskApi(boardId, columnId, task.id), {
+      title: task.title,
+      order: currentOrder,
+      description: task.description,
+      userId: task.userId,
+      boardId,
+      columnId,
+    });
+    return response;
+  }
 }
