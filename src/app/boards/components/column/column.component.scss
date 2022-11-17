@@ -1,3 +1,5 @@
+@import '../../../core/color-vars.scss';
+
 .column {
   width: 300px;
   min-height: 100px;
@@ -10,6 +12,14 @@
 .buttons-group {
   display: flex;
   justify-content: right;
+
+  .example-handle {
+    margin: 8px 90px 0 0;
+    width: 24px;
+    height: 24px;
+    color: $cdkDragHandleColor;
+    cursor: move;
+  }
 }
 
 .tasks {
