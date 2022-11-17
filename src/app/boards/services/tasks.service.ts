@@ -18,10 +18,10 @@ export class TasksService {
           if (column.id !== columnId) {
             return column;
           }
-          column.tasks.push(newTask);
+          const tasks = [...column.tasks, newTask];
           const newColumn = {
             ...column,
-            tasks: column.tasks,
+            tasks,
           };
 
           return newColumn;
