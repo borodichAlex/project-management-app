@@ -17,6 +17,8 @@ export class ColumnComponent {
 
   @Input() boardId!: string;
 
+  isShowTitleInput: boolean = false;
+
   constructor(
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
@@ -41,5 +43,22 @@ export class ColumnComponent {
     });
 
     return dialogRef.afterClosed();
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  onClickTitle() {
+    // eslint-disable-next-line no-console
+    console.log('title click');
+    this.isShowTitleInput = !this.isShowTitleInput;
+  }
+
+  onClickButtonCloseInput() {
+    this.isShowTitleInput = false;
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  onClickButtonDoneInput(value: string) {
+    // eslint-disable-next-line no-console
+    console.log('title:', value);
   }
 }
