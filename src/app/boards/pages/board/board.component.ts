@@ -78,7 +78,9 @@ export class BoardComponent implements OnInit, OnDestroy {
         this.columnsService.columnsArr[event.currentIndex],
         event.currentIndex,
       )
-      .subscribe();
+      .subscribe(() => {
+        this.columnsService.loadAll(this.boardId);
+      });
   }
 
   private openModalWindow(data: TConfirmationModal): Observable<TNewColumn> {
