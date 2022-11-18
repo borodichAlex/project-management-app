@@ -13,7 +13,8 @@ export class TasksService {
 
   public create(boardId: string, columnId: string, task: TTask): void {
     this.apiTasks.create(boardId, columnId, task).subscribe((newTask) => {
-      const newColumns: IColumnFull[] = this.columnsService.columns.value.map(
+      // TODO: change map to find and replace
+      const newColumns: IColumnFull[] = this.columnsService.columns.map(
         (column) => {
           if (column.id !== columnId) {
             return column;
@@ -27,13 +28,14 @@ export class TasksService {
           return newColumn;
         },
       );
-      this.columnsService.columns.next(newColumns);
+      this.columnsService.setColumns(newColumns);
     });
   }
 
   public delete(boardId: string, columnId: string, taskId: string): void {
     this.apiTasks.delete(boardId, columnId, taskId).subscribe(() => {
-      const newColumns: IColumnFull[] = this.columnsService.columns.value.map(
+      // TODO: change map to find and replace
+      const newColumns: IColumnFull[] = this.columnsService.columns.map(
         (column) => {
           if (column.id !== columnId) {
             return column;
@@ -46,7 +48,7 @@ export class TasksService {
           return newColumn;
         },
       );
-      this.columnsService.columns.next(newColumns);
+      this.columnsService.setColumns(newColumns);
     });
   }
 }

@@ -46,7 +46,7 @@ export class BoardComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.isLoading$ = this.columnsService.isLoading;
     this.columnsService.loadAll(this.boardId);
-    this.columns$ = this.columnsService.columns;
+    this.columns$ = this.columnsService.columns$;
   }
 
   public ngOnDestroy(): void {
@@ -66,23 +66,30 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
   }
 
+  // TODO: !!!
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
-      this.columnsService.columnsArr,
+      this.columnsService.columns,
       event.previousIndex,
       event.currentIndex,
     );
+    const currentOrder = event.currentIndex + 1;
     this.subscription = this.apiColumnsService
       .put(
         this.boardId,
-        this.columnsService.columnsArr[event.currentIndex],
-        event.currentIndex,
+        this.columnsService.columns[event.currentIndex],
+        currentOrder,
       )
       .subscribe(() => {
         this.columnsService.loadAll(this.boardId);
       });
   }
 
+  public onClickBack() {
+    this.location.back();
+  }
+
+  // TODO: add to confirmation modal (shared module)
   private openModalWindow(data: TConfirmationModal): Observable<TNewColumn> {
     const dialogRef = this.matDialog.open(ColumnsModalComponent, {
       width: MODAL_WIDTH,
@@ -90,9 +97,5 @@ export class BoardComponent implements OnInit, OnDestroy {
       disableClose: true,
     });
     return dialogRef.afterClosed();
-  }
-
-  onClickBack() {
-    this.location.back();
   }
 }
