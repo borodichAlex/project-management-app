@@ -27,18 +27,7 @@ export class TaskComponent {
     private taskService: TasksService,
   ) {}
 
-  public onClickDeleteTask(
-    event: MouseEvent,
-    {
-      boardId,
-      columnId,
-      taskId,
-    }: {
-      boardId: string;
-      columnId: string;
-      taskId: string;
-    },
-  ) {
+  public onClickDeleteTask(event: MouseEvent) {
     event.stopPropagation();
     const message: DialogData = {
       title: 'Delete Task',
@@ -46,7 +35,7 @@ export class TaskComponent {
     };
     this.openDialog(message).subscribe((response) => {
       if (response) {
-        this.taskService.delete(boardId, columnId, taskId);
+        this.taskService.delete(this.boardId, this.columnId, this.task.id);
       }
     });
   }

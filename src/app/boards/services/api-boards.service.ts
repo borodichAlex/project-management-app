@@ -1,17 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { IBoard, TBoard } from '../interfaces/boards.interface';
 import { API_BOARDS } from '../../shared/constants';
 
-function httpOptions() {
-  return {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
-}
-
+// TODO: add return value
 @Injectable()
 export class ApiBoardsService {
   constructor(private http: HttpClient) {}
@@ -24,16 +17,12 @@ export class ApiBoardsService {
     return this.http.get<IBoard[]>(API_BOARDS);
   }
 
-  public create(board: TBoard): Observable<IBoard> {
-    return this.http.post<IBoard>(API_BOARDS, board, httpOptions());
+  public create(board: TBoard) {
+    return this.http.post<IBoard>(API_BOARDS, board);
   }
 
-  public update(id: string, updatedBoard: TBoard): Observable<IBoard> {
-    return this.http.put<IBoard>(
-      `${API_BOARDS}/${id}`,
-      updatedBoard,
-      httpOptions(),
-    );
+  public update(id: string, updatedBoard: TBoard) {
+    return this.http.put<IBoard>(`${API_BOARDS}/${id}`, updatedBoard);
   }
 
   public delete(id: string): Observable<Object> {
