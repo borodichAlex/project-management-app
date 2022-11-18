@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, mergeMap, Observable } from 'rxjs';
+import { BehaviorSubject, forkJoin, mergeMap, Observable, of } from 'rxjs';
 import { IColumnFull, TNewColumn } from '../interfaces/column.interface';
 import { ApiColumnsService } from './api-columns.service';
 
@@ -18,14 +18,12 @@ export class ColumnsService {
       .pipe(
         mergeMap((columns) => {
           if (!columns.length) {
-            this.columns$.next([]);
             this.isLoading$.next(false);
+            return of([]);
           }
-          const arr: Observable<IColumnFull>[] = columns.map((item) =>
-            this.apiColumns.getAllById(boardId, item.id),
+          return forkJoin(
+            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
           );
-
-          return forkJoin(arr);
         }),
       )
       .subscribe((columns: IColumnFull[]) => {
