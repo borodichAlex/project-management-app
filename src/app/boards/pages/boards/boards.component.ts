@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { BoardsService } from '../../services/boards.service';
 import {
   IBoard,
@@ -10,6 +11,7 @@ import {
 import { BoardsModalComponent } from '../../components/boards-modal/boards-modal.component';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
+import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
 
 @Component({
   selector: 'app-boards',
@@ -25,9 +27,15 @@ export class BoardsComponent {
   constructor(
     private boardsService: BoardsService,
     private matDialog: MatDialog,
+    private router: Router,
   ) {}
 
-  onClickDeleteBoard(id: string): void {
+  onBoardClick(boardId: string): void {
+    this.router.navigate([`${RoutePaths.boards}/${boardId}`]);
+  }
+
+  onClickDeleteBoard(event: MouseEvent, id: string): void {
+    event.stopPropagation();
     const message = {
       title: 'Delete Board',
       description: 'Would you like to delete this Board?',
@@ -53,7 +61,8 @@ export class BoardsComponent {
     });
   }
 
-  onClickUpdateBoard(id: string): void {
+  onClickUpdateBoard(event: MouseEvent, id: string): void {
+    event.stopPropagation();
     const {
       board: { title, description },
       boardIndex,
@@ -73,7 +82,7 @@ export class BoardsComponent {
 
   private openModalWindow(data: TConfirmationModal): Observable<TBoard> {
     const dialogRef = this.matDialog.open(BoardsModalComponent, {
-      width: '300px',
+      width: MODAL_WIDTH,
       data,
       disableClose: true,
     });

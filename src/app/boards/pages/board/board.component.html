@@ -1,0 +1,33 @@
+<h2>Board Columns:</h2>
+<button mat-raised-button color="primary" (click)="onClickBack()">
+  <-- Back to Boards
+</button>
+<br /><br />
+<button mat-raised-button color="primary" (click)="onClickCreateColumn()">
+  Create Column
+</button>
+<!-- Spinner -->
+<mat-spinner
+  class="spinner"
+  *ngIf="isLoading$ | async; else columnsContainer"
+></mat-spinner>
+<!-- END Spinner -->
+<!-- Columns -->
+<ng-template #columnsContainer>
+  <!-- [column]="column" -->
+  <div
+    class="board"
+    cdkDropList
+    cdkDropListOrientation="horizontal"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-column
+      *ngFor="let column of columns$ | async | sortByOrder"
+      [attr.columnId]="column.id"
+      [column]="column"
+      [boardId]="boardId"
+      cdkDrag
+    ></app-column>
+  </div>
+</ng-template>
+<!-- END Columns -->
