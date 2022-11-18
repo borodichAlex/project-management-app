@@ -27,16 +27,23 @@ export class ApiColumnsService {
     return this.http.post<IColumnFull>(columnApi(boardId), column);
   }
 
-  public delete(boardId: string, columnId: string) {
+  public delete(boardId: string, columnId: string): Observable<Object> {
     return this.http.delete(columnApi(boardId, columnId));
   }
 
-  public put(boardId: string, item: TColumn, currentIndex: number) {
-    const currentOrder = currentIndex + 1;
-    const response = this.http.put(columnApi(boardId, item.id), {
-      title: item.title,
-      order: currentOrder,
-    });
+  public put(
+    boardId: string,
+    item: TColumn,
+    currentIndex: number,
+  ): Observable<Object> {
+    const currentOrder: number = currentIndex + 1;
+    const response: Observable<Object> = this.http.put(
+      columnApi(boardId, item.id),
+      {
+        title: item.title,
+        order: currentOrder,
+      },
+    );
     return response;
   }
 }
