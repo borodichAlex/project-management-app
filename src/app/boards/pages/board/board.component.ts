@@ -66,23 +66,30 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
   }
 
+  // TODO: !!!
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
       this.columnsService.columns,
       event.previousIndex,
       event.currentIndex,
     );
+    const currentOrder = event.currentIndex + 1;
     this.subscription = this.apiColumnsService
       .put(
         this.boardId,
         this.columnsService.columns[event.currentIndex],
-        event.currentIndex,
+        currentOrder,
       )
       .subscribe(() => {
         this.columnsService.loadAll(this.boardId);
       });
   }
 
+  public onClickBack() {
+    this.location.back();
+  }
+
+  // TODO: add to confirmation modal (shared module)
   private openModalWindow(data: TConfirmationModal): Observable<TNewColumn> {
     const dialogRef = this.matDialog.open(ColumnsModalComponent, {
       width: MODAL_WIDTH,
@@ -90,9 +97,5 @@ export class BoardComponent implements OnInit, OnDestroy {
       disableClose: true,
     });
     return dialogRef.afterClosed();
-  }
-
-  onClickBack() {
-    this.location.back();
   }
 }

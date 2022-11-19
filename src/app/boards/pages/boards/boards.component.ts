@@ -30,11 +30,11 @@ export class BoardsComponent {
     private router: Router,
   ) {}
 
-  onBoardClick(boardId: string): void {
+  public onBoardClick(boardId: string): void {
     this.router.navigate([`${RoutePaths.boards}/${boardId}`]);
   }
 
-  onClickDeleteBoard(event: MouseEvent, id: string): void {
+  public onClickDeleteBoard(event: MouseEvent, id: string): void {
     event.stopPropagation();
     const message = {
       title: 'Delete Board',
@@ -47,7 +47,7 @@ export class BoardsComponent {
     });
   }
 
-  onClickCreateBoard(): void {
+  public onClickCreateBoard(): void {
     const modalConfig: TConfirmationModal = {
       title: '',
       description: '',
@@ -61,7 +61,7 @@ export class BoardsComponent {
     });
   }
 
-  onClickUpdateBoard(event: MouseEvent, id: string): void {
+  public onClickUpdateBoard(event: MouseEvent, id: string): void {
     event.stopPropagation();
     const {
       board: { title, description },

@@ -15,7 +15,7 @@ import { TasksService } from '../../services/tasks.service';
   selector: 'app-column',
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColumnComponent {
   @Input() column!: IColumnFull;
@@ -29,7 +29,7 @@ export class ColumnComponent {
     private tasksService: TasksService,
   ) {}
 
-  public onClickDeleteColumn(event: MouseEvent, boardId: string) {
+  public onClickDeleteColumn(event: MouseEvent) {
     event.stopPropagation();
     const message = {
       title: 'Delete Column',
@@ -37,17 +37,9 @@ export class ColumnComponent {
     };
     this.openDialog(message).subscribe((result) => {
       if (result) {
-        this.columnsService.delete(this.column.id, boardId);
+        this.columnsService.delete(this.column.id, this.boardId);
       }
     });
-  }
-
-  private openDialog(message: TNewColumn): Observable<boolean> {
-    const dialogRef = this.matDialog.open(ConfirmationComponent, {
-      data: message,
-    });
-
-    return dialogRef.afterClosed();
   }
 
   public onClickCreateTask(): void {
@@ -63,6 +55,14 @@ export class ColumnComponent {
         this.tasksService.create(this.boardId, this.column.id, newTask);
       }
     });
+  }
+
+  private openDialog(message: TNewColumn): Observable<boolean> {
+    const dialogRef = this.matDialog.open(ConfirmationComponent, {
+      data: message,
+    });
+
+    return dialogRef.afterClosed();
   }
 
   private openModalWindow(data: TTaskConfirmationModal): Observable<TTask> {
