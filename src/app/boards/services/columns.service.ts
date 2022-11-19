@@ -1,5 +1,12 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, mergeMap, Observable, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  forkJoin,
+  mergeMap,
+  Observable,
+  of,
+  Subscription,
+} from 'rxjs';
 import { IColumnFull, TNewColumn } from '../interfaces/column.interface';
 import { ApiColumnsService } from './api-columns.service';
 
@@ -60,5 +67,22 @@ export class ColumnsService {
 
   public setColumns(newColumns: IColumnFull[]): void {
     this.columnsData.next(newColumns);
+  }
+
+  public refreshAll(boardId: string): Subscription {
+    return this.apiColumns
+      .getAll(boardId)
+      .pipe(
+        mergeMap((columns) => {
+          if (!columns.length) return of([]);
+
+          return forkJoin(
+            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
+          );
+        }),
+      )
+      .subscribe((columns: IColumnFull[]) => {
+        this.columnsData.next(columns);
+      });
   }
 }

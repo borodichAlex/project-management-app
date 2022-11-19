@@ -33,7 +33,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public isLoading$!: Observable<boolean>;
 
-  private subscription!: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -50,7 +50,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   public onClickCreateColumn(): void {
@@ -66,7 +68,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
   }
 
-  // TODO: !!!
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
       this.columnsService.columns,
@@ -74,15 +75,16 @@ export class BoardComponent implements OnInit, OnDestroy {
       event.currentIndex,
     );
     const currentOrder = event.currentIndex + 1;
-    this.subscription = this.apiColumnsService
+    const subscription = this.apiColumnsService
       .put(
         this.boardId,
         this.columnsService.columns[event.currentIndex],
         currentOrder,
       )
       .subscribe(() => {
-        this.columnsService.loadAll(this.boardId);
+        this.columnsService.refreshAll(this.boardId);
       });
+    this.subscriptions.push(subscription);
   }
 
   public onClickBack() {
