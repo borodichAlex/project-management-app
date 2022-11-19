@@ -44,9 +44,9 @@ export class BoardComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.isLoading$ = this.columnsService.isLoading;
+    this.isLoading$ = this.columnsService.isLoading$;
     this.columnsService.loadAll(this.boardId);
-    this.columns$ = this.columnsService.columns;
+    this.columns$ = this.columnsService.columns$;
   }
 
   public ngOnDestroy(): void {
@@ -68,14 +68,14 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
-      this.columnsService.columnsArr,
+      this.columnsService.columns,
       event.previousIndex,
       event.currentIndex,
     );
     this.subscription = this.apiColumnsService
       .put(
         this.boardId,
-        this.columnsService.columnsArr[event.currentIndex],
+        this.columnsService.columns[event.currentIndex],
         event.currentIndex,
       )
       .subscribe(() => {

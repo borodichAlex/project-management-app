@@ -5,58 +5,60 @@ import { ApiColumnsService } from './api-columns.service';
 
 @Injectable()
 export class ColumnsService {
-  private columns$ = new BehaviorSubject<IColumnFull[]>([]);
+  private columnsData = new BehaviorSubject<IColumnFull[]>([]);
 
-  private isLoading$ = new BehaviorSubject<boolean>(false);
+  private isLoading = new BehaviorSubject<boolean>(false);
 
   constructor(private apiColumns: ApiColumnsService) {}
 
+  public get columns$(): Observable<IColumnFull[]> {
+    return this.columnsData.asObservable();
+  }
+
+  public get columns(): IColumnFull[] {
+    return this.columnsData.value;
+  }
+
+  public get isLoading$(): Observable<boolean> {
+    return this.isLoading.asObservable();
+  }
+
   public loadAll(boardId: string): void {
-    this.isLoading$.next(true);
+    this.isLoading.next(true);
     this.apiColumns
       .getAll(boardId)
       .pipe(
         mergeMap((columns) => {
-          if (!columns.length) {
-            this.isLoading$.next(false);
-            return of([]);
-          }
+          if (!columns.length) return of([]);
+
           return forkJoin(
             columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
           );
         }),
       )
       .subscribe((columns: IColumnFull[]) => {
-        this.columns$.next(columns);
-        this.isLoading$.next(false);
+        this.columnsData.next(columns);
+        this.isLoading.next(false);
       });
-  }
-
-  public get columns(): BehaviorSubject<IColumnFull[]> {
-    return this.columns$;
-  }
-
-  public get columnsArr(): IColumnFull[] {
-    return this.columns$.value;
-  }
-
-  public get isLoading(): Observable<boolean> {
-    return this.isLoading$.asObservable();
   }
 
   public create(column: TNewColumn, boardId: string): void {
     this.apiColumns.create(boardId, column).subscribe((newColumn) => {
-      const newColumns: IColumnFull[] = [...this.columns$.value, newColumn];
-      this.columns$.next(newColumns);
+      const newColumns = [...this.columnsData.value, newColumn];
+      this.columnsData.next(newColumns);
     });
   }
 
   public delete(columnId: string, boardId: string): void {
     this.apiColumns.delete(boardId, columnId).subscribe(() => {
-      const newColumns = this.columns$.value.filter(
+      const newColumns = this.columnsData.value.filter(
         (column) => column.id !== columnId,
       );
-      this.columns$.next(newColumns);
+      this.columnsData.next(newColumns);
     });
+  }
+
+  public setColumns(newColumns: IColumnFull[]): void {
+    this.columnsData.next(newColumns);
   }
 }

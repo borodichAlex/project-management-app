@@ -20,9 +20,9 @@ import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardsComponent {
-  public boards$: Observable<IBoard[]> = this.boardsService.boards;
+  public boards$: Observable<IBoard[]> = this.boardsService.boards$;
 
-  public isLoading$: Observable<boolean> = this.boardsService.isLoading;
+  public isLoading$: Observable<boolean> = this.boardsService.isLoading$;
 
   constructor(
     private boardsService: BoardsService,
