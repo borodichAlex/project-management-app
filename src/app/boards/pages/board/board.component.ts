@@ -16,9 +16,8 @@ import {
   TNewColumn,
 } from '../../interfaces/column.interface';
 
-import { ColumnsModalComponent } from '../../components/columns-modal/columns-modal.component';
+import { ColumnsModalComponent } from '../../modals/columns/columns-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
-import { ApiColumnsService } from '../../services/api-columns.service';
 
 @Component({
   selector: 'app-board',
@@ -33,24 +32,25 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public isLoading$!: Observable<boolean>;
 
-  private subscription!: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
-    private apiColumnsService: ApiColumnsService,
     private location: Location,
   ) {}
 
   public ngOnInit(): void {
-    this.isLoading$ = this.columnsService.isLoading;
-    this.columnsService.loadAll(this.boardId);
-    this.columns$ = this.columnsService.columns;
+    this.isLoading$ = this.columnsService.isLoading$;
+    this.subscriptions.push(this.columnsService.loadAll(this.boardId));
+    this.columns$ = this.columnsService.columns$;
   }
 
   public ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   public onClickCreateColumn(): void {
@@ -68,19 +68,28 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
-      this.columnsService.columnsArr,
+      this.columnsService.columns,
       event.previousIndex,
       event.currentIndex,
     );
-    this.subscription = this.apiColumnsService
+    const currentOrder = event.currentIndex + 1;
+    const subscription = this.columnsService
       .put(
         this.boardId,
-        this.columnsService.columnsArr[event.currentIndex],
-        event.currentIndex,
+        this.columnsService.columns[event.currentIndex],
+        currentOrder,
       )
-      .subscribe();
+      .subscribe(() => {
+        this.columnsService.refreshAll(this.boardId);
+      });
+    this.subscriptions.push(subscription);
   }
 
+  public onClickBack() {
+    this.location.back();
+  }
+
+  // TODO: add to confirmation modal (shared module)
   private openModalWindow(data: TConfirmationModal): Observable<TNewColumn> {
     const dialogRef = this.matDialog.open(ColumnsModalComponent, {
       width: MODAL_WIDTH,
@@ -88,9 +97,5 @@ export class BoardComponent implements OnInit, OnDestroy {
       disableClose: true,
     });
     return dialogRef.afterClosed();
-  }
-
-  onClickBack() {
-    this.location.back();
   }
 }

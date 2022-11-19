@@ -17,6 +17,9 @@ import { ColumnsService } from './services/columns.service';
 import { ApiColumnsService } from './services/api-columns.service';
 import { ColumnComponent } from './components/column/column.component';
 import { SortByOrderPipe } from '../shared/pipes/sort-by-order.pipe';
+import { TaskComponent } from './components/task/task.component';
+import { ApiTasksService } from './services/api-tasks.service';
+import { TasksService } from './services/tasks.service';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { SortByOrderPipe } from '../shared/pipes/sort-by-order.pipe';
     BoardComponent,
     ColumnComponent,
     SortByOrderPipe,
+    TaskComponent,
   ],
   imports: [
     CommonModule,
@@ -42,6 +46,8 @@ import { SortByOrderPipe } from '../shared/pipes/sort-by-order.pipe';
     BoardsService,
     ApiColumnsService,
     ColumnsService,
+    ApiTasksService,
+    TasksService,
   ],
 })
 export class BoardsModule {}

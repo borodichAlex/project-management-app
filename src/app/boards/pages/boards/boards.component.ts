@@ -8,7 +8,7 @@ import {
   TBoard,
   TConfirmationModal,
 } from '../../interfaces/boards.interface';
-import { BoardsModalComponent } from '../../components/boards-modal/boards-modal.component';
+import { BoardsModalComponent } from '../../modals/boards/boards-modal.component';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
@@ -20,9 +20,9 @@ import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardsComponent {
-  public boards$: Observable<IBoard[]> = this.boardsService.boards;
+  public boards$: Observable<IBoard[]> = this.boardsService.boards$;
 
-  public isLoading$: Observable<boolean> = this.boardsService.isLoading;
+  public isLoading$: Observable<boolean> = this.boardsService.isLoading$;
 
   constructor(
     private boardsService: BoardsService,
@@ -30,11 +30,11 @@ export class BoardsComponent {
     private router: Router,
   ) {}
 
-  onBoardClick(boardId: string): void {
+  public onBoardClick(boardId: string): void {
     this.router.navigate([`${RoutePaths.boards}/${boardId}`]);
   }
 
-  onClickDeleteBoard(event: MouseEvent, id: string): void {
+  public onClickDeleteBoard(event: MouseEvent, id: string): void {
     event.stopPropagation();
     const message = {
       title: 'Delete Board',
@@ -47,7 +47,7 @@ export class BoardsComponent {
     });
   }
 
-  onClickCreateBoard(): void {
+  public onClickCreateBoard(): void {
     const modalConfig: TConfirmationModal = {
       title: '',
       description: '',
@@ -61,7 +61,7 @@ export class BoardsComponent {
     });
   }
 
-  onClickUpdateBoard(event: MouseEvent, id: string): void {
+  public onClickUpdateBoard(event: MouseEvent, id: string): void {
     event.stopPropagation();
     const {
       board: { title, description },

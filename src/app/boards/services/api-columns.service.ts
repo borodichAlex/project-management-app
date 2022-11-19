@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
   IColumnFull,
@@ -27,23 +27,23 @@ export class ApiColumnsService {
     return this.http.post<IColumnFull>(columnApi(boardId), column);
   }
 
-  public delete(boardId: string, columnId: string): Observable<Object> {
-    return this.http.delete(columnApi(boardId, columnId));
+  public delete(
+    boardId: string,
+    columnId: string,
+  ): Observable<HttpStatusCode.NoContent> {
+    return this.http.delete<HttpStatusCode.NoContent>(
+      columnApi(boardId, columnId),
+    );
   }
 
   public put(
     boardId: string,
     item: TColumn,
-    currentIndex: number,
-  ): Observable<Object> {
-    const currentOrder: number = currentIndex + 1;
-    const response: Observable<Object> = this.http.put(
-      columnApi(boardId, item.id),
-      {
-        title: item.title,
-        order: currentOrder,
-      },
-    );
-    return response;
+    order: number,
+  ): Observable<IColumnFull> {
+    return this.http.put<IColumnFull>(columnApi(boardId, item.id), {
+      title: item.title,
+      order,
+    });
   }
 }
