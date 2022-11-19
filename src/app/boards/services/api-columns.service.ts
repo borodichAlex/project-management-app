@@ -31,12 +31,11 @@ export class ApiColumnsService {
     return this.http.delete(columnApi(boardId, columnId));
   }
 
-  public put(boardId: string, item: TColumn, currentIndex: number) {
-    const currentOrder = currentIndex + 1;
-    const response = this.http.put(columnApi(boardId, item.id), {
-      title: item.title,
-      order: currentOrder,
+  public put(boardId: string, column: TColumn, currentIndex?: number) {
+    const currentOrder = currentIndex ? currentIndex + 1 : null;
+    return this.http.put<TColumn>(columnApi(boardId, column.id), {
+      title: column.title,
+      order: currentOrder ?? column.order,
     });
-    return response;
   }
 }

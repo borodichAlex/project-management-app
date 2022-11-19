@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
@@ -10,14 +15,16 @@ import { ConfirmationComponent } from '../../../shared/components/confirmation/c
   selector: 'app-column',
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent {
+export class ColumnComponent implements OnDestroy {
   @Input() column!: IColumnFull;
 
   @Input() boardId!: string;
 
   isShowTitleInput: boolean = false;
+
+  subscription: Subscription = new Subscription();
 
   constructor(
     private columnsService: ColumnsService,
@@ -45,20 +52,26 @@ export class ColumnComponent {
     return dialogRef.afterClosed();
   }
 
-  // eslint-disable-next-line class-methods-use-this
   onClickTitle() {
-    // eslint-disable-next-line no-console
-    console.log('title click');
-    this.isShowTitleInput = !this.isShowTitleInput;
+    this.isShowTitleInput = true;
   }
 
   onClickButtonCloseInput() {
     this.isShowTitleInput = false;
   }
 
-  // eslint-disable-next-line class-methods-use-this
   onClickButtonDoneInput(value: string) {
-    // eslint-disable-next-line no-console
-    console.log('title:', value);
+    const { id, order } = this.column;
+    const newColumn = {
+      id,
+      title: value,
+      order,
+    };
+    this.subscription.add(this.columnsService.update(newColumn, this.boardId));
+    this.isShowTitleInput = false;
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

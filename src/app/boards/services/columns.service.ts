@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, mergeMap, Observable } from 'rxjs';
-import { IColumnFull, TNewColumn } from '../interfaces/column.interface';
+import {
+  BehaviorSubject,
+  forkJoin,
+  mergeMap,
+  Observable,
+  Subscription,
+} from 'rxjs';
+import {
+  IColumnFull,
+  TColumn,
+  TNewColumn,
+} from '../interfaces/column.interface';
 import { ApiColumnsService } from './api-columns.service';
 
 @Injectable()
@@ -59,6 +69,21 @@ export class ColumnsService {
         (column) => column.id !== columnId,
       );
       this.columns$.next(newColumns);
+    });
+  }
+
+  public update(newColumn: TColumn, boardId: string): Subscription {
+    return this.apiColumns.put(boardId, newColumn).subscribe((column) => {
+      const columnIndex: number = this.columns$.value.findIndex(
+        ({ id }) => id === column.id,
+      );
+      const currentColumns: IColumnFull[] = [...this.columns$.value];
+      const newItem = {
+        ...currentColumns[columnIndex],
+        title: column.title,
+      };
+      currentColumns.splice(columnIndex, 1, newItem);
+      this.columns$.next(currentColumns);
     });
   }
 }
