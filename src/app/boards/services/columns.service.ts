@@ -7,7 +7,11 @@ import {
   of,
   Subscription,
 } from 'rxjs';
-import { IColumnFull, TNewColumn } from '../interfaces/column.interface';
+import {
+  IColumnFull,
+  TColumn,
+  TNewColumn,
+} from '../interfaces/column.interface';
 import { ApiColumnsService } from './api-columns.service';
 
 @Injectable()
@@ -84,5 +88,13 @@ export class ColumnsService {
       .subscribe((columns: IColumnFull[]) => {
         this.columnsData.next(columns);
       });
+  }
+
+  public put(
+    boardId: string,
+    item: TColumn,
+    order: number,
+  ): Observable<IColumnFull> {
+    return this.apiColumns.put(boardId, item, order);
   }
 }

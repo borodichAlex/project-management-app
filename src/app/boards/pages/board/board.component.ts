@@ -18,7 +18,6 @@ import {
 
 import { ColumnsModalComponent } from '../../modals/columns/columns-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
-import { ApiColumnsService } from '../../services/api-columns.service';
 
 @Component({
   selector: 'app-board',
@@ -39,7 +38,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
-    private apiColumnsService: ApiColumnsService,
     private location: Location,
   ) {}
 
@@ -75,7 +73,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       event.currentIndex,
     );
     const currentOrder = event.currentIndex + 1;
-    const subscription = this.apiColumnsService
+    const subscription = this.columnsService
       .put(
         this.boardId,
         this.columnsService.columns[event.currentIndex],
