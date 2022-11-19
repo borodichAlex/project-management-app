@@ -30,9 +30,9 @@ export class ColumnsService {
     return this.isLoading.asObservable();
   }
 
-  public loadAll(boardId: string): void {
+  public loadAll(boardId: string) {
     this.isLoading.next(true);
-    this.apiColumns
+    return this.apiColumns
       .getAll(boardId)
       .pipe(
         mergeMap((columns) => {

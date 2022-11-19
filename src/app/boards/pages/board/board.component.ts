@@ -45,7 +45,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.isLoading$ = this.columnsService.isLoading$;
-    this.columnsService.loadAll(this.boardId);
+    this.subscriptions.push(this.columnsService.loadAll(this.boardId));
     this.columns$ = this.columnsService.columns$;
   }
 
