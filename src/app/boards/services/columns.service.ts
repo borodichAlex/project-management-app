@@ -43,7 +43,7 @@ export class ColumnsService {
           if (!columns.length) return of([]);
 
           return forkJoin(
-            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
+            columns.map((item) => this.apiColumns.getById(boardId, item.id)),
           );
         }),
       )
@@ -54,10 +54,17 @@ export class ColumnsService {
   }
 
   public create(column: TNewColumn, boardId: string): void {
-    this.apiColumns.create(boardId, column).subscribe((newColumn) => {
-      const newColumns = [...this.columnsData.value, newColumn];
-      this.columnsData.next(newColumns);
-    });
+    this.apiColumns
+      .create(boardId, column)
+      .pipe(
+        mergeMap((columnFull) =>
+          this.apiColumns.getById(boardId, columnFull.id),
+        ),
+      )
+      .subscribe((newColumn) => {
+        const newColumns = [...this.columnsData.value, newColumn];
+        this.columnsData.next(newColumns);
+      });
   }
 
   public delete(columnId: string, boardId: string): void {
@@ -81,7 +88,7 @@ export class ColumnsService {
           if (!columns.length) return of([]);
 
           return forkJoin(
-            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
+            columns.map((item) => this.apiColumns.getById(boardId, item.id)),
           );
         }),
       )
@@ -94,7 +101,7 @@ export class ColumnsService {
     boardId: string,
     item: TColumn,
     order: number,
-  ): Observable<IColumnFull> {
+  ): Observable<TColumn> {
     return this.apiColumns.put(boardId, item, order);
   }
 }
