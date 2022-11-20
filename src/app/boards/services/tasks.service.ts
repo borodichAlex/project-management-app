@@ -25,7 +25,6 @@ export class TasksService {
             ...column,
             tasks,
           };
-
           return newColumn;
         },
       );
@@ -45,7 +44,6 @@ export class TasksService {
             ...column,
             tasks: column.tasks.filter((task) => task.id !== taskId),
           };
-
           return newColumn;
         },
       );

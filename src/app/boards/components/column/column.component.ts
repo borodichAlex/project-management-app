@@ -90,7 +90,9 @@ export class ColumnComponent implements OnDestroy {
           this.column.tasks[event.currentIndex],
           currentOrder,
         )
-        .subscribe(),
+        .subscribe(() => {
+          this.columnsService.refreshAll(this.boardId);
+        }),
     );
   }
 
@@ -98,7 +100,6 @@ export class ColumnComponent implements OnDestroy {
     const dialogRef = this.matDialog.open(ConfirmationComponent, {
       data: message,
     });
-
     return dialogRef.afterClosed();
   }
 
@@ -108,7 +109,6 @@ export class ColumnComponent implements OnDestroy {
       data,
       disableClose: true,
     });
-
     return dialogRef.afterClosed();
   }
 }
