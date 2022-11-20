@@ -80,7 +80,13 @@ export class BoardComponent implements OnInit, OnDestroy {
         currentOrder,
       )
       .subscribe(() => {
-        this.columnsService.refreshAll(this.boardId);
+        this.subscriptions.push(
+          this.columnsService.update(
+            this.columnsService.columns[event.currentIndex],
+            this.boardId,
+            currentOrder,
+          ),
+        );
       });
     this.subscriptions.push(subscription);
   }

@@ -99,9 +99,31 @@ export class ColumnsService {
 
   public put(
     boardId: string,
-    item: TColumn,
-    order: number,
+    column: TColumn,
+    order?: number,
   ): Observable<TColumn> {
-    return this.apiColumns.put(boardId, item, order);
+    return this.apiColumns.put(boardId, column, order);
+  }
+
+  public update(
+    newColumn: TColumn,
+    boardId: string,
+    order: number,
+  ): Subscription {
+    return this.apiColumns
+      .put(boardId, newColumn, order)
+      .subscribe((column) => {
+        const columnIndex: number = this.columnsData.value.findIndex(
+          ({ id }) => id === column.id,
+        );
+        const currentColumns: IColumnFull[] = [...this.columnsData.value];
+        const newItem = {
+          ...currentColumns[columnIndex],
+          title: column.title,
+          order,
+        };
+        currentColumns.splice(columnIndex, 1, newItem);
+        this.columnsData.next(currentColumns);
+      });
   }
 }

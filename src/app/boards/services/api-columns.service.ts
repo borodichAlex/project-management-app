@@ -35,12 +35,12 @@ export class ApiColumnsService {
 
   public put(
     boardId: string,
-    item: TColumn,
-    order: number,
+    column: TColumn,
+    order?: number,
   ): Observable<TColumn> {
-    return this.http.put<TColumn>(columnApi(boardId, item.id), {
-      title: item.title,
-      order,
+    return this.http.put<TColumn>(columnApi(boardId, column.id), {
+      title: column.title,
+      order: order || column.order,
     });
   }
 }
