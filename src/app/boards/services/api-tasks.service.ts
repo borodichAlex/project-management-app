@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TTask, ITask } from '../interfaces/task.interface';
+import { TTask, ITask, ITaskPut } from '../interfaces/task.interface';
 import { taskApi } from '../../shared/utils/api';
 
 @Injectable()
@@ -26,15 +26,23 @@ export class ApiTasksService {
     );
   }
 
-  public put(boardId: string, columnId: string, task: ITask, order: number) {
-    const response = this.http.put(taskApi(boardId, columnId, task.id), {
-      title: task.title,
-      order,
-      description: task.description,
-      userId: task.userId,
-      boardId,
-      columnId,
-    });
+  public put(
+    boardId: string,
+    columnId: string,
+    task: ITask,
+    order: number,
+  ): Observable<ITaskPut> {
+    const response = this.http.put<ITaskPut>(
+      taskApi(boardId, columnId, task.id),
+      {
+        title: task.title,
+        order,
+        description: task.description,
+        userId: task.userId,
+        boardId,
+        columnId,
+      },
+    );
     return response;
   }
 }
