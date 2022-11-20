@@ -100,16 +100,16 @@ export class ColumnsService {
 
   public update(newColumn: TColumn, boardId: string): Subscription {
     return this.apiColumns.put(boardId, newColumn).subscribe((column) => {
-      const columnIndex: number = this.columns$.value.findIndex(
+      const columnIndex: number = this.columnsData.value.findIndex(
         ({ id }) => id === column.id,
       );
-      const currentColumns: IColumnFull[] = [...this.columns$.value];
+      const currentColumns: IColumnFull[] = [...this.columnsData.value];
       const newItem = {
         ...currentColumns[columnIndex],
         title: column.title,
       };
       currentColumns.splice(columnIndex, 1, newItem);
-      this.columns$.next(currentColumns);
+      this.columnsData.next(currentColumns);
     });
   }
 }

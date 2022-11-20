@@ -38,12 +38,12 @@ export class ApiColumnsService {
 
   public put(
     boardId: string,
-    item: TColumn,
-    order: number,
+    column: TColumn,
+    order?: number,
   ): Observable<IColumnFull> {
-    return this.http.put<IColumnFull>(columnApi(boardId, item.id), {
-      title: item.title,
-      order,
+    return this.http.put<IColumnFull>(columnApi(boardId, column.id), {
+      title: column.title,
+      order: order || column.order,
     });
   }
 }
