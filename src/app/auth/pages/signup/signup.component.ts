@@ -1,10 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
-import { RoutePaths } from 'src/app/shared/constants';
-import { AuthService } from '../../services/auth.service';
-import { UserTokenService } from '../../../core/services/user-token.service';
+import { UserAuthenticationService } from 'src/app/core/services/user-auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -40,11 +37,7 @@ export class SignupComponent implements OnDestroy {
 
   private subscription!: Subscription;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private userTokenService: UserTokenService,
-  ) {
+  constructor(private userAuthService: UserAuthenticationService) {
     this.initFormStatusChangesObserver();
   }
 
@@ -54,18 +47,14 @@ export class SignupComponent implements OnDestroy {
 
   public signUp() {
     const { name, login, password } = this.user.value;
-    const request = this.authService.signUp(name!, login!, password!);
-    this.subscription.add(
-      request.subscribe(() => {
-        const signInRequest = this.authService.signIn(login!, password!);
-        this.subscription.add(
-          signInRequest.subscribe((x) => {
-            this.userTokenService.setToken(x.token);
-            this.router.navigate([RoutePaths.boards]);
-          }),
-        );
-      }),
-    );
+
+    if (name && login && password) {
+      this.userAuthService.signUp({
+        name,
+        login,
+        password,
+      });
+    }
   }
 
   public getErrorMessage() {

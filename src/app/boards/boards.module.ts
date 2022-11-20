@@ -16,8 +16,8 @@ import { BoardComponent } from './pages/board/board.component';
 import { ColumnsService } from './services/columns.service';
 import { ApiColumnsService } from './services/api-columns.service';
 import { ColumnComponent } from './components/column/column.component';
-import { TaskComponent } from './components/task/task.component';
 import { SortByOrderPipe } from '../shared/pipes/sort-by-order.pipe';
+import { TaskComponent } from './components/task/task.component';
 import { ApiTasksService } from './services/api-tasks.service';
 import { TasksService } from './services/tasks.service';
 
@@ -26,8 +26,8 @@ import { TasksService } from './services/tasks.service';
     BoardsComponent,
     BoardComponent,
     ColumnComponent,
-    TaskComponent,
     SortByOrderPipe,
+    TaskComponent,
   ],
   imports: [
     CommonModule,
