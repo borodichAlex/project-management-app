@@ -20,7 +20,6 @@ import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
 import { TasksService } from '../../services/tasks.service';
-import { ApiTasksService } from '../../services/api-tasks.service';
 
 @Component({
   selector: 'app-column',
@@ -40,7 +39,6 @@ export class ColumnComponent implements OnDestroy {
     private matDialog: MatDialog,
     private userStateService: UserStateService,
     private tasksService: TasksService,
-    private apiTasksService: ApiTasksService,
   ) {}
 
   public ngOnDestroy(): void {
@@ -77,12 +75,13 @@ export class ColumnComponent implements OnDestroy {
 
   public drop(event: CdkDragDrop<ITask[]>) {
     moveItemInArray(this.column.tasks, event.previousIndex, event.currentIndex);
-    this.subscription = this.apiTasksService
+    const currentOrder = event.currentIndex + 1;
+    this.subscription = this.tasksService
       .put(
         this.boardId,
         this.column.id,
         this.column.tasks[event.currentIndex],
-        event.currentIndex,
+        currentOrder,
       )
       .subscribe();
   }

@@ -26,16 +26,10 @@ export class ApiTasksService {
     );
   }
 
-  public put(
-    boardId: string,
-    columnId: string,
-    task: ITask,
-    currentIndex: number,
-  ) {
-    const currentOrder = currentIndex + 1;
+  public put(boardId: string, columnId: string, task: ITask, order: number) {
     const response = this.http.put(taskApi(boardId, columnId, task.id), {
       title: task.title,
-      order: currentOrder,
+      order,
       description: task.description,
       userId: task.userId,
       boardId,
