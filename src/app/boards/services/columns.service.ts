@@ -54,17 +54,14 @@ export class ColumnsService {
   }
 
   public create(column: TNewColumn, boardId: string): void {
-    this.apiColumns
-      .create(boardId, column)
-      .pipe(
-        mergeMap((columnFull) =>
-          this.apiColumns.getById(boardId, columnFull.id),
-        ),
-      )
-      .subscribe((newColumn) => {
-        const newColumns = [...this.columnsData.value, newColumn];
-        this.columnsData.next(newColumns);
-      });
+    this.apiColumns.create(boardId, column).subscribe((newColumn) => {
+      const fullColumn = {
+        ...newColumn,
+        tasks: [],
+      };
+      const newColumns = [...this.columnsData.value, fullColumn];
+      this.columnsData.next(newColumns);
+    });
   }
 
   public delete(columnId: string, boardId: string): void {
