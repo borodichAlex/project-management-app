@@ -32,7 +32,7 @@ export class ColumnComponent implements OnDestroy {
 
   @Input() boardId!: string;
 
-  private subscription!: Subscription;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private columnsService: ColumnsService,
@@ -42,7 +42,9 @@ export class ColumnComponent implements OnDestroy {
   ) {}
 
   public ngOnDestroy(): void {
-    this.subscription?.unsubscribe();
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
   }
 
   public onClickDeleteColumn(event: MouseEvent) {
@@ -51,11 +53,13 @@ export class ColumnComponent implements OnDestroy {
       title: 'Delete Column',
       description: 'Would you like to delete this Column?',
     };
-    this.openDialog(message).subscribe((result) => {
-      if (result) {
-        this.columnsService.delete(this.column.id, this.boardId);
-      }
-    });
+    this.subscriptions.push(
+      this.openDialog(message).subscribe((result) => {
+        if (result) {
+          this.columnsService.delete(this.column.id, this.boardId);
+        }
+      }),
+    );
   }
 
   public onClickCreateTask(): void {
@@ -66,24 +70,28 @@ export class ColumnComponent implements OnDestroy {
       confirmationTitleText: 'Create new Task',
       confirmationButtonText: 'Create',
     };
-    this.openModalWindow(modalConfig).subscribe((newTask) => {
-      if (newTask) {
-        this.tasksService.create(this.boardId, this.column.id, newTask);
-      }
-    });
+    this.subscriptions.push(
+      this.openModalWindow(modalConfig).subscribe((newTask) => {
+        if (newTask) {
+          this.tasksService.create(this.boardId, this.column.id, newTask);
+        }
+      }),
+    );
   }
 
   public drop(event: CdkDragDrop<ITask[]>) {
     moveItemInArray(this.column.tasks, event.previousIndex, event.currentIndex);
     const currentOrder = event.currentIndex + 1;
-    this.subscription = this.tasksService
-      .put(
-        this.boardId,
-        this.column.id,
-        this.column.tasks[event.currentIndex],
-        currentOrder,
-      )
-      .subscribe();
+    this.subscriptions.push(
+      this.tasksService
+        .put(
+          this.boardId,
+          this.column.id,
+          this.column.tasks[event.currentIndex],
+          currentOrder,
+        )
+        .subscribe(),
+    );
   }
 
   private openDialog(message: TNewColumn): Observable<boolean> {
