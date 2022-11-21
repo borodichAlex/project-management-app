@@ -7,7 +7,8 @@
   },
   "header": {
     "editProfile": "Edit Profile",
-    "logout": "Log  Out"
+    "logout": "Log  Out",
+    "Would you like to log out?": "Would you like to log out?"
   },
   "signupPage": {
     "title": "Sign up",
@@ -37,7 +38,8 @@
   },
   "errors": {
     "User was not founded!": "Login or password is incorrect!",
-    "User login already exists!": "User login already exists!"
+    "User login already exists!": "User login already exists!",
+    "Board was not founded!": "Board was not found!"
   },
   "userSettingsPage": {
     "userGeneralSection": {

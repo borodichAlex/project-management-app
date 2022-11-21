@@ -4,7 +4,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 import { MatDialogModule } from '@angular/material/dialog';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import {
+  TranslateModule,
+  TranslateLoader,
+  TranslatePipe,
+} from '@ngx-translate/core';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -31,7 +35,7 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     MatDialogModule,
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, TranslatePipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

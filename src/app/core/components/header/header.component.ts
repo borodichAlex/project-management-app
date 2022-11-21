@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import {
   ConfirmationComponent,
@@ -44,6 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public breakpointObserver: BreakpointObserver,
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
+    private translatePipe: TranslatePipe,
   ) {
     this.matIconRegistry.addSvgIcon(
       'login-icon',
@@ -91,8 +93,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public onLogoutClick() {
     const message = {
-      title: 'Logout',
-      description: 'Would you like to log out?',
+      title: this.translatePipe.transform('header.logout'),
+      description: this.translatePipe.transform(
+        'header.Would you like to log out?',
+      ),
     };
     this.logOutConfirmation(message).subscribe((isConfirm) => {
       if (isConfirm) {
