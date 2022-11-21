@@ -6,7 +6,11 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
@@ -78,16 +82,29 @@ export class ColumnComponent implements OnDestroy {
   }
 
   public drop(event: CdkDragDrop<ITask[]>) {
-    moveItemInArray(this.column.tasks, event.previousIndex, event.currentIndex);
-    const currentOrder = event.currentIndex + 1;
-    this.subscription.add(
-      this.columnsService.updateTasks(
-        this.boardId,
-        this.column.id,
-        this.column.tasks[event.currentIndex],
-        currentOrder,
-      ),
-    );
+    if (event.container === event.previousContainer) {
+      moveItemInArray(
+        this.column.tasks,
+        event.previousIndex,
+        event.currentIndex,
+      );
+      const currentOrder = event.currentIndex + 1;
+      this.subscription.add(
+        this.columnsService.updateTasks(
+          this.boardId,
+          this.column.id,
+          this.column.tasks[event.currentIndex],
+          currentOrder,
+        ),
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 
   private openDialog(message: TNewColumn): Observable<boolean> {
