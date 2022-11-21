@@ -48,8 +48,6 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     return source.pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === UNAUTHORIZED_STATUS_CODE) {
-          // this.userTokenService.removeToken();
-          // TODO: authService.logout()
           this.authService.logout();
           return EMPTY;
         }
