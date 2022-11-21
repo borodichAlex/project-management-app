@@ -30,7 +30,12 @@
     >
     <!-- Input -->
     <div *ngIf="isShowTitleInput" class="input-container">
-      <input #titleInput class="title-input" [value]="column.title" />
+      <input
+        #titleInput
+        class="title-input"
+        [value]="column.title"
+        (keyup.enter)="onClickButtonDoneInput(titleInput.value)"
+      />
       <div class="buttons-input-group">
         <button
           class="button-input"
