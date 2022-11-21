@@ -1,16 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnDestroy,
-} from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
+import { TTask, TTaskConfirmationModal } from '../../interfaces/task.interface';
 import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
@@ -22,14 +17,12 @@ import { TasksService } from '../../services/tasks.service';
   styleUrls: ['./column.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ColumnComponent implements OnDestroy {
+export class ColumnComponent {
   @Input() column!: IColumnFull;
 
   @Input() boardId!: string;
 
   isShowTitleInput: boolean = false;
-
-  subscription: Subscription = new Subscription();
 
   constructor(
     private columnsService: ColumnsService,
@@ -84,26 +77,22 @@ export class ColumnComponent implements OnDestroy {
     return dialogRef.afterClosed();
   }
 
-  onClickTitle() {
+  public onClickTitle() {
     this.isShowTitleInput = true;
   }
 
-  onClickButtonCloseInput() {
+  public onClickButtonCloseInput() {
     this.isShowTitleInput = false;
   }
 
-  onClickButtonDoneInput(value: string) {
+  public onClickButtonDoneInput(value: string) {
     const { id, order } = this.column;
     const newColumn = {
       id,
       title: value,
       order,
     };
-    this.subscription.add(this.columnsService.update(newColumn, this.boardId));
+    this.columnsService.update(newColumn, this.boardId);
     this.isShowTitleInput = false;
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }
