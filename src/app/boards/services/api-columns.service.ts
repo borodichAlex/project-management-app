@@ -40,8 +40,8 @@ export class ApiColumnsService {
     boardId: string,
     column: TColumn,
     order?: number,
-  ): Observable<IColumnFull> {
-    return this.http.put<IColumnFull>(columnApi(boardId, column.id), {
+  ): Observable<TColumn> {
+    return this.http.put<TColumn>(columnApi(boardId, column.id), {
       title: column.title,
       order: order || column.order,
     });

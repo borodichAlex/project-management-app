@@ -94,7 +94,7 @@ export class ColumnsService {
     boardId: string,
     item: TColumn,
     order: number,
-  ): Observable<IColumnFull> {
+  ): Observable<TColumn> {
     return this.apiColumns.put(boardId, item, order);
   }
 
