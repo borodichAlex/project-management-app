@@ -61,8 +61,19 @@ export class TasksService {
   ): Subscription {
     return this.apiTasks
       .update(boardId, columnId, task, order)
-      .subscribe(() => {
-        //  TODO: implement local update logic
+      .subscribe((updatedTask) => {
+        const newTask: ITask = updatedTask;
+        const columnIndex: number = this.columnsService.columns.findIndex(
+          ({ id }) => id === columnId,
+        );
+        const currentColumn: IColumnFull =
+          this.columnsService.columns[columnIndex];
+        const taskIndex: number = currentColumn.tasks.findIndex(
+          ({ id }) => id === task.id,
+        );
+        const copyColumns: IColumnFull[] = [...this.columnsService.columns];
+        copyColumns[columnIndex].tasks.splice(taskIndex, 1, newTask);
+        this.columnsService.setColumns(copyColumns);
       });
   }
 }

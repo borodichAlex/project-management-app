@@ -19,7 +19,7 @@ import { TasksService } from '../../services/tasks.service';
   selector: 'app-column',
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class ColumnComponent {
   @Input() column!: IColumnFull;
