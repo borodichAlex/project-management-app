@@ -5,7 +5,11 @@ import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
+import {
+  ITask,
+  TTask,
+  TTaskConfirmationModal,
+} from '../../interfaces/task.interface';
 import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
@@ -73,5 +77,31 @@ export class ColumnComponent {
     });
 
     return dialogRef.afterClosed();
+  }
+
+  public onClickTask($event: MouseEvent, task: ITask): void {
+    const { title, description, userId, order, id } = task;
+    const modalConfig: TTaskConfirmationModal = {
+      title,
+      description,
+      userId,
+      confirmationTitleText: 'Update the Task',
+      confirmationButtonText: 'Update',
+    };
+    this.openModalWindow(modalConfig).subscribe((newTask) => {
+      if (newTask) {
+        const updatedTask: ITask = {
+          ...newTask,
+          id,
+          order,
+        };
+        this.tasksService.update(
+          this.boardId,
+          this.column.id,
+          updatedTask,
+          order,
+        );
+      }
+    });
   }
 }

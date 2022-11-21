@@ -28,12 +28,16 @@
     >
   </mat-card-header>
   <mat-card-content class="tasks">
+    <!-- Task -->
     <app-task
+      class="task"
       *ngFor="let task of column.tasks"
+      (click)="onClickTask($event, task)"
       [boardId]="boardId"
       [columnId]="column.id"
       [task]="task"
     ></app-task>
+    <!-- END Task -->
   </mat-card-content>
   <button mat-icon-button (click)="onClickCreateTask()">
     <mat-icon color="primary">note_add</mat-icon>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ApiTasksService } from './api-tasks.service';
 import { IColumnFull } from '../interfaces/column.interface';
-import { TTask } from '../interfaces/task.interface';
+import { ITask, TTask } from '../interfaces/task.interface';
 import { ColumnsService } from './columns.service';
 
 @Injectable()
@@ -50,5 +51,18 @@ export class TasksService {
       );
       this.columnsService.setColumns(newColumns);
     });
+  }
+
+  public update(
+    boardId: string,
+    columnId: string,
+    task: ITask,
+    order: number,
+  ): Subscription {
+    return this.apiTasks
+      .update(boardId, columnId, task, order)
+      .subscribe(() => {
+        //  TODO: implement local update logic
+      });
   }
 }
