@@ -43,7 +43,6 @@ export class UserAuthenticationService {
     this.authApiService.signIn(login!, password!).subscribe(({ token }) => {
       this.userTokenService.setToken(token);
       this.authUserByToken(token);
-      this.router.navigate([RoutePaths.boards]);
     });
   }
 
@@ -78,6 +77,7 @@ export class UserAuthenticationService {
     if (userId) {
       this.usersApiService.getById(userId).subscribe((user) => {
         this.authUser(user);
+        this.router.navigate([RoutePaths.boards]);
       });
     }
   }
