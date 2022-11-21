@@ -2,14 +2,15 @@
   <h1>PMa</h1>
   <div class="controls">
     <app-language-toggler></app-language-toggler>
-    <button
+    <a
       *ngIf="isAuthUser$ | async; else login"
-      mat-stroked-button
+      mat-button
       [matMenuTriggerFor]="menu"
       color="primary"
-    >
-      {{ userName }}
-    </button>
+      ><span class="username">
+        {{ userName }}
+      </span>
+    </a>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="onEditProfileClick()">
         {{ 'header.editProfile' | translate }}

@@ -7,7 +7,7 @@
   >
     <mat-icon svgIcon="rss-logo" color="primary" class="logo-icon"></mat-icon>
   </a>
-  <p>2022</p>
+  <p class="year">2022</p>
   <div class="copyright">
     <mat-icon color="accent">copyright</mat-icon>
     <span>team_6</span>
@@ -16,7 +16,6 @@
     <a
       *ngFor="let contact of contacts"
       mat-button
-      color="accent"
       class="git-nickname"
       [href]="contact.url"
       target="_blank"
