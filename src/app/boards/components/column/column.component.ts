@@ -32,7 +32,7 @@ export class ColumnComponent implements OnDestroy {
 
   @Input() boardId!: string;
 
-  private subscriptions: Subscription[] = [];
+  private subscription = new Subscription();
 
   constructor(
     private columnsService: ColumnsService,
@@ -42,9 +42,7 @@ export class ColumnComponent implements OnDestroy {
   ) {}
 
   public ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
+    this.subscription.unsubscribe();
   }
 
   public onClickDeleteColumn(event: MouseEvent) {
@@ -53,7 +51,7 @@ export class ColumnComponent implements OnDestroy {
       title: 'Delete Column',
       description: 'Would you like to delete this Column?',
     };
-    this.subscriptions.push(
+    this.subscription.add(
       this.openDialog(message).subscribe((result) => {
         if (result) {
           this.columnsService.delete(this.column.id, this.boardId);
@@ -70,7 +68,7 @@ export class ColumnComponent implements OnDestroy {
       confirmationTitleText: 'Create new Task',
       confirmationButtonText: 'Create',
     };
-    this.subscriptions.push(
+    this.subscription.add(
       this.openModalWindow(modalConfig).subscribe((newTask) => {
         if (newTask) {
           this.tasksService.create(this.boardId, this.column.id, newTask);
@@ -82,17 +80,13 @@ export class ColumnComponent implements OnDestroy {
   public drop(event: CdkDragDrop<ITask[]>) {
     moveItemInArray(this.column.tasks, event.previousIndex, event.currentIndex);
     const currentOrder = event.currentIndex + 1;
-    this.subscriptions.push(
-      this.tasksService
-        .put(
-          this.boardId,
-          this.column.id,
-          this.column.tasks[event.currentIndex],
-          currentOrder,
-        )
-        .subscribe(() => {
-          this.columnsService.refreshAll(this.boardId);
-        }),
+    this.subscription.add(
+      this.columnsService.updateTasks(
+        this.boardId,
+        this.column.id,
+        this.column.tasks[event.currentIndex],
+        currentOrder,
+      ),
     );
   }
 

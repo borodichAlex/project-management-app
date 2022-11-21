@@ -12,7 +12,9 @@ import {
   TColumn,
   TNewColumn,
 } from '../interfaces/column.interface';
+import { ITask } from '../interfaces/task.interface';
 import { ApiColumnsService } from './api-columns.service';
+import { ApiTasksService } from './api-tasks.service';
 
 @Injectable()
 export class ColumnsService {
@@ -20,7 +22,10 @@ export class ColumnsService {
 
   private isLoading = new BehaviorSubject<boolean>(false);
 
-  constructor(private apiColumns: ApiColumnsService) {}
+  constructor(
+    private apiColumns: ApiColumnsService,
+    private apiTasksService: ApiTasksService,
+  ) {}
 
   public get columns$(): Observable<IColumnFull[]> {
     return this.columnsData.asObservable();
@@ -77,23 +82,6 @@ export class ColumnsService {
     this.columnsData.next(newColumns);
   }
 
-  public refreshAll(boardId: string): Subscription {
-    return this.apiColumns
-      .getAll(boardId)
-      .pipe(
-        mergeMap((columns) => {
-          if (!columns.length) return of([]);
-
-          return forkJoin(
-            columns.map((item) => this.apiColumns.getById(boardId, item.id)),
-          );
-        }),
-      )
-      .subscribe((columns: IColumnFull[]) => {
-        this.columnsData.next(columns);
-      });
-  }
-
   public put(
     boardId: string,
     column: TColumn,
@@ -120,6 +108,38 @@ export class ColumnsService {
           order,
         };
         currentColumns.splice(columnIndex, 1, newItem);
+        this.columnsData.next(currentColumns);
+      });
+  }
+
+  public updateTasks(
+    boardId: string,
+    columnId: string,
+    task: ITask,
+    order: number,
+  ) {
+    return this.apiTasksService
+      .put(boardId, columnId, task, order)
+      .subscribe(() => {
+        const columnIndex: number = this.columnsData.value.findIndex(
+          ({ id }) => id === columnId,
+        );
+        const column: IColumnFull = this.columnsData.value[columnIndex];
+        const taskIndex: number = column.tasks.findIndex(
+          ({ id }) => id === task.id,
+        );
+        const tasks: ITask[] = [...column.tasks];
+        const newItem = {
+          ...tasks[taskIndex],
+          order,
+        };
+        tasks.splice(taskIndex, 1, newItem);
+        const currentColumn = {
+          ...column,
+          tasks,
+        };
+        const currentColumns: IColumnFull[] = [...this.columnsData.value];
+        currentColumns.splice(columnIndex, 1, currentColumn);
         this.columnsData.next(currentColumns);
       });
   }
