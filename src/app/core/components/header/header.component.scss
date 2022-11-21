@@ -17,6 +17,10 @@
   padding: 0px 20px;
   margin: 0 auto;
   display: flex;
+  justify-content: space-between;
+}
+.controls{
+  display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
@@ -24,4 +28,14 @@
 .buttons {
   display: flex;
   gap: 1rem;
+}
+.icon-buttons {
+  display: flex;
+}
+h1{
+  margin: auto;
+  margin-left: 0;
+  color: red;
+  font-weight: 800;
+  font-size: 2.2rem;
 }

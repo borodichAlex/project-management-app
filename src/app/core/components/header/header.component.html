@@ -1,29 +1,64 @@
 <header class="wrapper">
-  <app-language-toggler></app-language-toggler>
-  <button
-    *ngIf="isAuthUser$ | async; else login"
-    mat-stroked-button
-    [matMenuTriggerFor]="menu"
-    color="primary"
-  >
-    {{ userName }}
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onEditProfileClick()">
-      {{ 'header.editProfile' | translate }}
+  <h1>PMa</h1>
+  <div class="controls">
+    <app-language-toggler></app-language-toggler>
+    <button
+      *ngIf="isAuthUser$ | async; else login"
+      mat-stroked-button
+      [matMenuTriggerFor]="menu"
+      color="primary"
+    >
+      {{ userName }}
     </button>
-    <button mat-menu-item (click)="onLogoutClick()">
-      {{ 'header.logout' | translate }}
-    </button>
-  </mat-menu>
-  <ng-template #login>
-    <section class="buttons">
-      <button mat-raised-button color="primary" (click)="onLogInClick()">
-        {{ 'welcomePage.logInButtonLabel' | translate }}
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEditProfileClick()">
+        {{ 'header.editProfile' | translate }}
       </button>
-      <button mat-raised-button color="warn" (click)="onSignUpClick()">
-        {{ 'welcomePage.signUpButtonLabel' | translate }}
+      <button mat-menu-item (click)="onLogoutClick()">
+        {{ 'header.logout' | translate }}
       </button>
-    </section>
-  </ng-template>
+    </mat-menu>
+    <ng-template #login>
+      <section *ngIf="showBigButtons; else iconButtons" class="buttons">
+        <button mat-raised-button color="primary" (click)="onLogInClick()">
+          {{ 'welcomePage.logInButtonLabel' | translate }}
+        </button>
+        <button mat-raised-button color="warn" (click)="onSignUpClick()">
+          {{ 'welcomePage.signUpButtonLabel' | translate }}
+        </button>
+      </section>
+      <ng-template #iconButtons>
+        <section class="icon-buttons">
+          <button
+            mat-icon-button
+            aria-label="Login"
+            matTooltip="{{ 'welcomePage.logInButtonLabel' | translate }}"
+            matTooltipPosition="above"
+            color="primary"
+            (click)="onLogInClick()"
+          >
+            <mat-icon
+              svgIcon="login-icon"
+              color="primary"
+              class="icon"
+            ></mat-icon>
+          </button>
+          <button
+            mat-icon-button
+            aria-label="SignUp"
+            matTooltip="{{ 'welcomePage.signUpButtonLabel' | translate }}"
+            matTooltipPosition="above"
+            color="primary"
+            (click)="onSignUpClick()"
+          >
+            <mat-icon
+              svgIcon="signup-icon"
+              color="accent"
+              class="icon"
+            ></mat-icon>
+          </button>
+        </section>
+      </ng-template>
+    </ng-template>
+  </div>
 </header>
