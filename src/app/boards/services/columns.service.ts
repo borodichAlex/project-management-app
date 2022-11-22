@@ -24,7 +24,7 @@ export class ColumnsService {
 
   constructor(
     private apiColumns: ApiColumnsService,
-    private apiTasksService: ApiTasksService,
+    private apiTasks: ApiTasksService,
   ) {}
 
   public get columns$(): Observable<IColumnFull[]> {
@@ -39,7 +39,7 @@ export class ColumnsService {
     return this.isLoading.asObservable();
   }
 
-  public loadAll(boardId: string) {
+  public loadAll(boardId: string): Subscription {
     this.isLoading.next(true);
     return this.apiColumns
       .getAll(boardId)
@@ -82,14 +82,6 @@ export class ColumnsService {
     this.columnsData.next(newColumns);
   }
 
-  public put(
-    boardId: string,
-    column: TColumn,
-    order?: number,
-  ): Observable<TColumn> {
-    return this.apiColumns.put(boardId, column, order);
-  }
-
   public updateOrder(
     boardId: string,
     updatedColumns: IColumnFull[],
@@ -108,28 +100,24 @@ export class ColumnsService {
   public updateTasks(
     boardId: string,
     columnId: string,
-    task: ITask,
+    updatedTasks: ITask[],
+    currentTask: ITask,
     order: number,
-  ) {
-    return this.apiTasksService
-      .put(boardId, columnId, task, order)
+  ): Subscription {
+    return this.apiTasks
+      .put(boardId, columnId, currentTask, order)
       .subscribe(() => {
+        const finishTasks = updatedTasks.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
         const columnIndex: number = this.columnsData.value.findIndex(
           ({ id }) => id === columnId,
         );
         const column: IColumnFull = this.columnsData.value[columnIndex];
-        const taskIndex: number = column.tasks.findIndex(
-          ({ id }) => id === task.id,
-        );
-        const tasks: ITask[] = [...column.tasks];
-        const newItem = {
-          ...tasks[taskIndex],
-          order,
-        };
-        tasks.splice(taskIndex, 1, newItem);
         const currentColumn = {
           ...column,
-          tasks,
+          tasks: finishTasks,
         };
         const currentColumns: IColumnFull[] = [...this.columnsData.value];
         currentColumns.splice(columnIndex, 1, currentColumn);

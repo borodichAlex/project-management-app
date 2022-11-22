@@ -80,13 +80,18 @@ export class ColumnComponent implements OnDestroy {
   }
 
   public drop(event: CdkDragDrop<ITask[]>) {
-    moveItemInArray(this.column.tasks, event.previousIndex, event.currentIndex);
+    moveItemInArray(
+      event.container.data,
+      event.previousIndex,
+      event.currentIndex,
+    );
     const currentOrder = event.currentIndex + 1;
     this.subscription.add(
       this.columnsService.updateTasks(
         this.boardId,
         this.column.id,
-        this.column.tasks[event.currentIndex],
+        event.container.data,
+        event.item.data,
         currentOrder,
       ),
     );
