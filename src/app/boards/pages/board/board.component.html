@@ -17,12 +17,14 @@
   <!-- [column]="column" -->
   <div
     class="board"
+    *ngIf="columns$ | async as columns"
     cdkDropList
+    [cdkDropListData]="columns"
     cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="drop($event)"
   >
     <app-column
-      *ngFor="let column of columns$ | async | sortByOrder"
+      *ngFor="let column of columns | sortByOrder"
       [attr.columnId]="column.id"
       [column]="column"
       [boardId]="boardId"

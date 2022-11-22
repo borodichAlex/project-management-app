@@ -1,4 +1,4 @@
-<mat-card class="column" cdkDrag>
+<mat-card class="column" cdkDrag [cdkDragData]="column">
   <div class="buttons-group">
     <div class="example-handle" cdkDragHandle>
       <svg width="24px" fill="currentColor" viewBox="0 0 24 24">
@@ -63,12 +63,19 @@
     </div>
     <!-- END Input -->
   </mat-card-header>
-  <mat-card-content class="tasks">
+  <mat-card-content
+    class="tasks"
+    cdkDropList
+    [cdkDropListData]="column.tasks"
+    (cdkDropListDropped)="drop($event)"
+  >
     <app-task
-      *ngFor="let task of column.tasks"
+      *ngFor="let task of column.tasks | sortTasksByOrder"
       [boardId]="boardId"
       [columnId]="column.id"
       [task]="task"
+      cdkDrag
+      [cdkDragData]="task"
     ></app-task>
   </mat-card-content>
   <button mat-icon-button (click)="onClickCreateTask()">

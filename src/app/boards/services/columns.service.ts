@@ -12,7 +12,9 @@ import {
   TColumn,
   TNewColumn,
 } from '../interfaces/column.interface';
+import { ITask } from '../interfaces/task.interface';
 import { ApiColumnsService } from './api-columns.service';
+import { ApiTasksService } from './api-tasks.service';
 
 @Injectable()
 export class ColumnsService {
@@ -20,7 +22,10 @@ export class ColumnsService {
 
   private isLoading = new BehaviorSubject<boolean>(false);
 
-  constructor(private apiColumns: ApiColumnsService) {}
+  constructor(
+    private apiColumns: ApiColumnsService,
+    private apiTasks: ApiTasksService,
+  ) {}
 
   public get columns$(): Observable<IColumnFull[]> {
     return this.columnsData.asObservable();
@@ -34,7 +39,7 @@ export class ColumnsService {
     return this.isLoading.asObservable();
   }
 
-  public loadAll(boardId: string) {
+  public loadAll(boardId: string): Subscription {
     this.isLoading.next(true);
     return this.apiColumns
       .getAll(boardId)
@@ -43,7 +48,7 @@ export class ColumnsService {
           if (!columns.length) return of([]);
 
           return forkJoin(
-            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
+            columns.map((item) => this.apiColumns.getById(boardId, item.id)),
           );
         }),
       )
@@ -55,7 +60,11 @@ export class ColumnsService {
 
   public create(column: TNewColumn, boardId: string): void {
     this.apiColumns.create(boardId, column).subscribe((newColumn) => {
-      const newColumns = [...this.columnsData.value, newColumn];
+      const fullColumn = {
+        ...newColumn,
+        tasks: [],
+      };
+      const newColumns = [...this.columnsData.value, fullColumn];
       this.columnsData.next(newColumns);
     });
   }
@@ -73,29 +82,47 @@ export class ColumnsService {
     this.columnsData.next(newColumns);
   }
 
-  public refreshAll(boardId: string): Subscription {
-    return this.apiColumns
-      .getAll(boardId)
-      .pipe(
-        mergeMap((columns) => {
-          if (!columns.length) return of([]);
-
-          return forkJoin(
-            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
-          );
-        }),
-      )
-      .subscribe((columns: IColumnFull[]) => {
-        this.columnsData.next(columns);
-      });
+  public updateOrder(
+    boardId: string,
+    updatedColumns: IColumnFull[],
+    currentColumn: TColumn,
+    order: number,
+  ): Subscription {
+    return this.apiColumns.put(boardId, currentColumn, order).subscribe(() => {
+      const finishColumns = updatedColumns.map((column, index) => ({
+        ...column,
+        order: index + 1,
+      }));
+      this.columnsData.next(finishColumns);
+    });
   }
 
-  public put(
+  public updateTasks(
     boardId: string,
-    item: TColumn,
+    columnId: string,
+    updatedTasks: ITask[],
+    currentTask: ITask,
     order: number,
-  ): Observable<TColumn> {
-    return this.apiColumns.put(boardId, item, order);
+  ): Subscription {
+    return this.apiTasks
+      .put(boardId, columnId, currentTask, order)
+      .subscribe(() => {
+        const finishTasks = updatedTasks.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
+        const columnIndex: number = this.columnsData.value.findIndex(
+          ({ id }) => id === columnId,
+        );
+        const column: IColumnFull = this.columnsData.value[columnIndex];
+        const currentColumn = {
+          ...column,
+          tasks: finishTasks,
+        };
+        const currentColumns: IColumnFull[] = [...this.columnsData.value];
+        currentColumns.splice(columnIndex, 1, currentColumn);
+        this.columnsData.next(currentColumns);
+      });
   }
 
   public update(newColumn: TColumn, boardId: string): Subscription {
