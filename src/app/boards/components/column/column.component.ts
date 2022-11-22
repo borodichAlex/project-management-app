@@ -5,7 +5,7 @@ import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
+import { TTask, TTaskConfirmationModal } from '../../interfaces/task.interface';
 import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
@@ -21,6 +21,8 @@ export class ColumnComponent {
   @Input() column!: IColumnFull;
 
   @Input() boardId!: string;
+
+  isShowTitleInput: boolean = false;
 
   constructor(
     private columnsService: ColumnsService,
@@ -73,5 +75,24 @@ export class ColumnComponent {
     });
 
     return dialogRef.afterClosed();
+  }
+
+  public onClickTitle() {
+    this.isShowTitleInput = true;
+  }
+
+  public onClickButtonCloseInput() {
+    this.isShowTitleInput = false;
+  }
+
+  public onClickButtonDoneInput(value: string) {
+    const { id, order } = this.column;
+    const newColumn = {
+      id,
+      title: value,
+      order,
+    };
+    this.columnsService.update(newColumn, this.boardId);
+    this.isShowTitleInput = false;
   }
 }

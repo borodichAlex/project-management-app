@@ -19,13 +19,49 @@
       <mat-icon>delete_forever</mat-icon>
     </button>
   </div>
-  <mat-card-header>
+  <mat-card-header class="card-header">
     <mat-card-title
+      *ngIf="!isShowTitleInput"
       class="column__title"
       matTooltip="Change the Column title"
       matTooltipPosition="above"
+      (click)="onClickTitle()"
       >{{ column.title }}</mat-card-title
     >
+    <!-- Input -->
+    <div *ngIf="isShowTitleInput" class="input-container">
+      <input
+        #titleInput
+        class="title-input"
+        [value]="column.title"
+        (keyup.enter)="onClickButtonDoneInput(titleInput.value)"
+      />
+      <div class="buttons-input-group">
+        <button
+          class="button-input"
+          mat-icon-button
+          color="warn"
+          aria-label="close button"
+          matTooltip="Close the Input"
+          matTooltipPosition="above"
+          (click)="onClickButtonCloseInput()"
+        >
+          <mat-icon>close</mat-icon>
+        </button>
+        <button
+          class="button-input"
+          mat-icon-button
+          color="primary"
+          aria-label="done button"
+          matTooltip="Submit the Title"
+          matTooltipPosition="above"
+          (click)="onClickButtonDoneInput(titleInput.value)"
+        >
+          <mat-icon>done</mat-icon>
+        </button>
+      </div>
+    </div>
+    <!-- END Input -->
   </mat-card-header>
   <mat-card-content class="tasks">
     <app-task
