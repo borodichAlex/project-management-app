@@ -58,14 +58,4 @@ export class TasksService {
   ): Observable<ITask> {
     return this.apiTasks.create(boardId, columnId, task);
   }
-
-  // eslint-disable-next-line class-methods-use-this
-  public changeTaskIndex(
-    arr: ITask[],
-    previousIndex: number,
-    currentIndex: number,
-  ) {
-    arr.splice(currentIndex, 0, arr[previousIndex]);
-    arr.pop();
-  }
 }
