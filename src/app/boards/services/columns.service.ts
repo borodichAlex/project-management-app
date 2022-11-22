@@ -90,26 +90,19 @@ export class ColumnsService {
     return this.apiColumns.put(boardId, column, order);
   }
 
-  public update(
-    newColumn: TColumn,
+  public updateOrder(
     boardId: string,
+    updatedColumns: IColumnFull[],
+    currentColumn: TColumn,
     order: number,
   ): Subscription {
-    return this.apiColumns
-      .put(boardId, newColumn, order)
-      .subscribe((column) => {
-        const columnIndex: number = this.columnsData.value.findIndex(
-          ({ id }) => id === column.id,
-        );
-        const currentColumns: IColumnFull[] = [...this.columnsData.value];
-        const newItem = {
-          ...currentColumns[columnIndex],
-          title: column.title,
-          order,
-        };
-        currentColumns.splice(columnIndex, 1, newItem);
-        this.columnsData.next(currentColumns);
-      });
+    return this.apiColumns.put(boardId, currentColumn, order).subscribe(() => {
+      const finishColumns = updatedColumns.map((column, index) => ({
+        ...column,
+        order: index + 1,
+      }));
+      this.columnsData.next(finishColumns);
+    });
   }
 
   public updateTasks(

@@ -66,15 +66,16 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
-      this.columnsService.columns,
+      event.container.data,
       event.previousIndex,
       event.currentIndex,
     );
     const currentOrder = event.currentIndex + 1;
     this.subscription.add(
-      this.columnsService.update(
-        this.columnsService.columns[event.currentIndex],
+      this.columnsService.updateOrder(
         this.boardId,
+        event.container.data,
+        event.item.data,
         currentOrder,
       ),
     );
