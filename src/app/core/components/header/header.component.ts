@@ -16,6 +16,7 @@ import { RoutePaths } from 'src/app/shared/constants';
 import { UserData } from '../../interfaces/user.interface';
 import { UserAuthenticationService } from '../../services/user-auth.service';
 import { UserStateService } from '../../services/user-state.service';
+import { BoardsService } from '../../../boards/services/boards.service';
 
 @Component({
   selector: 'app-header',
@@ -36,6 +37,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private router: Router,
     private matDialog: MatDialog,
     private CDRef: ChangeDetectorRef,
+    private boardsService: BoardsService,
   ) {}
 
   public ngOnInit(): void {
@@ -89,9 +91,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   public onClickCreateBoard() {
-    // eslint-disable-next-line no-console
-    console.log('create new board');
+    this.boardsService.createNewBoard();
   }
 }

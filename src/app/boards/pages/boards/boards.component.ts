@@ -47,6 +47,7 @@ export class BoardsComponent {
     });
   }
 
+  // TODO: remove duplication
   public onClickCreateBoard(): void {
     const modalConfig: TConfirmationModal = {
       title: '',
