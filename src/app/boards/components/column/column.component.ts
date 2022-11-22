@@ -32,6 +32,8 @@ export class ColumnComponent implements OnDestroy {
 
   @Input() boardId!: string;
 
+  public isShowTitleInput: boolean = false;
+
   private subscription = new Subscription();
 
   constructor(
@@ -104,5 +106,24 @@ export class ColumnComponent implements OnDestroy {
       disableClose: true,
     });
     return dialogRef.afterClosed();
+  }
+
+  public onClickTitle() {
+    this.isShowTitleInput = true;
+  }
+
+  public onClickButtonCloseInput() {
+    this.isShowTitleInput = false;
+  }
+
+  public onClickButtonDoneInput(value: string) {
+    const { id, order } = this.column;
+    const newColumn = {
+      id,
+      title: value,
+      order,
+    };
+    this.columnsService.update(newColumn, this.boardId);
+    this.isShowTitleInput = false;
   }
 }

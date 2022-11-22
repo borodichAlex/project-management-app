@@ -136,4 +136,19 @@ export class ColumnsService {
         this.columnsData.next(currentColumns);
       });
   }
+
+  public update(newColumn: TColumn, boardId: string): Subscription {
+    return this.apiColumns.put(boardId, newColumn).subscribe((column) => {
+      const columnIndex: number = this.columnsData.value.findIndex(
+        ({ id }) => id === column.id,
+      );
+      const currentColumns: IColumnFull[] = [...this.columnsData.value];
+      const newItem = {
+        ...currentColumns[columnIndex],
+        title: column.title,
+      };
+      currentColumns.splice(columnIndex, 1, newItem);
+      this.columnsData.next(currentColumns);
+    });
+  }
 }
