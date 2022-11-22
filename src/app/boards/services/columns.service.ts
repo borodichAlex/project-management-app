@@ -114,21 +114,22 @@ export class ColumnsService {
 
   public updateTasks(
     boardId: string,
-    columnId: string,
+    column: IColumnFull,
     task: ITask,
     order: number,
+    previousId?: string,
   ) {
+    const columnId = column.id;
     return this.apiTasksService
       .put(boardId, columnId, task, order)
       .subscribe(() => {
         const columnIndex: number = this.columnsData.value.findIndex(
           ({ id }) => id === columnId,
         );
-        const column: IColumnFull = this.columnsData.value[columnIndex];
         const taskIndex: number = column.tasks.findIndex(
-          ({ id }) => id === task.id,
+          ({ id }) => id === task.id || id === previousId,
         );
-        const tasks: ITask[] = [...column.tasks];
+        const { tasks } = column;
         const newItem = {
           ...tasks[taskIndex],
           order,

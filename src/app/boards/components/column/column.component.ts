@@ -88,7 +88,7 @@ export class ColumnComponent implements OnDestroy {
       this.subscription.add(
         this.columnsService.updateTasks(
           this.boardId,
-          this.column.id,
+          event.container.data,
           this.column.tasks[event.currentIndex],
           currentOrder,
         ),
@@ -104,7 +104,17 @@ export class ColumnComponent implements OnDestroy {
       this.subscription.add(
         this.tasksService
           .send(this.boardId, event.container.data.id, newTask)
-          .subscribe(() => {}),
+          .subscribe((task) => {
+            this.subscription.add(
+              this.columnsService.updateTasks(
+                this.boardId,
+                event.container.data,
+                task,
+                currentOrder,
+                event.item.data.id,
+              ),
+            );
+          }),
       );
       this.tasksService.delete(
         this.boardId,
