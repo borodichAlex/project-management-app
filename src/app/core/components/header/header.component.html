@@ -1,4 +1,7 @@
 <header class="wrapper">
+  <button mat-raised-button color="primary" (click)="onClickCreateBoard()">
+    Create Board
+  </button>
   <app-language-toggler></app-language-toggler>
   <button
     *ngIf="isAuthUser$ | async; else login"

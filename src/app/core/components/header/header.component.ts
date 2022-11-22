@@ -88,4 +88,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       },
     );
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  public onClickCreateBoard() {
+    // eslint-disable-next-line no-console
+    console.log('create new board');
+  }
 }
