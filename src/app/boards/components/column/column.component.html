@@ -30,7 +30,7 @@
   <mat-card-content
     class="tasks"
     cdkDropList
-    [cdkDropListData]="column.tasks"
+    [cdkDropListData]="column"
     (cdkDropListDropped)="drop($event)"
   >
     <app-task
@@ -39,6 +39,7 @@
       [columnId]="column.id"
       [task]="task"
       cdkDrag
+      [cdkDragData]="task"
     ></app-task>
   </mat-card-content>
   <button mat-icon-button (click)="onClickCreateTask()">

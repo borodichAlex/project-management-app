@@ -15,11 +15,7 @@ import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import {
-  TTaskConfirmationModal,
-  TTask,
-  ITask,
-} from '../../interfaces/task.interface';
+import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
 import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
@@ -81,14 +77,14 @@ export class ColumnComponent implements OnDestroy {
     );
   }
 
-  public drop(event: CdkDragDrop<ITask[]>) {
+  public drop(event: CdkDragDrop<IColumnFull>) {
+    const currentOrder = event.currentIndex + 1;
     if (event.container === event.previousContainer) {
       moveItemInArray(
         this.column.tasks,
         event.previousIndex,
         event.currentIndex,
       );
-      const currentOrder = event.currentIndex + 1;
       this.subscription.add(
         this.columnsService.updateTasks(
           this.boardId,
@@ -99,10 +95,21 @@ export class ColumnComponent implements OnDestroy {
       );
     } else {
       transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
+        event.previousContainer.data.tasks,
+        event.container.data.tasks,
         event.previousIndex,
         event.currentIndex,
+      );
+      const { id, order, files, ...newTask } = event.item.data;
+      this.subscription.add(
+        this.tasksService
+          .send(this.boardId, event.container.data.id, newTask)
+          .subscribe(() => {}),
+      );
+      this.tasksService.delete(
+        this.boardId,
+        event.previousContainer.data.id,
+        this.column.tasks[event.currentIndex].id,
       );
     }
   }
