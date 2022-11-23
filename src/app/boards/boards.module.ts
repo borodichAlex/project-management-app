@@ -10,8 +10,6 @@ import { RouterLinkWithHref } from '@angular/router';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsComponent } from './pages/boards/boards.component';
-import { BoardsService } from './services/boards.service';
-import { ApiBoardsService } from './services/api-boards.service';
 import { BoardComponent } from './pages/board/board.component';
 import { ColumnsService } from './services/columns.service';
 import { ApiColumnsService } from './services/api-columns.service';
@@ -41,13 +39,6 @@ import { TasksService } from './services/tasks.service';
     RouterLinkWithHref,
     DragDropModule,
   ],
-  providers: [
-    ApiBoardsService,
-    BoardsService,
-    ApiColumnsService,
-    ColumnsService,
-    ApiTasksService,
-    TasksService,
-  ],
+  providers: [ApiColumnsService, ColumnsService, ApiTasksService, TasksService],
 })
 export class BoardsModule {}

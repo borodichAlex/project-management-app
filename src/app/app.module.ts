@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 import { MatDialogModule } from '@angular/material/dialog';
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
@@ -12,6 +12,8 @@ import { httpInterceptorProviders } from './core/interceptors';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { ApiBoardsService } from './boards/services/api-boards.service';
+import { BoardsService } from './boards/services/boards.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +33,7 @@ import { CoreModule } from './core/core.module';
     CoreModule,
     MatDialogModule,
   ],
-  providers: [httpInterceptorProviders],
+  providers: [httpInterceptorProviders, ApiBoardsService, BoardsService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

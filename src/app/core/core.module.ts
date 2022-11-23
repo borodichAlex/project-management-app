@@ -25,8 +25,6 @@ import { LanguageTogglerComponent } from './components/language-toggler/language
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { UserTokenService } from './services/user-token.service';
-import { BoardsService } from '../boards/services/boards.service';
-import { ApiBoardsService } from '../boards/services/api-boards.service';
 
 @NgModule({
   declarations: [
@@ -60,8 +58,6 @@ import { ApiBoardsService } from '../boards/services/api-boards.service';
       useClass: ErrorHandlerInterceptor,
       multi: true,
     },
-    BoardsService,
-    ApiBoardsService,
   ],
   exports: [LanguageTogglerComponent, HeaderComponent, FooterComponent],
 })
