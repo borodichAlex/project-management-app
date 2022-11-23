@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Location } from '@angular/common';
 import { ColumnsService } from '../../services/columns.service';
 import {
   IColumnFull,
@@ -38,7 +37,6 @@ export class BoardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
-    private location: Location,
   ) {}
 
   public ngOnInit(): void {
@@ -79,10 +77,6 @@ export class BoardComponent implements OnInit, OnDestroy {
         currentOrder,
       ),
     );
-  }
-
-  public onClickBack() {
-    this.location.back();
   }
 
   // TODO: add to confirmation modal (shared module)

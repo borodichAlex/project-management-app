@@ -1,6 +1,19 @@
 <header class="wrapper">
-  <button mat-raised-button color="primary" (click)="onClickCreateBoard()">
+  <button
+    *ngIf="currentRoute === 'boards'"
+    mat-raised-button
+    color="primary"
+    (click)="onClickCreateBoard()"
+  >
     Create Board
+  </button>
+  <button
+    *ngIf="currentRoute === 'boardsChildren'"
+    mat-raised-button
+    color="primary"
+    (click)="onClickBackToTheBoards()"
+  >
+    Back to the Boards
   </button>
   <app-language-toggler></app-language-toggler>
   <button
