@@ -32,6 +32,8 @@ export class ColumnComponent implements OnDestroy {
 
   @Input() boardId!: string;
 
+  public isShowTitleInput: boolean = false;
+
   private subscription = new Subscription();
 
   constructor(
@@ -81,7 +83,7 @@ export class ColumnComponent implements OnDestroy {
     const currentOrder = event.currentIndex + 1;
     if (event.container === event.previousContainer) {
       moveItemInArray(
-        this.column.tasks,
+        event.container.data.tasks,
         event.previousIndex,
         event.currentIndex,
       );
@@ -104,14 +106,13 @@ export class ColumnComponent implements OnDestroy {
       this.subscription.add(
         this.tasksService
           .send(this.boardId, event.container.data.id, newTask)
-          .subscribe((task) => {
+          .subscribe(() => {
             this.subscription.add(
               this.columnsService.updateTasks(
                 this.boardId,
                 event.container.data,
-                task,
+                event.item.data,
                 currentOrder,
-                event.item.data.id,
               ),
             );
           }),
@@ -138,5 +139,24 @@ export class ColumnComponent implements OnDestroy {
       disableClose: true,
     });
     return dialogRef.afterClosed();
+  }
+
+  public onClickTitle() {
+    this.isShowTitleInput = true;
+  }
+
+  public onClickButtonCloseInput() {
+    this.isShowTitleInput = false;
+  }
+
+  public onClickButtonDoneInput(value: string) {
+    const { id, order } = this.column;
+    const newColumn = {
+      id,
+      title: value,
+      order,
+    };
+    this.columnsService.update(newColumn, this.boardId);
+    this.isShowTitleInput = false;
   }
 }

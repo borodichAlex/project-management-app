@@ -22,7 +22,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private appLangService: AppLanguageService,
     private userAuthService: UserAuthenticationService,
   ) {
-    this.userAuthService.initAuth();
+    this.userAuthService.initAuth(); // one time emitter
   }
 
   public ngOnInit(): void {

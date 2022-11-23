@@ -8,12 +8,16 @@ import {
 } from '@angular/common/http';
 import { catchError, EMPTY, Observable, throwError } from 'rxjs';
 import { UserTokenService } from '../services/user-token.service';
+import { UserAuthenticationService } from '../services/user-auth.service';
 
 const UNAUTHORIZED_STATUS_CODE = 401;
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
-  constructor(private userTokenService: UserTokenService) {}
+  constructor(
+    private userTokenService: UserTokenService,
+    private authService: UserAuthenticationService,
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -44,9 +48,7 @@ export class AuthTokenInterceptor implements HttpInterceptor {
     return source.pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status === UNAUTHORIZED_STATUS_CODE) {
-          this.userTokenService.removeToken();
-          // TODO: authService.logout()
-
+          this.authService.logout();
           return EMPTY;
         }
 

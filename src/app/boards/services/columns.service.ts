@@ -24,7 +24,7 @@ export class ColumnsService {
 
   constructor(
     private apiColumns: ApiColumnsService,
-    private apiTasksService: ApiTasksService,
+    private apiTasks: ApiTasksService,
   ) {}
 
   public get columns$(): Observable<IColumnFull[]> {
@@ -39,7 +39,7 @@ export class ColumnsService {
     return this.isLoading.asObservable();
   }
 
-  public loadAll(boardId: string) {
+  public loadAll(boardId: string): Subscription {
     this.isLoading.next(true);
     return this.apiColumns
       .getAll(boardId)
@@ -82,14 +82,6 @@ export class ColumnsService {
     this.columnsData.next(newColumns);
   }
 
-  public put(
-    boardId: string,
-    column: TColumn,
-    order?: number,
-  ): Observable<TColumn> {
-    return this.apiColumns.put(boardId, column, order);
-  }
-
   public updateOrder(
     boardId: string,
     updatedColumns: IColumnFull[],
@@ -107,34 +99,43 @@ export class ColumnsService {
 
   public updateTasks(
     boardId: string,
-    column: IColumnFull,
-    task: ITask,
+    currentColumn: IColumnFull,
+    currentTask: ITask,
     order: number,
-    previousId?: string,
-  ) {
-    const columnId = column.id;
-    return this.apiTasksService
-      .put(boardId, columnId, task, order)
+  ): Subscription {
+    const columnId = currentColumn.id;
+    return this.apiTasks
+      .put(boardId, columnId, currentTask, order)
       .subscribe(() => {
+        const updatedTasks = currentColumn.tasks.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
         const columnIndex: number = this.columnsData.value.findIndex(
           ({ id }) => id === columnId,
         );
-        const taskIndex: number = column.tasks.findIndex(
-          ({ id }) => id === task.id || id === previousId,
-        );
-        const { tasks } = column;
-        const newItem = {
-          ...tasks[taskIndex],
-          order,
+        const updatedColumn = {
+          ...currentColumn,
+          tasks: updatedTasks,
         };
-        tasks.splice(taskIndex, 1, newItem);
-        const currentColumn = {
-          ...column,
-          tasks,
-        };
-        const currentColumns: IColumnFull[] = [...this.columnsData.value];
-        currentColumns.splice(columnIndex, 1, currentColumn);
-        this.columnsData.next(currentColumns);
+        const updatedColumns: IColumnFull[] = this.columnsData.value;
+        updatedColumns.splice(columnIndex, 1, updatedColumn);
+        this.columnsData.next(updatedColumns);
       });
+  }
+
+  public update(newColumn: TColumn, boardId: string): Subscription {
+    return this.apiColumns.put(boardId, newColumn).subscribe((column) => {
+      const columnIndex: number = this.columnsData.value.findIndex(
+        ({ id }) => id === column.id,
+      );
+      const currentColumns: IColumnFull[] = [...this.columnsData.value];
+      const newItem = {
+        ...currentColumns[columnIndex],
+        title: column.title,
+      };
+      currentColumns.splice(columnIndex, 1, newItem);
+      this.columnsData.next(currentColumns);
+    });
   }
 }
