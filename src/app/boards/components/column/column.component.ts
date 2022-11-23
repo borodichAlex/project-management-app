@@ -114,6 +114,7 @@ export class ColumnComponent implements OnDestroy {
                 event.container.data,
                 task,
                 currentOrder,
+                event.item.data.id,
               ),
             );
           }),
@@ -121,7 +122,7 @@ export class ColumnComponent implements OnDestroy {
       this.tasksService.delete(
         this.boardId,
         event.previousContainer.data.id,
-        this.column.tasks[event.currentIndex].id,
+        event.item.data.id,
       );
     }
   }

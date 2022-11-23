@@ -102,17 +102,27 @@ export class ColumnsService {
     currentColumn: IColumnFull,
     currentTask: ITask,
     order: number,
+    oldTaskId?: string,
   ): Subscription {
-    const columnId = currentColumn.id;
     return this.apiTasks
-      .put(boardId, columnId, currentTask, order)
+      .put(boardId, currentColumn.id, currentTask, order)
       .subscribe(() => {
         const updatedTasks = currentColumn.tasks.map((task, index) => ({
           ...task,
           order: index + 1,
         }));
+        if (oldTaskId) {
+          const taskIndex: number = updatedTasks.findIndex(
+            ({ id }) => id === oldTaskId,
+          );
+          const newTask = {
+            ...updatedTasks[taskIndex],
+            id: currentTask.id,
+          };
+          updatedTasks.splice(taskIndex, 1, newTask);
+        }
         const columnIndex: number = this.columnsData.value.findIndex(
-          ({ id }) => id === columnId,
+          ({ id }) => id === currentColumn.id,
         );
         const updatedColumn = {
           ...currentColumn,
