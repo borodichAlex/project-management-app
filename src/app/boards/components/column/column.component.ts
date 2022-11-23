@@ -102,16 +102,17 @@ export class ColumnComponent implements OnDestroy {
         event.previousIndex,
         event.currentIndex,
       );
-      const { id, order, files, ...newTask } = event.item.data;
+      const { id, order, files, boardId, columnId, ...newTask } =
+        event.item.data;
       this.subscription.add(
         this.tasksService
           .send(this.boardId, event.container.data.id, newTask)
-          .subscribe(() => {
+          .subscribe((task) => {
             this.subscription.add(
               this.columnsService.updateTasks(
                 this.boardId,
                 event.container.data,
-                event.item.data,
+                task,
                 currentOrder,
               ),
             );
