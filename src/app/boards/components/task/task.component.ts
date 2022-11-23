@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnDestroy,
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { TNewColumn } from '../../interfaces/column.interface';
 import { ITask } from '../../interfaces/task.interface';
@@ -15,17 +20,23 @@ import {
   styleUrls: ['./task.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TaskComponent {
+export class TaskComponent implements OnDestroy {
   @Input() boardId!: string;
 
   @Input() columnId!: string;
 
   @Input() task!: ITask;
 
+  private subscription!: Subscription;
+
   constructor(
     private matDialog: MatDialog,
     private taskService: TasksService,
   ) {}
+
+  public ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
+  }
 
   public onClickDeleteTask(event: MouseEvent) {
     event.stopPropagation();
@@ -33,7 +44,7 @@ export class TaskComponent {
       title: 'Delete Task',
       description: 'Would you like to delete this Task?',
     };
-    this.openDialog(message).subscribe((response) => {
+    this.subscription = this.openDialog(message).subscribe((response) => {
       if (response) {
         this.taskService.delete(this.boardId, this.columnId, this.task.id);
       }
