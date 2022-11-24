@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { ApiTasksService } from './api-tasks.service';
 import { IColumnFull } from '../interfaces/column.interface';
-import { TTask } from '../interfaces/task.interface';
+import { ITask, TTask } from '../interfaces/task.interface';
 import { ColumnsService } from './columns.service';
 
 @Injectable()
@@ -48,5 +49,13 @@ export class TasksService {
       );
       this.columnsService.setColumns(newColumns);
     });
+  }
+
+  public send(
+    boardId: string,
+    columnId: string,
+    task: TTask,
+  ): Observable<ITask> {
+    return this.apiTasks.create(boardId, columnId, task);
   }
 }

@@ -99,29 +99,38 @@ export class ColumnsService {
 
   public updateTasks(
     boardId: string,
-    columnId: string,
-    updatedTasks: ITask[],
+    currentColumn: IColumnFull,
     currentTask: ITask,
     order: number,
+    oldTaskId?: string,
   ): Subscription {
     return this.apiTasks
-      .put(boardId, columnId, currentTask, order)
+      .put(boardId, currentColumn.id, currentTask, order)
       .subscribe(() => {
-        const finishTasks = updatedTasks.map((task, index) => ({
+        const updatedTasks = currentColumn.tasks.map((task, index) => ({
           ...task,
           order: index + 1,
         }));
+        if (oldTaskId) {
+          const taskIndex: number = updatedTasks.findIndex(
+            ({ id }) => id === oldTaskId,
+          );
+          const newTask = {
+            ...updatedTasks[taskIndex],
+            id: currentTask.id,
+          };
+          updatedTasks.splice(taskIndex, 1, newTask);
+        }
         const columnIndex: number = this.columnsData.value.findIndex(
-          ({ id }) => id === columnId,
+          ({ id }) => id === currentColumn.id,
         );
-        const column: IColumnFull = this.columnsData.value[columnIndex];
-        const currentColumn = {
-          ...column,
-          tasks: finishTasks,
+        const updatedColumn = {
+          ...currentColumn,
+          tasks: updatedTasks,
         };
-        const currentColumns: IColumnFull[] = [...this.columnsData.value];
-        currentColumns.splice(columnIndex, 1, currentColumn);
-        this.columnsData.next(currentColumns);
+        const updatedColumns: IColumnFull[] = this.columnsData.value;
+        updatedColumns.splice(columnIndex, 1, updatedColumn);
+        this.columnsData.next(updatedColumns);
       });
   }
 

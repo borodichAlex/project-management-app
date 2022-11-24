@@ -66,7 +66,7 @@
   <mat-card-content
     class="tasks"
     cdkDropList
-    [cdkDropListData]="column.tasks"
+    [cdkDropListData]="column"
     (cdkDropListDropped)="drop($event)"
   >
     <app-task

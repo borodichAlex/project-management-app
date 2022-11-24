@@ -6,16 +6,21 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { IColumnFull, TNewColumn } from '../../interfaces/column.interface';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
+import {
+  IColumnFull,
+  TNewColumn,
+  IMoveTaskData,
+  ITransferTaskData,
+} from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import {
-  TTaskConfirmationModal,
-  TTask,
-  ITask,
-} from '../../interfaces/task.interface';
+import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
 import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
@@ -79,21 +84,80 @@ export class ColumnComponent implements OnDestroy {
     );
   }
 
-  public drop(event: CdkDragDrop<ITask[]>) {
-    moveItemInArray(
-      event.container.data,
-      event.previousIndex,
-      event.currentIndex,
-    );
-    const currentOrder = event.currentIndex + 1;
+  public drop(event: CdkDragDrop<IColumnFull>) {
+    const { container, previousContainer, currentIndex, previousIndex, item } =
+      event;
+    const currentOrder = currentIndex + 1;
+    if (container === previousContainer) {
+      moveItemInArray(container.data.tasks, previousIndex, currentIndex);
+      this.moveTask({
+        container,
+        currentIndex,
+        currentOrder,
+      });
+    } else {
+      transferArrayItem(
+        previousContainer.data.tasks,
+        container.data.tasks,
+        previousIndex,
+        currentIndex,
+      );
+      this.transferTask({
+        container,
+        previousContainer,
+        currentOrder,
+        item,
+      });
+    }
+  }
+
+  private moveTask({
+    container,
+    currentIndex,
+    currentOrder,
+  }: IMoveTaskData): void {
     this.subscription.add(
       this.columnsService.updateTasks(
         this.boardId,
-        this.column.id,
-        event.container.data,
-        event.item.data,
+        container.data,
+        this.column.tasks[currentIndex],
         currentOrder,
       ),
+    );
+  }
+
+  private transferTask({
+    container,
+    previousContainer,
+    currentOrder,
+    item,
+  }: ITransferTaskData): void {
+    const { id: itemId, description, title, userId } = item.data;
+    const newTask = {
+      title,
+      description,
+      userId,
+    };
+
+    this.subscription.add(
+      this.tasksService
+        .send(this.boardId, container.data.id, newTask)
+        .subscribe((task) => {
+          this.tasksService.delete(
+            this.boardId,
+            previousContainer.data.id,
+            itemId,
+          );
+          this.subscription.add(
+            this.columnsService.updateTasks(
+              this.boardId,
+              container.data,
+              task,
+              currentOrder,
+              itemId,
+            ),
+          );
+        }),
     );
   }
 

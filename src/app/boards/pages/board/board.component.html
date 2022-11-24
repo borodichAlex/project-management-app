@@ -18,6 +18,7 @@
   <div
     class="board"
     *ngIf="columns$ | async as columns"
+    cdkDropListGroup
     cdkDropList
     [cdkDropListData]="columns"
     cdkDropListOrientation="horizontal"

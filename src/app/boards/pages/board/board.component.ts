@@ -64,6 +64,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
       event.container.data,
