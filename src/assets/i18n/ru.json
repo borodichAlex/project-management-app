@@ -39,7 +39,9 @@
   "errors": {
     "User was not founded!": "Неверный логин или пароль!",
     "User login already exists!": "Логин пользователя уже существует!",
-    "Board was not founded!": "Доска не найдена"
+    "Board was not founded!": "Доска не найдена",
+    "No answer from server": "Сервер не отвечает",
+    "Unknown error": "Неизвестная ошибка"
   },
   "userSettingsPage": {
     "userGeneralSection": {

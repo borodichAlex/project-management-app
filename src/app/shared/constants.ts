@@ -19,3 +19,5 @@ export enum RoutePaths {
   signup = 'signup',
   userProfile = 'user-profile',
 }
+
+export const GATEWAY_TIMEOUT_ERROR = 504;
