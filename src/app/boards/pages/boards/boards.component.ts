@@ -47,20 +47,6 @@ export class BoardsComponent {
     });
   }
 
-  public onClickCreateBoard(): void {
-    const modalConfig: TConfirmationModal = {
-      title: '',
-      description: '',
-      confirmationTitleText: 'Create new Board',
-      confirmationButtonText: 'Create',
-    };
-    this.openModalWindow(modalConfig).subscribe((newBoard) => {
-      if (newBoard) {
-        this.boardsService.create(newBoard);
-      }
-    });
-  }
-
   public onClickUpdateBoard(event: MouseEvent, id: string): void {
     event.stopPropagation();
     const {

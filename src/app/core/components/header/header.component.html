@@ -1,21 +1,21 @@
 <header class="wrapper">
+  <ng-content></ng-content>
+
   <app-language-toggler></app-language-toggler>
-  <button
-    *ngIf="isAuthUser$ | async; else login"
-    mat-stroked-button
-    [matMenuTriggerFor]="menu"
-    color="primary"
-  >
-    {{ userName }}
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="onEditProfileClick()">
-      {{ 'header.editProfile' | translate }}
+
+  <ng-container *ngIf="isAuthUser$ | async; else login">
+    <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">
+      {{ userName }}
     </button>
-    <button mat-menu-item (click)="onLogoutClick()">
-      {{ 'header.logout' | translate }}
-    </button>
-  </mat-menu>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEditProfileClick()">
+        {{ 'header.editProfile' | translate }}
+      </button>
+      <button mat-menu-item (click)="onLogoutClick()">
+        {{ 'header.logout' | translate }}
+      </button>
+    </mat-menu>
+  </ng-container>
   <ng-template #login>
     <section class="buttons">
       <button mat-raised-button color="primary" (click)="onLogInClick()">
