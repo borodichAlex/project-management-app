@@ -19,6 +19,9 @@ import { SortTasksByOrderPipe } from '../shared/pipes/sort-tasks-by-order.pipe';
 import { TaskComponent } from './components/task/task.component';
 import { ApiTasksService } from './services/api-tasks.service';
 import { TasksService } from './services/tasks.service';
+import { BoardsHeaderComponent } from './components/boards-header/boards-header.component';
+import { BoardsService } from './services/boards.service';
+import { ApiBoardsService } from './services/api-boards.service';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,7 @@ import { TasksService } from './services/tasks.service';
     SortByOrderPipe,
     SortTasksByOrderPipe,
     TaskComponent,
+    BoardsHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +45,13 @@ import { TasksService } from './services/tasks.service';
     RouterLinkWithHref,
     DragDropModule,
   ],
-  providers: [ApiColumnsService, ColumnsService, ApiTasksService, TasksService],
+  providers: [
+    BoardsService,
+    ApiBoardsService,
+    ApiColumnsService,
+    ColumnsService,
+    ApiTasksService,
+    TasksService,
+  ],
 })
 export class BoardsModule {}
