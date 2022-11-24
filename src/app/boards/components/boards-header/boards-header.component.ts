@@ -28,6 +28,7 @@ export class BoardsHeaderComponent implements OnInit, OnDestroy {
     this.setCurrentPageState(this.router.routerState.snapshot.url);
     this.subscription = this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
+        console.log(`navend${event.url}`);
         this.setCurrentPageState(event.url);
       }
     });

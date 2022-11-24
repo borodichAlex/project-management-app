@@ -105,6 +105,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
+  public onTitleClick() {
+    this.router.navigateByUrl(RoutePaths.boards);
+  }
+
   private logOutConfirmation(message: DialogData): Observable<boolean> {
     const dialogRef = this.matDialog.open(ConfirmationComponent, {
       data: message,
