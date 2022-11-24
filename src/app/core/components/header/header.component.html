@@ -1,14 +1,13 @@
 <header class="wrapper">
-  <h1>PMa</h1>
+  <p class="title">PMa</p>
+  <ng-content></ng-content>
   <div class="controls">
-    <ng-content></ng-content>
-
     <app-language-toggler></app-language-toggler>
 
     <ng-container *ngIf="isAuthUser$ | async; else login">
-      <button mat-stroked-button [matMenuTriggerFor]="menu" color="primary">
+      <a mat-button class="username" [matMenuTriggerFor]="menu" color="primary">
         {{ userName }}
-      </button>
+      </a>
       <mat-menu #menu="matMenu">
         <button mat-menu-item (click)="onEditProfileClick()">
           {{ 'header.editProfile' | translate }}
@@ -19,7 +18,7 @@
       </mat-menu>
     </ng-container>
     <ng-template #login>
-      <section class="buttons">
+      <section class="buttons" *ngIf="showBigButtons | async; else iconButtons">
         <button mat-raised-button color="primary" (click)="onLogInClick()">
           {{ 'welcomePage.logInButtonLabel' | translate }}
         </button>

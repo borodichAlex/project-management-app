@@ -18,6 +18,13 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+.title{
+  color: red;
+  // font-weight: 800;
+  font-size: 2rem;
+  margin: 0;
 }
 .controls{
   display: flex;
@@ -31,13 +38,6 @@
 }
 .icon-buttons {
   display: flex;
-}
-h1{
-  margin: auto;
-  margin-left: 0;
-  color: red;
-  font-weight: 800;
-  font-size: 2.2rem;
 }
 .username{
   // font-weight: 600;

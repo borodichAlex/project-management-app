@@ -11,7 +11,7 @@ import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import {
   ConfirmationComponent,
   DialogData,
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public subscription!: Subscription;
 
-  public showBigButtons!: boolean;
+  public showBigButtons = new BehaviorSubject<boolean>(false);
 
   constructor(
     private userAuthService: UserAuthenticationService,
@@ -68,9 +68,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
       .observe(['(min-width: 769px)'])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          this.showBigButtons = true;
+          this.showBigButtons.next(true);
         } else {
-          this.showBigButtons = false;
+          this.showBigButtons.next(false);
         }
       });
   }
