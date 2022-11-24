@@ -12,8 +12,6 @@ import { httpInterceptorProviders } from './core/interceptors';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
-import { ApiBoardsService } from './boards/services/api-boards.service';
-import { BoardsService } from './boards/services/boards.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -33,7 +31,7 @@ import { BoardsService } from './boards/services/boards.service';
     CoreModule,
     MatDialogModule,
   ],
-  providers: [httpInterceptorProviders, ApiBoardsService, BoardsService],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
