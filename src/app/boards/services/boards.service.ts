@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { IBoard, TBoard } from '../interfaces/boards.interface';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  IBoard,
+  TBoard,
+  TConfirmationModal,
+} from '../interfaces/boards.interface';
 import { ApiBoardsService } from './api-boards.service';
+import { BoardsModalComponent } from '../modals/boards/boards-modal.component';
+import { MODAL_WIDTH } from '../../shared/constants';
 
 @Injectable()
 export class BoardsService {
@@ -9,7 +16,10 @@ export class BoardsService {
 
   private isLoading = new BehaviorSubject<boolean>(false);
 
-  constructor(private apiBoards: ApiBoardsService) {
+  constructor(
+    private apiBoards: ApiBoardsService,
+    private matDialog: MatDialog,
+  ) {
     this.loadAll(); // where loading this data?
   }
 
@@ -19,6 +29,30 @@ export class BoardsService {
 
   public get isLoading$(): Observable<boolean> {
     return this.isLoading.asObservable();
+  }
+
+  public createNewBoard(): void {
+    const modalConfig: TConfirmationModal = {
+      title: '',
+      description: '',
+      confirmationTitleText: 'Create new Board',
+      confirmationButtonText: 'Create',
+    };
+    this.openModalWindow(modalConfig).subscribe((newBoard) => {
+      if (newBoard) {
+        this.create(newBoard);
+      }
+    });
+  }
+
+  private openModalWindow(data: TConfirmationModal): Observable<TBoard> {
+    const dialogRef = this.matDialog.open(BoardsModalComponent, {
+      width: MODAL_WIDTH,
+      data,
+      disableClose: true,
+    });
+
+    return dialogRef.afterClosed();
   }
 
   public getByIdForUpdate(id: string): {

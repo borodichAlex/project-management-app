@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { TTask, ITask } from '../interfaces/task.interface';
+import { ITask, ITaskPut, TTask } from '../interfaces/task.interface';
 import { taskApi } from '../../shared/utils/api';
 
 @Injectable()
@@ -24,5 +24,26 @@ export class ApiTasksService {
     return this.http.delete<HttpStatusCode.NoContent>(
       taskApi(boardId, columnId, taskId),
     );
+  }
+
+  public update(
+    boardId: string,
+    columnId: string,
+    task: ITask,
+    order: number,
+  ): Observable<ITaskPut> {
+    const { title, description, userId, id: taskId } = task;
+    const response = this.http.put<ITaskPut>(
+      taskApi(boardId, columnId, taskId),
+      {
+        title,
+        order,
+        description,
+        userId,
+        boardId,
+        columnId,
+      },
+    );
+    return response;
   }
 }

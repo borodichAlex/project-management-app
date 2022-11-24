@@ -10,16 +10,18 @@ import { RouterLinkWithHref } from '@angular/router';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsComponent } from './pages/boards/boards.component';
-import { BoardsService } from './services/boards.service';
-import { ApiBoardsService } from './services/api-boards.service';
 import { BoardComponent } from './pages/board/board.component';
 import { ColumnsService } from './services/columns.service';
 import { ApiColumnsService } from './services/api-columns.service';
 import { ColumnComponent } from './components/column/column.component';
 import { SortByOrderPipe } from '../shared/pipes/sort-by-order.pipe';
+import { SortTasksByOrderPipe } from '../shared/pipes/sort-tasks-by-order.pipe';
 import { TaskComponent } from './components/task/task.component';
 import { ApiTasksService } from './services/api-tasks.service';
 import { TasksService } from './services/tasks.service';
+import { BoardsHeaderComponent } from './components/boards-header/boards-header.component';
+import { BoardsService } from './services/boards.service';
+import { ApiBoardsService } from './services/api-boards.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { TasksService } from './services/tasks.service';
     BoardComponent,
     ColumnComponent,
     SortByOrderPipe,
+    SortTasksByOrderPipe,
     TaskComponent,
+    BoardsHeaderComponent,
   ],
   imports: [
     CommonModule,
@@ -42,8 +46,8 @@ import { TasksService } from './services/tasks.service';
     DragDropModule,
   ],
   providers: [
-    ApiBoardsService,
     BoardsService,
+    ApiBoardsService,
     ApiColumnsService,
     ColumnsService,
     ApiTasksService,

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Subscription, Observable } from 'rxjs';
 import { ApiTasksService } from './api-tasks.service';
 import { IColumnFull } from '../interfaces/column.interface';
-import { TTask } from '../interfaces/task.interface';
+import { ITask, TTask } from '../interfaces/task.interface';
 import { ColumnsService } from './columns.service';
 
 @Injectable()
@@ -50,5 +51,37 @@ export class TasksService {
       );
       this.columnsService.setColumns(newColumns);
     });
+  }
+
+  public send(
+    boardId: string,
+    columnId: string,
+    task: TTask,
+  ): Observable<ITask> {
+    return this.apiTasks.create(boardId, columnId, task);
+  }
+
+  public update(
+    boardId: string,
+    columnId: string,
+    task: ITask,
+    order: number,
+  ): Subscription {
+    return this.apiTasks
+      .update(boardId, columnId, task, order)
+      .subscribe((updatedTask) => {
+        const newTask: ITask = updatedTask;
+        const columnIndex: number = this.columnsService.columns.findIndex(
+          ({ id }) => id === columnId,
+        );
+        const currentColumn: IColumnFull =
+          this.columnsService.columns[columnIndex];
+        const taskIndex: number = currentColumn.tasks.findIndex(
+          ({ id }) => id === task.id,
+        );
+        const copyColumns: IColumnFull[] = [...this.columnsService.columns];
+        copyColumns[columnIndex].tasks.splice(taskIndex, 1, newTask);
+        this.columnsService.setColumns(copyColumns);
+      });
   }
 }

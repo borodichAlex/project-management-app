@@ -1,8 +1,4 @@
 <h2>Board Columns:</h2>
-<button mat-raised-button color="primary" (click)="onClickBack()">
-  <-- Back to Boards
-</button>
-<br /><br />
 <button mat-raised-button color="primary" (click)="onClickCreateColumn()">
   Create Column
 </button>
@@ -17,12 +13,15 @@
   <!-- [column]="column" -->
   <div
     class="board"
+    *ngIf="columns$ | async as columns"
+    cdkDropListGroup
     cdkDropList
+    [cdkDropListData]="columns"
     cdkDropListOrientation="horizontal"
     (cdkDropListDropped)="drop($event)"
   >
     <app-column
-      *ngFor="let column of columns$ | async | sortByOrder"
+      *ngFor="let column of columns | sortByOrder"
       [attr.columnId]="column.id"
       [column]="column"
       [boardId]="boardId"

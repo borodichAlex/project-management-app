@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Location } from '@angular/common';
 import { ColumnsService } from '../../services/columns.service';
 import {
   IColumnFull,
@@ -32,25 +31,22 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public isLoading$!: Observable<boolean>;
 
-  private subscriptions: Subscription[] = [];
+  private subscription = new Subscription();
 
   constructor(
     private route: ActivatedRoute,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
-    private location: Location,
   ) {}
 
   public ngOnInit(): void {
     this.isLoading$ = this.columnsService.isLoading$;
-    this.subscriptions.push(this.columnsService.loadAll(this.boardId));
+    this.subscription.add(this.columnsService.loadAll(this.boardId));
     this.columns$ = this.columnsService.columns$;
   }
 
   public ngOnDestroy(): void {
-    this.subscriptions.forEach((subscription: Subscription) => {
-      subscription.unsubscribe();
-    });
+    this.subscription.unsubscribe();
   }
 
   public onClickCreateColumn(): void {
@@ -66,27 +62,22 @@ export class BoardComponent implements OnInit, OnDestroy {
     });
   }
 
+  // eslint-disable-next-line class-methods-use-this
   public drop(event: CdkDragDrop<IColumnFull[]>) {
     moveItemInArray(
-      this.columnsService.columns,
+      event.container.data,
       event.previousIndex,
       event.currentIndex,
     );
     const currentOrder = event.currentIndex + 1;
-    const subscription = this.columnsService
-      .put(
+    this.subscription.add(
+      this.columnsService.updateOrder(
         this.boardId,
-        this.columnsService.columns[event.currentIndex],
+        event.container.data,
+        event.item.data,
         currentOrder,
-      )
-      .subscribe(() => {
-        this.columnsService.refreshAll(this.boardId);
-      });
-    this.subscriptions.push(subscription);
-  }
-
-  public onClickBack() {
-    this.location.back();
+      ),
+    );
   }
 
   // TODO: add to confirmation modal (shared module)
