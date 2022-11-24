@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { ApiTasksService } from './api-tasks.service';
 import { IColumnFull } from '../interfaces/column.interface';
 import { ITask, TTask } from '../interfaces/task.interface';
@@ -51,6 +51,14 @@ export class TasksService {
       );
       this.columnsService.setColumns(newColumns);
     });
+  }
+
+  public send(
+    boardId: string,
+    columnId: string,
+    task: TTask,
+  ): Observable<ITask> {
+    return this.apiTasks.create(boardId, columnId, task);
   }
 
   public update(

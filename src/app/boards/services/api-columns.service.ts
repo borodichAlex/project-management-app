@@ -16,15 +16,12 @@ export class ApiColumnsService {
     return this.http.get<TColumn[]>(columnApi(boardId));
   }
 
-  public getAllById(
-    boardId: string,
-    columnId: string,
-  ): Observable<IColumnFull> {
+  public getById(boardId: string, columnId: string): Observable<IColumnFull> {
     return this.http.get<IColumnFull>(columnApi(boardId, columnId));
   }
 
-  public create(boardId: string, column: TNewColumn): Observable<IColumnFull> {
-    return this.http.post<IColumnFull>(columnApi(boardId), column);
+  public create(boardId: string, column: TNewColumn): Observable<TColumn> {
+    return this.http.post<TColumn>(columnApi(boardId), column);
   }
 
   public delete(
@@ -38,12 +35,12 @@ export class ApiColumnsService {
 
   public put(
     boardId: string,
-    item: TColumn,
-    order: number,
-  ): Observable<IColumnFull> {
-    return this.http.put<IColumnFull>(columnApi(boardId, item.id), {
-      title: item.title,
-      order,
+    column: TColumn,
+    order?: number,
+  ): Observable<TColumn> {
+    return this.http.put<TColumn>(columnApi(boardId, column.id), {
+      title: column.title,
+      order: order || column.order,
     });
   }
 }

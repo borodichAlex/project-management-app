@@ -1,4 +1,5 @@
 /* eslint-disable */
+import { CdkDrag, CdkDropList } from '@angular/cdk/drag-drop';
 import { ITask } from './task.interface';
 
 export interface IColumnFull {
@@ -23,3 +24,16 @@ export type TConfirmationButtonText = {
 export type TConfirmationModal = TNewColumn &
   TConfirmationTitleText &
   TConfirmationButtonText;
+
+export type IMoveTaskData = {
+  container: CdkDropList;
+  currentIndex: number;
+  currentOrder: number;
+};
+
+export type ITransferTaskData = {
+  container: CdkDropList;
+  previousContainer: CdkDropList;
+  currentOrder: number;
+  item: CdkDrag<any>;
+};

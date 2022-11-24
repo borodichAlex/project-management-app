@@ -12,7 +12,9 @@ import {
   TColumn,
   TNewColumn,
 } from '../interfaces/column.interface';
+import { ITask } from '../interfaces/task.interface';
 import { ApiColumnsService } from './api-columns.service';
+import { ApiTasksService } from './api-tasks.service';
 
 @Injectable()
 export class ColumnsService {
@@ -20,7 +22,10 @@ export class ColumnsService {
 
   private isLoading = new BehaviorSubject<boolean>(false);
 
-  constructor(private apiColumns: ApiColumnsService) {}
+  constructor(
+    private apiColumns: ApiColumnsService,
+    private apiTasks: ApiTasksService,
+  ) {}
 
   public get columns$(): Observable<IColumnFull[]> {
     return this.columnsData.asObservable();
@@ -34,7 +39,7 @@ export class ColumnsService {
     return this.isLoading.asObservable();
   }
 
-  public loadAll(boardId: string) {
+  public loadAll(boardId: string): Subscription {
     this.isLoading.next(true);
     return this.apiColumns
       .getAll(boardId)
@@ -43,7 +48,7 @@ export class ColumnsService {
           if (!columns.length) return of([]);
 
           return forkJoin(
-            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
+            columns.map((item) => this.apiColumns.getById(boardId, item.id)),
           );
         }),
       )
@@ -55,7 +60,11 @@ export class ColumnsService {
 
   public create(column: TNewColumn, boardId: string): void {
     this.apiColumns.create(boardId, column).subscribe((newColumn) => {
-      const newColumns = [...this.columnsData.value, newColumn];
+      const fullColumn = {
+        ...newColumn,
+        tasks: [],
+      };
+      const newColumns = [...this.columnsData.value, fullColumn];
       this.columnsData.next(newColumns);
     });
   }
@@ -73,28 +82,70 @@ export class ColumnsService {
     this.columnsData.next(newColumns);
   }
 
-  public refreshAll(boardId: string): Subscription {
-    return this.apiColumns
-      .getAll(boardId)
-      .pipe(
-        mergeMap((columns) => {
-          if (!columns.length) return of([]);
+  public updateOrder(
+    boardId: string,
+    updatedColumns: IColumnFull[],
+    currentColumn: TColumn,
+    order: number,
+  ): Subscription {
+    return this.apiColumns.put(boardId, currentColumn, order).subscribe(() => {
+      const finishColumns = updatedColumns.map((column, index) => ({
+        ...column,
+        order: index + 1,
+      }));
+      this.columnsData.next(finishColumns);
+    });
+  }
 
-          return forkJoin(
-            columns.map((item) => this.apiColumns.getAllById(boardId, item.id)),
+  public updateTasks(
+    boardId: string,
+    currentColumn: IColumnFull,
+    currentTask: ITask,
+    order: number,
+    oldTaskId?: string,
+  ): Subscription {
+    return this.apiTasks
+      .put(boardId, currentColumn.id, currentTask, order)
+      .subscribe(() => {
+        const updatedTasks = currentColumn.tasks.map((task, index) => ({
+          ...task,
+          order: index + 1,
+        }));
+        if (oldTaskId) {
+          const taskIndex: number = updatedTasks.findIndex(
+            ({ id }) => id === oldTaskId,
           );
-        }),
-      )
-      .subscribe((columns: IColumnFull[]) => {
-        this.columnsData.next(columns);
+          const newTask = {
+            ...updatedTasks[taskIndex],
+            id: currentTask.id,
+          };
+          updatedTasks.splice(taskIndex, 1, newTask);
+        }
+        const columnIndex: number = this.columnsData.value.findIndex(
+          ({ id }) => id === currentColumn.id,
+        );
+        const updatedColumn = {
+          ...currentColumn,
+          tasks: updatedTasks,
+        };
+        const updatedColumns: IColumnFull[] = this.columnsData.value;
+        updatedColumns.splice(columnIndex, 1, updatedColumn);
+        this.columnsData.next(updatedColumns);
       });
   }
 
-  public put(
-    boardId: string,
-    item: TColumn,
-    order: number,
-  ): Observable<IColumnFull> {
-    return this.apiColumns.put(boardId, item, order);
+  public update(newColumn: TColumn, boardId: string): Subscription {
+    return this.apiColumns.put(boardId, newColumn).subscribe((column) => {
+      const columnIndex: number = this.columnsData.value.findIndex(
+        ({ id }) => id === column.id,
+      );
+      const currentColumns: IColumnFull[] = [...this.columnsData.value];
+      const newItem = {
+        ...currentColumns[columnIndex],
+        title: column.title,
+      };
+      currentColumns.splice(columnIndex, 1, newItem);
+      this.columnsData.next(currentColumns);
+    });
   }
 }
