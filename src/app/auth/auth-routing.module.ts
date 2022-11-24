@@ -10,11 +10,13 @@ const routes: Routes = [
     path: RoutePaths.signup,
     component: SignupComponent,
     canActivate: [GuestGuard],
+    title: 'Signup',
   },
   {
     path: RoutePaths.login,
     component: LoginComponent,
     canActivate: [GuestGuard],
+    title: 'Login',
   },
 ];
 

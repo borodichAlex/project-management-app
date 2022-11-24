@@ -17,6 +17,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./welcome/welcome.module').then((m) => m.WelcomeModule),
     canActivate: [GuestGuard],
+    title: 'Welcome page',
   },
   {
     path: RoutePaths.userProfile,
@@ -39,6 +40,7 @@ const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
+    title: 'Not found page',
   },
 ];
 
