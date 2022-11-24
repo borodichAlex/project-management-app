@@ -79,11 +79,6 @@ export class BoardComponent implements OnInit, OnDestroy {
         event.item.data,
         currentOrder,
       ),
-      // this.columnsService.update(
-      //   this.columnsService.columns[event.currentIndex],
-      //   this.boardId,
-      //   currentOrder,
-      // ),
     );
   }
 
