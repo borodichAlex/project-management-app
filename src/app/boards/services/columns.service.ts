@@ -105,7 +105,7 @@ export class ColumnsService {
     oldTaskId?: string,
   ): Subscription {
     return this.apiTasks
-      .put(boardId, currentColumn.id, currentTask, order)
+      .update(boardId, currentColumn.id, currentTask, order)
       .subscribe(() => {
         const updatedTasks = currentColumn.tasks.map((task, index) => ({
           ...task,
