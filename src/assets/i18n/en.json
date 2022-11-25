@@ -39,6 +39,7 @@
     "User was not founded!": "Login or password is incorrect!",
     "User login already exists!": "User login already exists!",
     "Board was not founded!": "Board was not found!",
+    "Task was not founded!": "Task was not found!",
     "No answer from server": "No answer from server",
     "Unknown error": "Unknown error",
     "Bad Request": "Bad Request"

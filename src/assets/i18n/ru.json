@@ -39,6 +39,7 @@
     "User was not founded!": "Неверный логин или пароль!",
     "User login already exists!": "Логин пользователя уже существует!",
     "Board was not founded!": "Доска не найдена",
+    "Task was not founded!": "Задача не найдена",
     "No answer from server": "Сервер не отвечает",
     "Unknown error": "Неизвестная ошибка",
     "Bad Request": "Неверные данные в запросе"
