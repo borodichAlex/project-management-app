@@ -1,13 +1,13 @@
 <button
   *ngIf="isParentPage | async; else backBtn"
-  mat-raised-button
+  mat-stroked-button
   color="primary"
   (click)="onClickCreateBoard()"
 >
   Create Board
 </button>
 <ng-template #backBtn>
-  <button mat-raised-button color="primary" (click)="onClickBackToTheBoards()">
+  <button mat-stroked-button color="primary" (click)="onClickBackToTheBoards()">
     Back to the Boards
   </button>
 </ng-template>
