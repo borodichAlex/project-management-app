@@ -1,2 +1,25 @@
-<h2>{{ 'welcomePage.welcome' | translate }}</h2>
-<h1>{{ 'appTitle' | translate }}</h1>
+<div class="wrapper">
+  <h1><b>P</b>roject <br /><b>M</b>anagement <br /><b>a</b>pplication</h1>
+  <h2>{{ 'welcomePage.headling2' | translate }}</h2>
+  <h3>{{ 'welcomePage.about app' | translate }}</h3>
+  <h3>{{ 'welcomePage.about rsschool' | translate }}</h3>
+  <div class="team">
+    <h2 class="about">{{ 'welcomePage.about team' | translate }}</h2>
+    <div class="members">
+      <mat-card class="member" *ngFor="let number of [0, 1, 2, 3]">
+        <mat-card-title
+          ><a
+            class="card-title"
+            mat-button
+            color="primary"
+            href="{{ 'team.member' + number + '.github' | translate }}"
+            >{{ 'team.member' + number + '.name' | translate }}</a
+          >
+        </mat-card-title>
+        <mat-card-content>
+          {{ 'team.member' + number + '.role' | translate }}
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

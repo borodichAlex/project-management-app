@@ -1,3 +1,32 @@
+:host{
+  box-sizing: border-box;
+  font-size: 1.2rem;
+}
+.wrapper{
+  padding: 1vh 5vw;
+}
 h1{
-  width: 1000px;
+  margin-bottom: 5vh;
+  font-size: 2rem;
+  color: red;
+  white-space: pre-wrap;
+}
+h3{
+  white-space: pre-wrap;
+}
+.members{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 5vw;
+  flex-wrap: wrap;
+}
+.member{
+  max-width: 300px;
+  min-width: 250px;
+  white-space: pre-wrap;
+  font-size: 1rem;
+}
+.card-title{
+  font-size: 1.2rem;
 }
