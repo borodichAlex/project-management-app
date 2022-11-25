@@ -70,12 +70,14 @@
     (cdkDropListDropped)="drop($event)"
   >
     <app-task
+      class="task"
       *ngFor="let task of column.tasks | sortTasksByOrder"
       [boardId]="boardId"
       [columnId]="column.id"
       [task]="task"
       cdkDrag
       [cdkDragData]="task"
+      (click)="onClickTask($event, task)"
     ></app-task>
   </mat-card-content>
   <button mat-icon-button (click)="onClickCreateTask()">
