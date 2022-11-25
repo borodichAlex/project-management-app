@@ -8,7 +8,9 @@
   "header": {
     "editProfile": "Редактировать",
     "logout": "Выйти",
-    "Would you like to log out?": "Вы действительно хотите выйти?"
+    "Would you like to log out?": "Вы действительно хотите выйти?",
+    "New board": "Новая доска",
+    "Back to boards": "Назад к доскам"
   },
   "signupPage": {
     "title": "Регистрация",
