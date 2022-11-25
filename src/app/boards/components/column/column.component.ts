@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
@@ -13,14 +14,18 @@ import {
 } from '@angular/cdk/drag-drop';
 import {
   IColumnFull,
-  TNewColumn,
   IMoveTaskData,
   ITransferTaskData,
+  TNewColumn,
 } from '../../interfaces/column.interface';
 import { ColumnsService } from '../../services/columns.service';
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
-import { TTaskConfirmationModal, TTask } from '../../interfaces/task.interface';
+import {
+  ITask,
+  TTask,
+  TTaskConfirmationModal,
+} from '../../interfaces/task.interface';
 import { UserStateService } from '../../../core/services/user-state.service';
 import { TasksModalComponent } from '../../modals/tasks/tasks-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
@@ -46,6 +51,7 @@ export class ColumnComponent implements OnDestroy {
     private matDialog: MatDialog,
     private userStateService: UserStateService,
     private tasksService: TasksService,
+    private CDRef: ChangeDetectorRef,
   ) {}
 
   public ngOnDestroy(): void {
@@ -194,5 +200,32 @@ export class ColumnComponent implements OnDestroy {
     };
     this.columnsService.update(newColumn, this.boardId);
     this.isShowTitleInput = false;
+  }
+
+  public onClickTask($event: MouseEvent, task: ITask): void {
+    const { title, description, userId, order, id } = task;
+    const modalConfig: TTaskConfirmationModal = {
+      title,
+      description,
+      userId,
+      confirmationTitleText: 'Update the Task',
+      confirmationButtonText: 'Update',
+    };
+    this.openModalWindow(modalConfig).subscribe((newTask) => {
+      if (newTask) {
+        const updatedTask: ITask = {
+          ...newTask,
+          id,
+          order,
+        };
+        this.tasksService.update(
+          this.boardId,
+          this.column.id,
+          updatedTask,
+          order,
+          this.CDRef,
+        );
+      }
+    });
   }
 }
