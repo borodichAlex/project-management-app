@@ -17,7 +17,29 @@
   padding: 0px 20px;
   margin: 0 auto;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.title{
+  color: red;
+  // font-weight: 800;
+  font-size: 2rem;
+  margin: 0;
+}
+.controls{
+  display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
+}
+.buttons {
+  display: flex;
+  gap: 1rem;
+}
+.icon-buttons {
+  display: flex;
+}
+.username{
+  // font-weight: 600;
+  font-size: 1.1rem;
 }
