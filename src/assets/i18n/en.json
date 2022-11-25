@@ -66,6 +66,12 @@
   },
   "notFoundPage": {
     "notFound": "The page not found"
+  },
+  "boardsPage": {
+    "title": "Boards"
+  },
+  "icons": {
+    "edit": "Edit",
+    "delete": "Delete"
   }
-
 }

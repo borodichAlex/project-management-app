@@ -66,5 +66,12 @@
   },
   "notFoundPage": {
     "notFound": "Страница не найдена"
+  },
+  "boardsPage": {
+    "title": "Доски"
+  },
+  "icons": {
+    "edit": "Изменить",
+    "delete": "Удалить"
   }
 }
