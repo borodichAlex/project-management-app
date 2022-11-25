@@ -40,7 +40,8 @@
     "User login already exists!": "Логин пользователя уже существует!",
     "Board was not founded!": "Доска не найдена",
     "No answer from server": "Сервер не отвечает",
-    "Unknown error": "Неизвестная ошибка"
+    "Unknown error": "Неизвестная ошибка",
+    "Bad Request": "Неверные данные в запросе"
   },
   "userSettingsPage": {
     "userGeneralSection": {

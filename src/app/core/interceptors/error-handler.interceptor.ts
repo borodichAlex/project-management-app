@@ -11,10 +11,14 @@ import { catchError } from 'rxjs/operators';
 import { GATEWAY_TIMEOUT_ERROR } from 'src/app/shared/constants';
 import { ErrorDialogService } from '../services/error-dialog.service';
 import { IData } from '../services/types';
+import { UserAuthenticationService } from '../services/user-auth.service';
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
-  constructor(private errorDialogService: ErrorDialogService) {}
+  constructor(
+    private errorDialogService: ErrorDialogService,
+    private authService: UserAuthenticationService,
+  ) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -28,6 +32,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
             reason: 'No answer from server',
             status: error.status,
           };
+          // this.authService.logout();
         } else {
           data = {
             reason:
