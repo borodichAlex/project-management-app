@@ -8,6 +8,7 @@ const routes: Routes = [
   {
     path: '',
     component: BoardsComponent,
+    title: 'Boards page',
   },
   {
     path: '',
@@ -17,6 +18,7 @@ const routes: Routes = [
   {
     path: ':id',
     component: BoardComponent,
+    title: 'Board page',
   },
 ];
 

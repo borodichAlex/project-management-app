@@ -7,7 +7,8 @@
   },
   "header": {
     "editProfile": "Редактировать",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "Would you like to log out?": "Вы действительно хотите выйти?"
   },
   "signupPage": {
     "title": "Регистрация",
@@ -66,5 +67,8 @@
         }
       }
     }
+  },
+  "notFoundPage": {
+    "notFound": "Страница не найдена"
   }
 }

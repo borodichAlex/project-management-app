@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
+import { ChangeDetectorRef, Injectable } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { ApiTasksService } from './api-tasks.service';
 import { IColumnFull } from '../interfaces/column.interface';
 import { ITask, TTask } from '../interfaces/task.interface';
@@ -66,6 +66,7 @@ export class TasksService {
     columnId: string,
     task: ITask,
     order: number,
+    CDRefColumns: ChangeDetectorRef,
   ): Subscription {
     return this.apiTasks
       .update(boardId, columnId, task, order)
@@ -82,6 +83,7 @@ export class TasksService {
         const copyColumns: IColumnFull[] = [...this.columnsService.columns];
         copyColumns[columnIndex].tasks.splice(taskIndex, 1, newTask);
         this.columnsService.setColumns(copyColumns);
+        CDRefColumns.detectChanges();
       });
   }
 }
