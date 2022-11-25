@@ -14,7 +14,16 @@
 .content{
   transition: all 0.3s ease-in;
   box-sizing: border-box;
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
   height: 100%;
+  margin: 0 $wrapper-1200-margin;
   padding: $wrapper-1200-padding;
 }
+
+@media (max-width: 500px) {
+  .content{
+    margin: 0;
+    padding: 0;
+  }
+  }

@@ -4,6 +4,7 @@
   width: 300px;
   min-height: 100px;
   max-height: 65vh;
+  margin-top: 20px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -72,3 +73,9 @@
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+@media (max-width: 500px) {
+  mat-card {
+    padding: 5px;
+  }
+  }
