@@ -76,5 +76,9 @@
   },
   "notFoundPage": {
     "notFound": "Страница не найдена"
+  },
+  "confirmationComponent": {
+    "confirmButtonText": "Да",
+    "rejectButtonText": "Нет"
   }
 }

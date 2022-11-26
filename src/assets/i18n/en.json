@@ -77,4 +77,8 @@
   "notFoundPage": {
     "notFound": "The page not found"
   },
+  "confirmationComponent": {
+    "confirmButtonText": "Yes",
+    "rejectButtonText": "No"
+  }
 }
