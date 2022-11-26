@@ -32,7 +32,6 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
             reason: 'No answer from server',
             status: error.status,
           };
-          // this.authService.logout();
         } else {
           data = {
             reason:
