@@ -66,5 +66,8 @@
   },
   "notFoundPage": {
     "notFound": "Страница не найдена"
+  },
+  "board": {
+    "newColumn": "Новая колонка"
   }
 }

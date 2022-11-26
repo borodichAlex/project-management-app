@@ -66,6 +66,9 @@
   },
   "notFoundPage": {
     "notFound": "The page not found"
+  },
+  "board": {
+    "newColumn": "Add new column"
   }
 
 }

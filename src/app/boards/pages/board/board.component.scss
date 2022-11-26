@@ -1,3 +1,4 @@
+@import "abstracts/variables";
 .spinner {
   position: absolute;
   left: 0;
@@ -7,7 +8,26 @@
   margin: auto;
 }
 
-.board {
+.board {  
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
+  max-height: calc(100% - 40px - 1vh);
+}
+.container {
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: hidden;
+  padding: $wrapper-1200-padding;
+  @include media-mobile {
+    padding: 2vw;
+  }
+}
+.board-title {
+  display: flex;
+  gap: 5vw;
+  margin: 0 0 1vh 1vw;
+}
+h2{  
+  line-height: 40px;
+  margin: 0;
 }

@@ -46,3 +46,10 @@
   bottom: 0;
   margin: auto;
 }
+.container {
+  box-sizing: border-box;
+  padding: $wrapper-1200-padding;
+  @include media-mobile {
+    padding: 2vw;
+  }
+}

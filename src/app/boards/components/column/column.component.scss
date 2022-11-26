@@ -2,7 +2,10 @@
 
 .column {
   width: 300px;
-  min-height: 100px;
+  margin: 1vw;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .column__title {
@@ -46,7 +49,6 @@
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
-  min-width: 300px;
   min-height: 50px;
 }
 
