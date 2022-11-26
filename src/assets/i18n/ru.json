@@ -62,9 +62,23 @@
           "btn": "Удалить"
         }
       }
+    },
+    "confirmationPasswordDialog": {
+      "titleText": "Введите свой пароль",
+      "confirmButtonText": "Подтвердить",
+      "rejectButtonText": "Отменить",
+      "inputPlaceholder": "Пожалуйста введите пароль"
+    },
+    "deleteUserDialog": {
+      "title": "Удаление аккаунта",
+      "description": "Вы действительно хотите удалить свой аккаунт?"
     }
   },
   "notFoundPage": {
     "notFound": "Страница не найдена"
+  },
+  "confirmationComponent": {
+    "confirmButtonText": "Да",
+    "rejectButtonText": "Нет"
   }
 }
