@@ -68,7 +68,9 @@
     "notFound": "Страница не найдена"
   },
   "boardsPage": {
-    "title": "Доски"
+    "title": "Доски",
+    "buttonCreateBoard": "Создать Доску",
+    "buttonBackToTheBoards": "Назад к Доскам"
   },
   "boardPage": {
     "title": "Доска"

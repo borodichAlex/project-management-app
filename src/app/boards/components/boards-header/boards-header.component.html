@@ -4,10 +4,10 @@
   color="primary"
   (click)="onClickCreateBoard()"
 >
-  Create Board
+  {{ 'boardsPage.buttonCreateBoard' | translate }}
 </button>
 <ng-template #backBtn>
   <button mat-stroked-button color="primary" (click)="onClickBackToTheBoards()">
-    Back to the Boards
+    {{ 'boardsPage.buttonBackToTheBoards' | translate }}
   </button>
 </ng-template>

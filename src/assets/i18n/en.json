@@ -68,7 +68,9 @@
     "notFound": "The page not found"
   },
   "boardsPage": {
-    "title": "Boards"
+    "title": "Boards",
+    "buttonCreateBoard": "Create Board",
+    "buttonBackToTheBoards": "Back to the Boards"
   },
   "boardPage": {
     "title": "Board"
