@@ -18,13 +18,11 @@
   overflow-y: hidden;
   height: 100%;
   margin: 0 $wrapper-1200-margin;
-  padding: $wrapper-1200-padding;
   transition: all 0.3s ease-in;
 }
 
 @media (max-width: 500px) {
   .content{
     margin: 0 5px;
-    padding: 0;
   }
   }
