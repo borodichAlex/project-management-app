@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, switchMap } from 'rxjs';
 
 import { User, UserData } from 'src/app/core/interfaces/user.interface';
 
@@ -15,12 +15,28 @@ import {
 } from 'src/app/shared/components/confirmation/confirmation.component';
 
 import { UserStateService } from 'src/app/core/services/user-state.service';
+import { TranslateService } from '@ngx-translate/core';
 import { UserSettingsService } from '../services/user-settings.service';
 
 import {
   ConfirmationDialogPasswordComponent,
   ConfirmationDialogPasswordData,
 } from '../components/confirmation-dialog-password/confirmation-dialog-password.component';
+
+export type TranslateUserSettingsPageModalData = {
+  deleteUserDialog: {
+    title: string;
+    description: string;
+    confirmButtonText: string;
+    rejectButtonText: string;
+  };
+  confirmationPasswordDialog: {
+    titleText: string;
+    confirmButtonText: string;
+    rejectButtonText: string;
+    inputPlaceholder: string;
+  };
+};
 
 @Component({
   selector: 'app-user-settings-page',
@@ -31,12 +47,15 @@ import {
 export class UserSettingsPageComponent implements OnInit, OnDestroy {
   public user!: UserData;
 
+  public translateData!: TranslateUserSettingsPageModalData;
+
   private subscription!: Subscription;
 
   constructor(
     private userStateService: UserStateService,
     private userSettingsService: UserSettingsService,
     private dialog: MatDialog,
+    private translateService: TranslateService,
   ) {}
 
   public ngOnInit(): void {
@@ -45,6 +64,8 @@ export class UserSettingsPageComponent implements OnInit, OnDestroy {
         this.user = userData;
       }
     });
+
+    this.initTranslateDataObserver();
   }
 
   public ngOnDestroy(): void {
@@ -52,12 +73,15 @@ export class UserSettingsPageComponent implements OnInit, OnDestroy {
   }
 
   public onDeleteClick(): void {
+    const { title, description, confirmButtonText, rejectButtonText } =
+      this.translateData.deleteUserDialog;
     // TODO:
-    // * add translating
     // * verification password
     const message = {
-      title: 'Delete Account',
-      description: 'Would you like to delete your account?',
+      title,
+      description,
+      confirmButtonText,
+      rejectButtonText,
     };
 
     this.openDeleteUserDialog(message).subscribe((isConfirm) => {
@@ -84,12 +108,28 @@ export class UserSettingsPageComponent implements OnInit, OnDestroy {
     }
   }
 
+  private initTranslateDataObserver(): void {
+    this.translateService
+      .get('userSettingsPage')
+      .subscribe((res: TranslateUserSettingsPageModalData) => {
+        this.translateData = res;
+      });
+    this.translateService.onLangChange
+      .pipe(switchMap(() => this.translateService.get('userSettingsPage')))
+      .subscribe((res: TranslateUserSettingsPageModalData) => {
+        this.translateData = res;
+      });
+  }
+
   private confirmationUserPassword(): Observable<string> {
-    // TODO: add translating
+    const { titleText, confirmButtonText, rejectButtonText, inputPlaceholder } =
+      this.translateData.confirmationPasswordDialog;
     const modalConfig = {
       password: '',
-      confirmationTitleText: 'Enter your password',
-      confirmationButtonText: 'Confirm',
+      confirmationTitleText: titleText,
+      confirmationButtonText: confirmButtonText,
+      rejectionButtonText: rejectButtonText,
+      inputPlaceholder,
     };
     return this.openConfirmationPasswordDialog(modalConfig);
   }

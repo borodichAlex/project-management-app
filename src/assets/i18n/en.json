@@ -69,6 +69,10 @@
       "rejectButtonText": "Cancel",
       "inputPlaceholder": "Please enter a password"
     },
+    "deleteUserDialog": {
+      "title": "Delete account",
+      "description": "Would you like to delete your account?"
+    }
   },
   "notFoundPage": {
     "notFound": "The page not found"
