@@ -28,18 +28,19 @@
       *ngIf="!isShowTitleInput"
       class="column__title"
       matTooltip="Change the Column title"
-      matTooltipPosition="above"
+      matTooltipPosition="below"
       (click)="onClickTitle()"
       >{{ column.title }}</mat-card-title
     >
     <!-- Input -->
     <div *ngIf="isShowTitleInput" class="input-container">
-      <input
+      <textarea
         #titleInput
-        class="title-input"
+        class="title-textarea"
         [value]="column.title"
         (keyup.enter)="onClickButtonDoneInput(titleInput.value)"
-      />
+        maxlength="50"
+      ></textarea>
       <div class="buttons-input-group">
         <button
           class="button-input"
