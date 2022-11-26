@@ -62,10 +62,23 @@
           "btn": "Delete"
         }
       }
+    },
+    "confirmationPasswordDialog": {
+      "titleText": "Enter your password",
+      "confirmButtonText": "Confirm",
+      "rejectButtonText": "Cancel",
+      "inputPlaceholder": "Please enter a password"
+    },
+    "deleteUserDialog": {
+      "title": "Delete account",
+      "description": "Would you like to delete your account?"
     }
   },
   "notFoundPage": {
     "notFound": "The page not found"
+  },
+  "confirmationComponent": {
+    "confirmButtonText": "Yes",
+    "rejectButtonText": "No"
   }
-
 }
