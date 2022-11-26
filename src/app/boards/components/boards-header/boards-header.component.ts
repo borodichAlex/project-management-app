@@ -1,3 +1,4 @@
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -20,9 +21,15 @@ export class BoardsHeaderComponent implements OnInit, OnDestroy {
     true,
   );
 
+  public showBigButtons = new BehaviorSubject<boolean>(false);
+
   private subscription!: Subscription;
 
-  constructor(private router: Router, private boardsService: BoardsService) {}
+  constructor(
+    private router: Router,
+    private boardsService: BoardsService,
+    public breakpointObserver: BreakpointObserver,
+  ) {}
 
   public ngOnInit(): void {
     this.setCurrentPageState(this.router.routerState.snapshot.url);
@@ -31,6 +38,15 @@ export class BoardsHeaderComponent implements OnInit, OnDestroy {
         this.setCurrentPageState(event.url);
       }
     });
+    this.breakpointObserver
+      .observe(['(min-width: 769px)'])
+      .subscribe((state: BreakpointState) => {
+        if (state.matches) {
+          this.showBigButtons.next(true);
+        } else {
+          this.showBigButtons.next(false);
+        }
+      });
   }
 
   public ngOnDestroy(): void {

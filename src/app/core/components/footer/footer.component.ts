@@ -21,7 +21,7 @@ export class FooterComponent {
     },
     {
       url: 'https://github.com/Manofsky',
-      nickname: 'Yurij',
+      nickname: 'Yury',
     },
     {
       url: 'https://github.com/BlueOwll',
