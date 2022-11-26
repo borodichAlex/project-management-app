@@ -13,6 +13,9 @@
 }
 
 .column__title {
+  width: 250px;
+  margin-top: 12px;
+  word-wrap: break-word;
   cursor: pointer;
 }
 
@@ -38,14 +41,17 @@
 
 .buttons-group {
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
 
-  .example-handle {
-    margin: 8px 90px 0 0;
+  .dragHandle {
     width: 24px;
     height: 24px;
     color: $cdkDragHandleColor;
     cursor: move;
+  }
+
+  .addTaskBtn {
+    margin-right: 45px;
   }
 }
 
