@@ -2,14 +2,10 @@
 
 .column-card {
   box-sizing: border-box;
-  width: 310px;
-  min-height: 100px;
-  max-height: 100%;
-  margin-top: 20px;
-  margin-bottom: 90px;
-  padding: 11px;
+  margin: 1vw;
+  width: 300px;
+  height: 100%;
   overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .column__title {
