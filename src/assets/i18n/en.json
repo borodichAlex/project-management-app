@@ -70,6 +70,9 @@
   "boardsPage": {
     "title": "Boards"
   },
+  "boardPage": {
+    "title": "Board"
+  },
   "icons": {
     "edit": "Edit",
     "delete": "Delete"

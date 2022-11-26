@@ -70,6 +70,9 @@
   "boardsPage": {
     "title": "Доски"
   },
+  "boardPage": {
+    "title": "Доска"
+  },
   "icons": {
     "edit": "Изменить",
     "delete": "Удалить"
