@@ -4,10 +4,17 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { DialogData } from 'src/app/shared/components/confirmation/confirmation.component';
 import { RoutePaths } from 'src/app/shared/constants';
+import { SearchResultComponent } from '../../modals/search-result/search-result.component';
 import { BoardsService } from '../../services/boards.service';
+import {
+  ISearchTask,
+  SearchTaskService,
+} from '../../services/search-task.service';
 
 @Component({
   selector: 'app-boards-header',
@@ -22,7 +29,12 @@ export class BoardsHeaderComponent implements OnInit, OnDestroy {
 
   private subscription!: Subscription;
 
-  constructor(private router: Router, private boardsService: BoardsService) {}
+  constructor(
+    private router: Router,
+    private boardsService: BoardsService,
+    private searchTaskService: SearchTaskService,
+    private matDialog: MatDialog,
+  ) {}
 
   public ngOnInit(): void {
     this.setCurrentPageState(this.router.routerState.snapshot.url);
@@ -43,6 +55,36 @@ export class BoardsHeaderComponent implements OnInit, OnDestroy {
 
   public onClickBackToTheBoards() {
     this.router.navigateByUrl(RoutePaths.boards);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public searchTaskByValue(value: string) {
+    const findedTasks = this.searchTaskService.searchTask(value);
+    if (findedTasks.length) {
+      this.openSearchResults(findedTasks);
+    }
+  }
+
+  private openSearchResults(findedTasks: ISearchTask[]): void {
+    const modalConfig: DialogData = {
+      title: 'title',
+      description: 'description',
+      findedTasks,
+    };
+    this.openModalWindow(modalConfig).subscribe(() => {
+      // if (newBoard) {
+      //   this.boardsService.update(id, newBoard, boardIndex);
+      // }
+    });
+  }
+
+  private openModalWindow(data: DialogData): Observable<boolean> {
+    const dialogRef = this.matDialog.open(SearchResultComponent, {
+      // width: 800,
+      data,
+    });
+
+    return dialogRef.afterClosed();
   }
 
   private setCurrentPageState(url: string): void {

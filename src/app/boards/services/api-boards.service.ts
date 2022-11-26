@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IBoard, TBoard } from '../interfaces/boards.interface';
+import { IBoard, IFullBoard, TBoard } from '../interfaces/boards.interface';
 import { API_BOARDS } from '../../shared/constants';
 
 @Injectable()
 export class ApiBoardsService {
   constructor(private http: HttpClient) {}
 
-  public getById(id: string): Observable<TBoard> {
-    return this.http.get<TBoard>(`${API_BOARDS}/${id}`);
+  public getById(id: string): Observable<IFullBoard> {
+    return this.http.get<IFullBoard>(`${API_BOARDS}/${id}`);
   }
 
   public getAll(): Observable<IBoard[]> {

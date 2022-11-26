@@ -80,5 +80,8 @@
   "confirmationComponent": {
     "confirmButtonText": "Да",
     "rejectButtonText": "Нет"
+  },
+  "searchField": {
+    "labelText": "Введите ..."
   }
 }

@@ -27,6 +27,10 @@ export class BoardsService {
     return this.boardsData.asObservable();
   }
 
+  public get boards(): IBoard[] {
+    return this.boardsData.getValue();
+  }
+
   public get isLoading$(): Observable<boolean> {
     return this.isLoading.asObservable();
   }
