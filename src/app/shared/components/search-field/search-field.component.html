@@ -1,0 +1,11 @@
+<mat-form-field appearance="fill">
+  <mat-label>{{ 'searchField.labelText' | translate }}</mat-label>
+  <input
+    #searchInput
+    type="text"
+    matInput
+    [formControl]="searchControl"
+    autocomplete="off"
+  />
+  <mat-icon class="icon" matSuffix (click)="onIconClick()">search</mat-icon>
+</mat-form-field>

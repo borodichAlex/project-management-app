@@ -1,3 +1,5 @@
+import { IColumnFull } from './column.interface';
+
 /* eslint-disable */
 export interface IBoard {
   id: string;
@@ -16,3 +18,7 @@ export type TConfirmationButtonText = {
 export type TConfirmationModal = TBoard &
   TConfirmationTitleText &
   TConfirmationButtonText;
+
+export interface IFullBoard extends IBoard {
+  columns: IColumnFull[];
+}

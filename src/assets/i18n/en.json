@@ -80,5 +80,8 @@
   "confirmationComponent": {
     "confirmButtonText": "Yes",
     "rejectButtonText": "No"
+  },
+  "searchField": {
+    "labelText": "Type ..."
   }
 }

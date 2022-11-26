@@ -1,0 +1,9 @@
+<!-- <h1 mat-dialog-title>{{ data.confirmationTitleText }}</h1> -->
+<div mat-dialog-content class="content">
+  <app-search-task
+    class="task"
+    *ngFor="let task of data.findedTasks"
+    [task]="task"
+    (click)="onClickTask(task)"
+  ></app-search-task>
+</div>

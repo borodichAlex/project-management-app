@@ -1,5 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BoardsService } from '../../services/boards.service';
@@ -12,6 +17,7 @@ import { BoardsModalComponent } from '../../modals/boards/boards-modal.component
 // eslint-disable-next-line max-len
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
+import { SearchTaskService } from '../../services/search-task.service';
 
 @Component({
   selector: 'app-boards',
@@ -19,16 +25,27 @@ import { MODAL_WIDTH, RoutePaths } from '../../../shared/constants';
   styleUrls: ['./boards.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BoardsComponent {
+export class BoardsComponent implements OnInit, OnDestroy {
   public boards$: Observable<IBoard[]> = this.boardsService.boards$;
 
   public isLoading$: Observable<boolean> = this.boardsService.isLoading$;
 
+  private subscription!: Subscription;
+
   constructor(
     private boardsService: BoardsService,
+    private searchTaskService: SearchTaskService,
     private matDialog: MatDialog,
     private router: Router,
   ) {}
+
+  public ngOnInit(): void {
+    this.subscription = this.searchTaskService.initSearchTasksData();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 
   public onBoardClick(boardId: string): void {
     this.router.navigate([`${RoutePaths.boards}/${boardId}`]);

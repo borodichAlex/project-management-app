@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterLinkWithHref } from '@angular/router';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BoardsRoutingModule } from './boards-routing.module';
 import { BoardsComponent } from './pages/boards/boards.component';
 import { BoardComponent } from './pages/board/board.component';
@@ -22,6 +23,10 @@ import { TasksService } from './services/tasks.service';
 import { BoardsHeaderComponent } from './components/boards-header/boards-header.component';
 import { BoardsService } from './services/boards.service';
 import { ApiBoardsService } from './services/api-boards.service';
+import { SearchFieldComponent } from '../shared/components/search-field/search-field.component';
+import { SearchTaskService } from './services/search-task.service';
+import { SearchResultComponent } from './modals/search-result/search-result.component';
+import { SearchTaskComponent } from './modals/search-result/search-task/search-task.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +37,8 @@ import { ApiBoardsService } from './services/api-boards.service';
     SortTasksByOrderPipe,
     TaskComponent,
     BoardsHeaderComponent,
+    SearchResultComponent,
+    SearchTaskComponent,
   ],
   imports: [
     CommonModule,
@@ -44,6 +51,8 @@ import { ApiBoardsService } from './services/api-boards.service';
     TranslateModule,
     RouterLinkWithHref,
     DragDropModule,
+    SearchFieldComponent,
+    MatDialogModule,
   ],
   providers: [
     BoardsService,
@@ -52,6 +61,7 @@ import { ApiBoardsService } from './services/api-boards.service';
     ColumnsService,
     ApiTasksService,
     TasksService,
+    SearchTaskService,
   ],
 })
 export class BoardsModule {}
