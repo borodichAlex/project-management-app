@@ -4,17 +4,25 @@
   padding-top: $header-default-height;
 }
 .main {
-  background: linear-gradient(138deg, rgba(230,230,230,1) 0%, rgba(255,255,255,1) 100%);
   box-sizing: border-box;
   height: 100%;
   min-width: $min-mobile-width;
   padding-bottom: $footer-height;
   margin: 0 auto;
+  overflow-y: hidden;
+  background: linear-gradient(138deg, rgba(230,230,230,1) 0%, rgba(255,255,255,1) 100%);
 }
 .content{
-  transition: all 0.3s ease-in;
   box-sizing: border-box;
-  overflow-y: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   height: 100%;
-  padding: $wrapper-1200-padding;
+  margin: 0 $wrapper-1200-margin;
+  transition: all 0.3s ease-in;
 }
+
+@media (max-width: 500px) {
+  .content{
+    margin: 0 5px;
+  }
+  }
