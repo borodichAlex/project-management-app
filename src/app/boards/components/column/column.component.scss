@@ -1,11 +1,21 @@
 @import 'abstracts/variables';
 
-.column {
-  width: 300px;
+.column-card {
+  box-sizing: border-box;
+  width: 310px;
   min-height: 100px;
+  max-height: 100%;
+  margin-top: 20px;
+  margin-bottom: 90px;
+  padding: 11px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .column__title {
+  width: 250px;
+  margin-top: 12px;
+  word-wrap: break-word;
   cursor: pointer;
 }
 
@@ -15,8 +25,10 @@
   gap: 0.5rem;
 }
 
-.title-input {
+.title-textarea {
   width: 200px;
+  height: 50px;
+  resize: none;
 }
 
 .button-input {
@@ -31,14 +43,17 @@
 
 .buttons-group {
   display: flex;
-  justify-content: right;
+  justify-content: space-between;
 
-  .example-handle {
-    margin: 8px 90px 0 0;
+  .dragHandle {
     width: 24px;
     height: 24px;
     color: $cdkDragHandleColor;
     cursor: move;
+  }
+
+  .addTaskBtn {
+    margin-right: 45px;
   }
 }
 
@@ -46,8 +61,9 @@
   display: flex;
   flex-direction: column;
   row-gap: 1rem;
-  min-width: 300px;
+  width: 275px;
   min-height: 50px;
+  margin: 0 auto;
 }
 
 .task {
@@ -69,3 +85,9 @@
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+@media (max-width: 500px) {
+  .column-card {
+    padding: 5px;
+  }
+  }
