@@ -2,11 +2,12 @@
 
 .column-card {
   box-sizing: border-box;
-  width: 320px;
+  width: 310px;
   min-height: 100px;
+  max-height: 100%;
   margin-top: 20px;
   margin-bottom: 90px;
-  max-height: 100%;
+  padding: 11px;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -54,6 +55,7 @@
   row-gap: 1rem;
   width: 275px;
   min-height: 50px;
+  margin: 0 auto;
 }
 
 .task {
