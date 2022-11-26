@@ -24,10 +24,14 @@
 }
 .board-title {
   display: flex;
+  flex-wrap: wrap;
   gap: 5vw;
   margin: 0 0 1vh 1vw;
-}
-h2{
-  line-height: 40px;
-  margin: 0;
+
+  h2{
+    margin: 0;
+    width: 300px;
+    line-height: 40px;
+    word-wrap: break-word;
+  }
 }
