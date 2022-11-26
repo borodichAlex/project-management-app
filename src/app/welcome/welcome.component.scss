@@ -3,7 +3,10 @@
   font-size: 1.2rem;
 }
 .wrapper{
+  height: 95%;
+  overflow-y: auto;
   padding: 1vh 5vw;
+  margin-bottom: 50px;
 }
 h1{
   margin-bottom: 5vh;

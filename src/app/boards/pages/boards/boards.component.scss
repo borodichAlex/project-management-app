@@ -12,6 +12,10 @@
   cursor: pointer;
 }
 
+.boards::-webkit-scrollbar {
+  width: 0;
+}
+
 .board {
   width: 250px;
   padding: 0.5rem 1rem;
