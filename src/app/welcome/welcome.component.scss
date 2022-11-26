@@ -8,6 +8,11 @@
   padding: 1vh 5vw;
   margin-bottom: 50px;
 }
+
+.wrapper::-webkit-scrollbar {
+  width: 0;
+}
+
 h1{
   margin-bottom: 5vh;
   font-size: 2rem;
