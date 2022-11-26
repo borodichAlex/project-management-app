@@ -1,7 +1,8 @@
 <header class="wrapper">
   <a mat-button class="title" (click)="onTitleClick()" color="warn">PMa</a>
-  <ng-content></ng-content>
+
   <div class="controls">
+    <ng-content></ng-content>
     <app-language-toggler></app-language-toggler>
 
     <ng-container *ngIf="isAuthUser$ | async; else login">

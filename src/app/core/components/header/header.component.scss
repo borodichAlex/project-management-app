@@ -25,12 +25,19 @@
   // font-weight: 800;
   font-size: 2rem;
   margin: 0;
+  flex-shrink: 0;
+  &.mat-button{
+    padding: 1vw;
+  }
 }
 .controls{
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 1rem;
+  @include media-mobile {
+    gap: 1vw;
+    }
 }
 .buttons {
   display: flex;
@@ -42,4 +49,10 @@
 .username{
   // font-weight: 600;
   font-size: 1.1rem;
+  
+  &.mat-button{
+    padding: 1vw;
+    overflow: hidden;
+    max-width: calc(100vw - 220px);
+  }
 }

@@ -8,7 +8,9 @@
   "header": {
     "editProfile": "Edit Profile",
     "logout": "Log  Out",
-    "Would you like to log out?": "Would you like to log out?"
+    "Would you like to log out?": "Would you like to log out?",
+    "New board": "New board",
+    "Back to boards": "Back to boards"
   },
   "signupPage": {
     "title": "Sign up",
