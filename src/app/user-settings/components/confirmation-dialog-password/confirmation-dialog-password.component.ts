@@ -6,6 +6,8 @@ export type ConfirmationDialogPasswordData = {
   password: string;
   confirmationTitleText: string;
   confirmationButtonText: string;
+  rejectionButtonText: string;
+  inputPlaceholder: string;
 };
 
 @Component({

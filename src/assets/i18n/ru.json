@@ -62,6 +62,12 @@
           "btn": "Удалить"
         }
       }
+    },
+    "confirmationPasswordDialog": {
+      "titleText": "Введите свой пароль",
+      "confirmButtonText": "Подтвердить",
+      "rejectButtonText": "Отменить",
+      "inputPlaceholder": "Пожалуйста введите пароль"
     }
   },
   "notFoundPage": {

@@ -62,10 +62,15 @@
           "btn": "Delete"
         }
       }
-    }
+    },
+    "confirmationPasswordDialog": {
+      "titleText": "Enter your password",
+      "confirmButtonText": "Confirm",
+      "rejectButtonText": "Cancel",
+      "inputPlaceholder": "Please enter a password"
+    },
   },
   "notFoundPage": {
     "notFound": "The page not found"
-  }
-
+  },
 }
