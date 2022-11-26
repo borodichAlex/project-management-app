@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription, switchMap } from 'rxjs';
+import { first, Subscription, switchMap } from 'rxjs';
 
 import { UserData } from 'src/app/core/interfaces/user.interface';
 import {
@@ -85,10 +85,12 @@ export class UserGeneralFormComponent implements OnInit, OnDestroy {
   private initTranslateDataObserver(): void {
     this.translateService
       .get(this.translateBasePath)
+      .pipe(first())
       .subscribe((res: TranslateUserGeneralData) => {
         this.translateData = res;
       });
-    this.translateService.onLangChange
+
+    this.subscription = this.translateService.onLangChange
       .pipe(switchMap(() => this.translateService.get(this.translateBasePath)))
       .subscribe((res: TranslateUserGeneralData) => {
         this.translateData = res;

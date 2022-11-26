@@ -5,7 +5,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, Subscription, switchMap } from 'rxjs';
+import { first, Observable, Subscription, switchMap } from 'rxjs';
 
 import { User, UserData } from 'src/app/core/interfaces/user.interface';
 
@@ -111,14 +111,17 @@ export class UserSettingsPageComponent implements OnInit, OnDestroy {
   private initTranslateDataObserver(): void {
     this.translateService
       .get('userSettingsPage')
+      .pipe(first())
       .subscribe((res: TranslateUserSettingsPageModalData) => {
         this.translateData = res;
       });
-    this.translateService.onLangChange
-      .pipe(switchMap(() => this.translateService.get('userSettingsPage')))
-      .subscribe((res: TranslateUserSettingsPageModalData) => {
-        this.translateData = res;
-      });
+    this.subscription.add(
+      this.translateService.onLangChange
+        .pipe(switchMap(() => this.translateService.get('userSettingsPage')))
+        .subscribe((res: TranslateUserSettingsPageModalData) => {
+          this.translateData = res;
+        }),
+    );
   }
 
   private confirmationUserPassword(): Observable<string> {
