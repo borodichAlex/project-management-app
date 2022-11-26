@@ -12,6 +12,10 @@
   overflow-x: hidden;
 }
 
+.column-card::-webkit-scrollbar {
+  width: 0;
+}
+
 .column__title {
   width: 250px;
   margin-top: 12px;
