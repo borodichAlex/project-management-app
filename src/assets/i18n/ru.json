@@ -78,5 +78,28 @@
   "icons": {
     "edit": "Изменить",
     "delete": "Удалить"
+  },
+  "modal": {
+    "title": {
+      "value": "Название",
+      "placeholder": "Пожалуйста, введите название"
+    },
+    "description": {
+      "value": "Описание",
+      "placeholder": "Пожалуйста, введите описание"
+    },
+    "buttons": {
+      "create": "Создать",
+      "update": "Применить",
+      "cancel": "Отменить"
+    },
+    "confirmationTitleText": {
+      "create": "Создать новую доску",
+      "update": "Изменить доску"
+    },
+    "delete": {
+      "title": "Удалить Доску",
+      "description": "Хотите удалить эту Доску?"
+    }
   }
 }

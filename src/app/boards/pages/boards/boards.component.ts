@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { BoardsService } from '../../services/boards.service';
 import {
   IBoard,
@@ -28,6 +29,7 @@ export class BoardsComponent {
     private boardsService: BoardsService,
     private matDialog: MatDialog,
     private router: Router,
+    private translate: TranslateService,
   ) {}
 
   public onBoardClick(boardId: string): void {
@@ -37,8 +39,8 @@ export class BoardsComponent {
   public onClickDeleteBoard(event: MouseEvent, id: string): void {
     event.stopPropagation();
     const message = {
-      title: 'Delete Board',
-      description: 'Would you like to delete this Board?',
+      title: this.translate.instant('modal.delete.title'),
+      description: this.translate.instant('modal.delete.description'),
     };
     this.openDialog(message).subscribe((result) => {
       if (result) {
@@ -56,8 +58,10 @@ export class BoardsComponent {
     const modalConfig: TConfirmationModal = {
       title,
       description,
-      confirmationTitleText: 'Update the Board',
-      confirmationButtonText: 'Update',
+      confirmationTitleText: this.translate.instant(
+        'modal.confirmationTitleText.update',
+      ),
+      confirmationButtonText: this.translate.instant('modal.buttons.update'),
     };
     this.openModalWindow(modalConfig).subscribe((newBoard) => {
       if (newBoard) {

@@ -78,5 +78,28 @@
   "icons": {
     "edit": "Edit",
     "delete": "Delete"
+  },
+  "modal": {
+    "title": {
+      "value": "Title",
+      "placeholder": "Please enter a title"
+    },
+    "description": {
+      "value": "Description",
+      "placeholder": "Please enter a description"
+    },
+    "buttons": {
+      "create": "Create",
+      "update": "Update",
+      "cancel": "Cancel"
+    },
+    "confirmationTitleText": {
+      "create": "Create new Board",
+      "update": "Update the Board"
+    },
+    "delete": {
+      "title": "Delete the Board",
+      "description": "Would you like to delete this Board?"
+    }
   }
 }

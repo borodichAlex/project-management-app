@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import {
   IBoard,
   TBoard,
@@ -19,6 +20,7 @@ export class BoardsService {
   constructor(
     private apiBoards: ApiBoardsService,
     private matDialog: MatDialog,
+    private translate: TranslateService,
   ) {
     this.loadAll(); // where loading this data?
   }
@@ -35,8 +37,10 @@ export class BoardsService {
     const modalConfig: TConfirmationModal = {
       title: '',
       description: '',
-      confirmationTitleText: 'Create new Board',
-      confirmationButtonText: 'Create',
+      confirmationTitleText: this.translate.instant(
+        'modal.confirmationTitleText.create',
+      ),
+      confirmationButtonText: this.translate.instant('modal.buttons.create'),
     };
     this.openModalWindow(modalConfig).subscribe((newBoard) => {
       if (newBoard) {
