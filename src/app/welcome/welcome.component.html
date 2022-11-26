@@ -2,8 +2,16 @@
   <h1><b>P</b>roject <br /><b>M</b>anagement <br /><b>a</b>pplication</h1>
   <h2>{{ 'welcomePage.headling2' | translate }}</h2>
   <h3>{{ 'welcomePage.about app' | translate }}</h3>
+  <div class="buttons">
+    <button mat-raised-button color="warn" (click)="onSignUpClick()">
+      {{ 'welcomePage.tryit' | translate }}
+    </button>
+    <a mat-button color="primary" (click)="scroll()">{{
+      'welcomePage.about team' | translate
+    }}</a>
+  </div>
   <h3>{{ 'welcomePage.about rsschool' | translate }}</h3>
-  <div class="team">
+  <div id="aboutteam" class="team">
     <h2 class="about">{{ 'welcomePage.about team' | translate }}</h2>
     <div class="members">
       <mat-card class="member" *ngFor="let number of [0, 1, 2, 3]">

@@ -5,7 +5,8 @@
     "headling2": "",
     "about app": "Organization of the work of the team is the key to success.\nOur project management system based on kanban boards will help you with this.\nCreate boards, schedule tasks, track progress.",
     "about rsschool": "The project was created as part of the Angular course at the Rolling-Scope School.\nIt is intended for front-end developers who wants to learn a new framework and expand their knowledge in modern web development (material design, redux, typescript, and more).",
-    "about team": "About team"
+    "about team": "About team",
+    "tryit": "Try it!"
   },
   "team":{
     "member0":{
