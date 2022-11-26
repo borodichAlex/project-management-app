@@ -18,4 +18,20 @@ export class WelcomeComponent {
   public onSignUpClick() {
     this.router.navigate([RoutePaths.authPrefix + RoutePaths.signup]);
   }
+
+  public forceNavigate() {
+    this.router.navigate(['/welcome'], {
+      fragment: 'aboutteam',
+    });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  public scroll() {
+    const elmnt = document.getElementById('aboutteam') as HTMLElement;
+    elmnt.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }
 }
