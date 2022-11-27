@@ -40,3 +40,29 @@ section.page {
   font-size: .85rem;
   padding: 0.2em 1.5em;
 }
+
+@media (max-width: 414.98px) {
+  .page {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .danger-zone {
+    box-sizing: border-box;
+    width: 300px;
+  }
+
+  section.page {
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  .item {
+    gap: 0;
+  }
+
+  .danger-zone__heading {
+    font-size: 28px;
+    text-align: center
+  }
+}

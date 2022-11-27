@@ -30,3 +30,19 @@
     }
   }
 }
+
+@media (max-width: 349.98px) {
+  :host {
+    .signupField {
+      width: 300px;
+
+      h2 {
+        width: 280px;
+      }
+
+      mat-form-field {
+        width: 250px;
+      }
+    }
+  }
+}
