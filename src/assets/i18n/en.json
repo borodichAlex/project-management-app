@@ -105,7 +105,8 @@
       "create": "Create new Board",
       "update": "Update the Board",
       "createTask": "Create new Task",
-      "updateTask": "Update the Task"
+      "updateTask": "Update the Task",
+      "createColumn": "Create new Column"
     },
     "delete": {
       "board": {

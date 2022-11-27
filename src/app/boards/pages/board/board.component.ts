@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
 import { ColumnsService } from '../../services/columns.service';
 import {
   IColumnFull,
@@ -37,6 +38,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
+    private translate: TranslateService,
   ) {}
 
   public ngOnInit(): void {
@@ -52,8 +54,10 @@ export class BoardComponent implements OnInit, OnDestroy {
   public onClickCreateColumn(): void {
     const modalConfig: TConfirmationModal = {
       title: '',
-      confirmationTitleText: 'Create new Column',
-      confirmationButtonText: 'Create',
+      confirmationTitleText: this.translate.instant(
+        'modal.confirmationTitleText.createColumn',
+      ),
+      confirmationButtonText: this.translate.instant('modal.buttons.create'),
     };
     this.openModalWindow(modalConfig).subscribe((newColumn) => {
       if (newColumn) {
