@@ -16,15 +16,6 @@
   to = "/index.html"
   status = 200
 
-[[plugins]]
-  package = "netlify-plugin-cypress"
-
-  [plugins.inputs.postBuild]
-    enable = true
-
-  [plugins.inputs]
-    enable = false
-
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
   for = "/*"
