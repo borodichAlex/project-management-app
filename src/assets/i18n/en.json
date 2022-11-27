@@ -113,5 +113,61 @@
   "confirmationComponent": {
     "confirmButtonText": "Yes",
     "rejectButtonText": "No"
+  },
+  "boardsPage": {
+    "title": "Boards",
+    "buttonCreateBoard": "Create Board",
+    "buttonBackToTheBoards": "Back to the Boards"
+  },
+  "boardPage": {
+    "title": "Board"
+  },
+  "icons": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "deleteColumn": "Delete the Column",
+    "changeColumnTitle": "Change the Column title",
+    "close": "Close",
+    "submit": "Submit"
+  },
+  "modal": {
+    "title": {
+      "value": "Title",
+      "placeholder": "Please enter a title"
+    },
+    "description": {
+      "value": "Description",
+      "placeholder": "Please enter a description"
+    },
+    "buttons": {
+      "create": "Create",
+      "update": "Update",
+      "cancel": "Cancel",
+      "addTask": "Add a Task",
+      "createColumn": "Create Column",
+      "yes": "Yes",
+      "no": "No"
+    },
+    "confirmationTitleText": {
+      "create": "Create new Board",
+      "update": "Update the Board",
+      "createTask": "Create new Task",
+      "updateTask": "Update the Task",
+      "createColumn": "Create new Column"
+    },
+    "delete": {
+      "board": {
+        "title": "Delete the Board",
+        "description": "Would you like to delete this Board?"
+      },
+      "column": {
+        "title": "Delete Column",
+        "description": "Would you like to delete this Column?"
+      },
+      "task": {
+        "title": "Delete the Task",
+        "description": "Would you like to delete this Task?"
+      }
+    }
   }
 }

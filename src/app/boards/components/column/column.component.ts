@@ -12,6 +12,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { TranslateService } from '@ngx-translate/core';
 import {
   IColumnFull,
   IMoveTaskData,
@@ -52,6 +53,7 @@ export class ColumnComponent implements OnDestroy {
     private userStateService: UserStateService,
     private tasksService: TasksService,
     private CDRef: ChangeDetectorRef,
+    private translate: TranslateService,
   ) {}
 
   public ngOnDestroy(): void {
@@ -61,8 +63,8 @@ export class ColumnComponent implements OnDestroy {
   public onClickDeleteColumn(event: MouseEvent) {
     event.stopPropagation();
     const message = {
-      title: 'Delete Column',
-      description: 'Would you like to delete this Column?',
+      title: this.translate.instant('modal.delete.column.title'),
+      description: this.translate.instant('modal.delete.column.description'),
     };
     this.subscription.add(
       this.openDialog(message).subscribe((result) => {
@@ -78,8 +80,10 @@ export class ColumnComponent implements OnDestroy {
       title: '',
       description: '',
       userId: this.userStateService.user!.id,
-      confirmationTitleText: 'Create new Task',
-      confirmationButtonText: 'Create',
+      confirmationTitleText: this.translate.instant(
+        'modal.confirmationTitleText.createTask',
+      ),
+      confirmationButtonText: this.translate.instant('modal.buttons.create'),
     };
     this.subscription.add(
       this.openModalWindow(modalConfig).subscribe((newTask) => {
@@ -208,8 +212,10 @@ export class ColumnComponent implements OnDestroy {
       title,
       description,
       userId,
-      confirmationTitleText: 'Update the Task',
-      confirmationButtonText: 'Update',
+      confirmationTitleText: this.translate.instant(
+        'modal.confirmationTitleText.updateTask',
+      ),
+      confirmationButtonText: this.translate.instant('modal.buttons.update'),
     };
     this.openModalWindow(modalConfig).subscribe((newTask) => {
       if (newTask) {

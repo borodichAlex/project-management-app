@@ -114,5 +114,61 @@
   "confirmationComponent": {
     "confirmButtonText": "Да",
     "rejectButtonText": "Нет"
+  },
+  "boardsPage": {
+    "title": "Доски",
+    "buttonCreateBoard": "Создать Доску",
+    "buttonBackToTheBoards": "Назад к Доскам"
+  },
+  "boardPage": {
+    "title": "Доска"
+  },
+  "icons": {
+    "edit": "Изменить",
+    "delete": "Удалить",
+    "deleteColumn": "Удалить Колонку",
+    "changeColumnTitle": "Изменить название Колонки",
+    "close": "Закрыть",
+    "submit": "Отправить"
+  },
+  "modal": {
+    "title": {
+      "value": "Название",
+      "placeholder": "Пожалуйста, введите название"
+    },
+    "description": {
+      "value": "Описание",
+      "placeholder": "Пожалуйста, введите описание"
+    },
+    "buttons": {
+      "create": "Создать",
+      "update": "Применить",
+      "cancel": "Отменить",
+      "addTask": "Добавить Задачу",
+      "createColumn": "Создать Колонку",
+      "yes": "Да",
+      "no": "Нет"
+    },
+    "confirmationTitleText": {
+      "create": "Создать новую доску",
+      "update": "Изменить доску",
+      "createTask": "Создать новую Задачу",
+      "updateTask": "Изменить Задачу",
+      "createColumn": "Создать новую Колонку"
+    },
+    "delete": {
+      "board": {
+        "title": "Удалить Доску",
+        "description": "Хотите удалить эту Доску?"
+      },
+      "column": {
+        "title": "Удалить Колонку",
+        "description": "Хотите удалить эту Колонку?"
+      },
+      "task": {
+        "title": "Удалить Задачу",
+        "description": "Хотите удалить эту Задачу?"
+      }
+    }
   }
 }

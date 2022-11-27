@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 export interface DialogData {
   title: string;
@@ -17,8 +17,5 @@ export interface DialogData {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ConfirmationComponent {
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
-    public translate: TranslateService,
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }

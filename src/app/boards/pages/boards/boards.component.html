@@ -1,5 +1,5 @@
 <div class="container">
-  <h1>{{ 'Boards' | translate }}</h1>
+  <h1>{{ 'boardsPage.title' | translate }}</h1>
   <div class="boards">
     <!-- Spinner -->
     <mat-spinner
@@ -20,7 +20,7 @@
             mat-icon-button
             color="primary"
             aria-label="edit button"
-            matTooltip="Edit"
+            matTooltip="{{ 'icons.edit' | translate }}"
             matTooltipPosition="above"
             (click)="onClickUpdateBoard($event, board.id)"
           >
@@ -30,7 +30,7 @@
             mat-icon-button
             color="warn"
             aria-label="delete button"
-            matTooltip="Delete"
+            matTooltip="{{ 'icons.delete' | translate }}"
             matTooltipPosition="above"
             (click)="onClickDeleteBoard($event, board.id)"
           >

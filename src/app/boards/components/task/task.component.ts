@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 import { TNewColumn } from '../../interfaces/column.interface';
 import { ITask } from '../../interfaces/task.interface';
 import { TasksService } from '../../services/tasks.service';
@@ -32,6 +33,7 @@ export class TaskComponent implements OnDestroy {
   constructor(
     private matDialog: MatDialog,
     private taskService: TasksService,
+    private translate: TranslateService,
   ) {}
 
   public ngOnDestroy(): void {
@@ -41,8 +43,8 @@ export class TaskComponent implements OnDestroy {
   public onClickDeleteTask(event: MouseEvent) {
     event.stopPropagation();
     const message: DialogData = {
-      title: 'Delete Task',
-      description: 'Would you like to delete this Task?',
+      title: this.translate.instant('modal.delete.task.title'),
+      description: this.translate.instant('modal.delete.task.description'),
     };
     this.subscription = this.openDialog(message).subscribe((response) => {
       if (response) {
