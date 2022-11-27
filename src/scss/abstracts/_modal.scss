@@ -1,0 +1,20 @@
+@import "abstracts/variables";
+
+.dialog-actions {
+  justify-content: right;
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-description {
+  height: 80px;
+}
+
+.mat-raised-button {
+  @include media-mobile {
+    padding: 0 15px;
+  }
+}

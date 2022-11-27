@@ -1,0 +1,30 @@
+$borders-drop-shadow-color: #a5a5a5;
+
+$header-default-height: 5rem;
+$footer-height: 3rem;
+$footer-height-mobile: 16rem;
+//--breakpoints
+$content-width: 1200px;//desktop
+
+$max-tablet-width: 1199px;
+$max-mobile-width: 768px;
+$min-mobile-width: 320px;
+
+$wrapper-1200-padding: 40px;
+
+$wrapper-padding: 16px 40px;
+
+//--colors
+$dark-text-color: black;
+$bgColor: #F2F2F2;
+$bgAlertColor: red;
+$cdkDragHandleColor: #ccc;
+
+//--mixin
+@mixin media-tablet {
+  @media screen and (max-width: $max-tablet-width) { @content; }
+}
+
+@mixin media-mobile {
+  @media screen and (max-width: $max-mobile-width) { @content; }
+}

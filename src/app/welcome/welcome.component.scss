@@ -1,0 +1,45 @@
+:host{
+  box-sizing: border-box;
+  font-size: 1.2rem;
+}
+.wrapper{
+  padding: 5vh 5vw;
+}
+h1{
+  margin-bottom: 5vh;
+  font-size: 2rem;
+  color: red;
+  white-space: pre-wrap;
+}
+h3{
+  white-space: pre-wrap;
+}
+.buttons{
+  display: flex;
+  justify-content: flex-start;
+  gap: 10vw;
+  margin: 5vh 0;
+}
+.members{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 5vw;
+  flex-wrap: wrap;
+}
+.member{
+  // max-width: 300px;
+  width: 250px;
+  white-space: pre-wrap;
+  font-size: 1rem;
+}
+.card-title{
+  font-size: 1.2rem;
+  text-align: end;
+  margin-left: auto;
+  margin-right: 0;
+}
+.card-title-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,18 @@
+# The following redirect is intended for use with most SPAs that handle
+# routing internally.
+
+[build]
+  command="ng build"
+  publish="dist/project-management-app"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  # Define which paths this specific [[headers]] block will cover.
+  for = "/*"
+    [headers.values]
+      Access-Control-Allow-Origin = "*"
+      Access-Control-Allow-Methods = "*"

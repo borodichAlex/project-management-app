@@ -1,0 +1,48 @@
+@import 'abstracts/variables';
+
+:host {
+  box-sizing: border-box;
+
+  .signupField {
+    margin: 25px auto 0;
+    width: 344px;
+    background-color: $bgColor;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+
+    h2 {
+      margin: 28px 0 11px 20px;
+      width: 310px;
+      height: 22px;
+    }
+
+    mat-form-field {
+      margin: 0 0 5px 20px;
+      width: 304px;
+    }
+
+    .signup-button {
+      margin: 17px 20px 17px auto;
+    }
+  }
+}
+
+@media (max-width: 349.98px) {
+  :host {
+    .signupField {
+      width: 300px;
+
+      h2 {
+        width: 280px;
+      }
+
+      mat-form-field {
+        width: 250px;
+      }
+    }
+  }
+}

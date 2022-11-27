@@ -1,0 +1,174 @@
+{
+  "appTitle": "Система управления проектами",
+  "welcomePage": {
+    "headling": "Project \nManagement \nApplication",
+    "headling2": "Система управления проектами",
+    "aboutApp": "Организация процесса работы команды - ключ к успеху. \nНаша система управления проектом на основе kanban-досок поможет вам в этом. \nСоздавайте доски, планируйте задачи, отслеживайте этапы выполнения.",
+    "about rsschool": "Проект был создан в рамках обучения на курсе Angular онлайн-школы Rolling-Scope School.\nЭтот курс предназначен для фронтэнд-разработчиков, стремящихся освоить новый фреймворк и расширить свои знания о современной веб-разработке, в частности о material design, redux, typescript и др.",
+    "welcome": "Привет! Войдите или зарегистрируйтесь для входа",
+    "about team": "О команде",
+    "tryit": "Попробовать"
+  },
+  "team":{
+    "member0":{
+      "name" : "Александр",
+      "github": "https://github.com/borodichAlex",
+      "role": "- тимлид, организация командной работы (Jira, Discord, митинги), замечания по коду (общий рефакторинг ПР)\n - базовая конфигурация проекта: установка и настройка webpack, eslint и другие необходимых зависимостей\n - локализация, \n - профиль пользователя, \n - авторизация"
+    },
+    "member1":{
+      "name" : "Павел",
+      "github": "https://github.com/PavelZabalotny",
+      "role": "- страницы boards, board\n - работа с задачами, колонками\n - модальные окна"
+    },
+    "member2":{
+      "name" : "Юрий",
+      "github": "https://github.com/Manofsky",
+      "role": "- авторизация, регистрация\n - работа с колонками, задачами\n - drag-n-drop\n - обработка ошибок"
+    },
+    "member3":{
+      "name" : "Наталья",
+      "github": "https://github.com/BlueOwll",
+      "role": "- начальная страница\n - хедер, футер\n - обработка ошибок"
+    }
+  },
+  "header": {
+    "logInButtonLabel": "Войти",
+    "signUpButtonLabel": "Зарегистрироваться",
+    "editProfile": "Редактировать",
+    "logout": "Выйти",
+    "Would you like to log out?": "Вы действительно хотите выйти?",
+    "New board": "Новая доска",
+    "Back to boards": "Назад к доскам"
+  },
+  "signupPage": {
+    "title": "Регистрация",
+    "nameLable": "имя",
+    "loginLable": "логин",
+    "passwordLable": "пароль",
+    "signup": "Зарегистрироваться",
+    "loginHintLabel": "Минимум 5 символов",
+    "passwordHintLabel": "Минимум 6 символов",
+    "You must enter a value": "Вы должны ввести значение"
+  },
+  "loginPage": {
+    "title": "Авторизация",
+    "loginLable": "логин",
+    "passwordLable": "пароль",
+    "formCondition": "Поле обязательно для заполнения",
+    "login": "Войти"
+  },
+  "logoutPage": {
+    "title": "Выход",
+    "logout": "Выйти"
+  },
+  "errorDialog": {
+    "reason": "Причина:",
+    "status": "Статус:",
+    "error": "Ошибка"
+  },
+  "errors": {
+    "User was not founded!": "Неверный логин или пароль!",
+    "User login already exists!": "Логин пользователя уже существует!",
+    "Board was not founded!": "Доска не найдена",
+    "Task was not founded!": "Задача не найдена",
+    "No answer from server": "Сервер не отвечает",
+    "Unknown error": "Неизвестная ошибка",
+    "Bad Request": "Неверные данные в запросе"
+  },
+  "userSettingsPage": {
+    "userGeneralSection": {
+      "heading": "Основные",
+      "btn": "Переименовать",
+      "fields": {
+        "userName": {
+          "label": "Имя пользователя"
+        },
+        "userLogin": {
+          "label": "Логин"
+        }
+      }
+    },
+    "userDangerSection": {
+      "heading": "Опасная зона",
+      "fields": {
+        "delete": {
+          "title": "Удалить аккаунт",
+          "btn": "Удалить"
+        }
+      }
+    },
+    "confirmationPasswordDialog": {
+      "titleText": "Введите свой пароль",
+      "confirmButtonText": "Подтвердить",
+      "rejectButtonText": "Отменить",
+      "inputPlaceholder": "Пожалуйста введите пароль"
+    },
+    "deleteUserDialog": {
+      "title": "Удаление аккаунта",
+      "description": "Вы действительно хотите удалить свой аккаунт?"
+    }
+  },
+  "notFoundPage": {
+    "notFound": "Страница не найдена"
+  },
+  "confirmationComponent": {
+    "confirmButtonText": "Да",
+    "rejectButtonText": "Нет"
+  },
+  "boardsPage": {
+    "title": "Доски",
+    "buttonCreateBoard": "Создать Доску",
+    "buttonBackToTheBoards": "Назад к Доскам"
+  },
+  "boardPage": {
+    "title": "Доска"
+  },
+  "icons": {
+    "edit": "Изменить",
+    "delete": "Удалить",
+    "deleteColumn": "Удалить Колонку",
+    "changeColumnTitle": "Изменить название Колонки",
+    "close": "Закрыть",
+    "submit": "Отправить"
+  },
+  "modal": {
+    "title": {
+      "value": "Название",
+      "placeholder": "Пожалуйста, введите название"
+    },
+    "description": {
+      "value": "Описание",
+      "placeholder": "Пожалуйста, введите описание"
+    },
+    "buttons": {
+      "create": "Создать",
+      "update": "Применить",
+      "cancel": "Отменить",
+      "addTask": "Добавить Задачу",
+      "createColumn": "Создать Колонку",
+      "yes": "Да",
+      "no": "Нет"
+    },
+    "confirmationTitleText": {
+      "create": "Создать новую доску",
+      "update": "Изменить доску",
+      "createTask": "Создать новую Задачу",
+      "updateTask": "Изменить Задачу",
+      "createColumn": "Создать новую Колонку"
+    },
+    "delete": {
+      "board": {
+        "title": "Удалить Доску",
+        "description": "Хотите удалить эту Доску?"
+      },
+      "column": {
+        "title": "Удалить Колонку",
+        "description": "Хотите удалить эту Колонку?"
+      },
+      "task": {
+        "title": "Удалить Задачу",
+        "description": "Хотите удалить эту Задачу?"
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+<form [formGroup]="user" class="signupField">
+  <h2>{{ 'signupPage.title' | translate }}</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ 'signupPage.nameLable' | translate }}</mat-label>
+    <input formControlName="name" matInput autocomplete="off" />
+    <mat-error *ngIf="name.errors?.['required']">{{
+      'signupPage.' + getErrorMessage() | translate
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field
+    hintLabel="{{ 'signupPage.loginHintLabel' | translate }}"
+    appearance="fill"
+  >
+    <mat-label>{{ 'signupPage.loginLable' | translate }}</mat-label>
+    <input formControlName="login" matInput autocomplete="off" />
+    <mat-hint align="end">{{ login.value?.length || 0 }}/5</mat-hint>
+    <mat-error *ngIf="login.errors?.['required']">{{
+      'signupPage.' + getErrorMessage() | translate
+    }}</mat-error>
+  </mat-form-field>
+  <mat-form-field
+    hintLabel="{{ 'signupPage.passwordHintLabel' | translate }}"
+    appearance="fill"
+  >
+    <mat-label>{{ 'signupPage.passwordLable' | translate }}</mat-label>
+    <input
+      formControlName="password"
+      matInput
+      autocomplete="off"
+      [type]="hide ? 'password' : 'text'"
+    />
+    <mat-hint align="end">{{ password.value?.length || 0 }}/6</mat-hint>
+    <mat-error *ngIf="password.errors?.['required']">{{
+      'signupPage.' + getErrorMessage() | translate
+    }}</mat-error>
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <button
+    mat-flat-button
+    color="primary"
+    class="signup-button"
+    [disabled]="buttonDisabled"
+    (click)="signUp()"
+  >
+    {{ 'signupPage.signup' | translate }}
+  </button>
+</form>

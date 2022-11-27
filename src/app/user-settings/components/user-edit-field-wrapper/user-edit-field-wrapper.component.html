@@ -1,0 +1,16 @@
+<div class="block">
+  <h3 class="mat-title">
+    {{ labelText }}
+  </h3>
+  <div class="wrapper">
+    <ng-content></ng-content>
+    <button
+      class="edit-button"
+      mat-stroked-button
+      color="secondary"
+      (click)="onClick()"
+    >
+      {{ buttonText }}
+    </button>
+  </div>
+</div>

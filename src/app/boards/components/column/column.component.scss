@@ -1,0 +1,82 @@
+@import 'abstracts/variables';
+
+.column-card {
+  box-sizing: border-box;
+  margin: 1vw;
+  width: 300px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.column__title {
+  width: 220px;
+  margin-top: 12px;
+  word-wrap: break-word;
+  cursor: pointer;
+}
+
+.input-container {
+  margin-left: -16px;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.title-textarea {
+  width: 200px;
+  height: 50px;
+  resize: none;
+}
+
+.button-input {
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+}
+
+.card-header {
+  padding-bottom: 0.5rem;
+}
+
+.buttons-group {
+  display: flex;
+  justify-content: space-between;
+
+  .dragHandle {
+    width: 24px;
+    height: 24px;
+    color: $cdkDragHandleColor;
+    cursor: move;
+  }
+
+  .addTaskBtn {
+    margin-right: 45px;
+  }
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+  min-height: 50px;
+  margin: 0 auto;
+}
+
+.task {
+  cursor: pointer;
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

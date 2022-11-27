@@ -1,0 +1,33 @@
+<h1 mat-dialog-title>{{ data.confirmationTitleText }}</h1>
+<div mat-dialog-content>
+  <form class="create-form" [formGroup]="form">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ 'modal.title.value' | translate }}</mat-label>
+      <input
+        #title
+        class="form-input"
+        matInput
+        formControlName="title"
+        [maxlength]="maxLength.title"
+        placeholder="{{ 'modal.title.placeholder' | translate }}"
+        autocomplete="off"
+      />
+      <mat-hint align="end"
+        >{{ title.value.length }} / {{ maxLength.title }}</mat-hint
+      >
+    </mat-form-field>
+  </form>
+</div>
+<div class="dialog-actions" mat-dialog-actions>
+  <button mat-raised-button [mat-dialog-close]="null" color="warn">
+    {{ 'modal.buttons.cancel' | translate }}
+  </button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="form.value"
+    color="primary"
+    [disabled]="!form.valid"
+  >
+    {{ data.confirmationButtonText }}
+  </button>
+</div>
