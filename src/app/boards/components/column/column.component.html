@@ -12,7 +12,7 @@
       mat-icon-button
       color="warn"
       aria-label="delete button"
-      matTooltip="Delete the Column"
+      matTooltip="{{ 'icons.deleteColumn' | translate }}"
       matTooltipPosition="above"
       (click)="onClickDeleteColumn($event)"
     >
@@ -23,7 +23,7 @@
     <mat-card-title
       *ngIf="!isShowTitleInput"
       class="column__title"
-      matTooltip="Change the Column title"
+      matTooltip="{{ 'icons.changeColumnTitle' | translate }}"
       matTooltipPosition="above"
       (click)="onClickTitle()"
       >{{ column.title }}</mat-card-title
@@ -42,7 +42,7 @@
           mat-icon-button
           color="warn"
           aria-label="close button"
-          matTooltip="Close the Input"
+          matTooltip="{{ 'icons.close' | translate }}"
           matTooltipPosition="above"
           (click)="onClickButtonCloseInput()"
         >
@@ -53,7 +53,7 @@
           mat-icon-button
           color="primary"
           aria-label="done button"
-          matTooltip="Submit the Title"
+          matTooltip="{{ 'icons.submit' | translate }}"
           matTooltipPosition="above"
           (click)="onClickButtonDoneInput(titleInput.value)"
         >
@@ -82,6 +82,6 @@
   </mat-card-content>
   <button mat-icon-button (click)="onClickCreateTask()">
     <mat-icon color="primary">note_add</mat-icon>
-    Add a Task
+    {{ 'modal.buttons.addTask' | translate }}
   </button>
 </mat-card>

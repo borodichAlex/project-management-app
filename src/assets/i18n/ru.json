@@ -77,7 +77,11 @@
   },
   "icons": {
     "edit": "Изменить",
-    "delete": "Удалить"
+    "delete": "Удалить",
+    "deleteColumn": "Удалить Колонку",
+    "changeColumnTitle": "Изменить название Колонки",
+    "close": "Закрыть",
+    "submit": "Отправить"
   },
   "modal": {
     "title": {
@@ -91,15 +95,25 @@
     "buttons": {
       "create": "Создать",
       "update": "Применить",
-      "cancel": "Отменить"
+      "cancel": "Отменить",
+      "addTask": "Добавить Задачу",
+      "createColumn": "Создать Колонку"
     },
     "confirmationTitleText": {
       "create": "Создать новую доску",
-      "update": "Изменить доску"
+      "update": "Изменить доску",
+      "createTask": "Создать новую Задачу",
+      "updateTask": "Изменить Задачу"
     },
     "delete": {
-      "title": "Удалить Доску",
-      "description": "Хотите удалить эту Доску?"
+      "board": {
+        "title": "Удалить Доску",
+        "description": "Хотите удалить эту Доску?"
+      },
+      "column": {
+        "title": "Удалить Колонку",
+        "description": "Хотите удалить эту Колонку?"
+      }
     }
   }
 }

@@ -39,8 +39,8 @@ export class BoardsComponent {
   public onClickDeleteBoard(event: MouseEvent, id: string): void {
     event.stopPropagation();
     const message = {
-      title: this.translate.instant('modal.delete.title'),
-      description: this.translate.instant('modal.delete.description'),
+      title: this.translate.instant('modal.delete.board.title'),
+      description: this.translate.instant('modal.delete.board.description'),
     };
     this.openDialog(message).subscribe((result) => {
       if (result) {

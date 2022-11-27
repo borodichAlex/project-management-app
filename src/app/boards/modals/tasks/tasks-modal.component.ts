@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { TranslateModule } from '@ngx-translate/core';
 import { TTaskConfirmationModal } from '../../interfaces/task.interface';
 
 @Component({
@@ -19,6 +20,7 @@ import { TTaskConfirmationModal } from '../../interfaces/task.interface';
     MatInputModule,
     NgIf,
     MatButtonModule,
+    TranslateModule,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

@@ -2,15 +2,14 @@
 <div mat-dialog-content>
   <form class="create-form" [formGroup]="form">
     <mat-form-field appearance="fill">
-      <mat-label>Title</mat-label>
+      <mat-label>{{ 'modal.title.value' | translate }}</mat-label>
       <input
         #title
         class="form-input"
-        value="New Task"
         matInput
         formControlName="title"
         [maxlength]="maxLength.title"
-        placeholder="Please enter a title"
+        placeholder="{{ 'modal.title.placeholder' | translate }}"
         autocomplete="off"
       />
       <mat-hint align="end"
@@ -18,14 +17,14 @@
       >
     </mat-form-field>
     <mat-form-field appearance="fill">
-      <mat-label>Description</mat-label>
+      <mat-label>{{ 'modal.description.value' | translate }}</mat-label>
       <textarea
         #description
         class="form-description"
         matInput
         formControlName="description"
         [maxlength]="maxLength.description"
-        placeholder="Please enter a description"
+        placeholder="{{ 'modal.description.placeholder' | translate }}"
         autocomplete="off"
       ></textarea>
       <mat-hint align="end"
@@ -36,7 +35,7 @@
 </div>
 <div class="dialog-actions" mat-dialog-actions>
   <button mat-raised-button [mat-dialog-close]="null" color="warn">
-    Cancel
+    {{ 'modal.buttons.cancel' | translate }}
   </button>
   <button
     mat-raised-button

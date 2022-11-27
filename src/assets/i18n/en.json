@@ -77,7 +77,11 @@
   },
   "icons": {
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "deleteColumn": "Delete the Column",
+    "changeColumnTitle": "Change the Column title",
+    "close": "Close",
+    "submit": "Submit"
   },
   "modal": {
     "title": {
@@ -91,15 +95,25 @@
     "buttons": {
       "create": "Create",
       "update": "Update",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "addTask": "Add a Task",
+      "createColumn": "Create Column"
     },
     "confirmationTitleText": {
       "create": "Create new Board",
-      "update": "Update the Board"
+      "update": "Update the Board",
+      "createTask": "Create new Task",
+      "updateTask": "Update the Task"
     },
     "delete": {
-      "title": "Delete the Board",
-      "description": "Would you like to delete this Board?"
+      "board": {
+        "title": "Delete the Board",
+        "description": "Would you like to delete this Board?"
+      },
+      "column": {
+        "title": "Delete Column",
+        "description": "Would you like to delete this Column?"
+      }
     }
   }
 }
