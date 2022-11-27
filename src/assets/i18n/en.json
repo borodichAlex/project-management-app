@@ -12,7 +12,7 @@
     "member0":{
       "name" : "Alexander",
       "github": "https://github.com/borodichAlex",
-      "role": "- teamlead, teamwork organization (Jira, Discord, meetings), code reviews\n - project setup: webpack, eslint & other dependencies\n - localization, \n - user profile, \n- authorization"
+      "role": "- teamlead, teamwork organization (Jira, Discord, meetings), code reviews\n - project setup: webpack, eslint & other dependencies\n - localization, \n - user profile, \n - authorization"
     },
     "member1":{
       "name" : "Pavel",
