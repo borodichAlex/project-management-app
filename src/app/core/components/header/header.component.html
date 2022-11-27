@@ -1,7 +1,8 @@
 <header class="wrapper">
   <a mat-button class="title" (click)="onTitleClick()" color="warn">PMa</a>
-  <ng-content></ng-content>
+
   <div class="controls">
+    <ng-content></ng-content>
     <app-language-toggler></app-language-toggler>
 
     <ng-container *ngIf="isAuthUser$ | async; else login">
@@ -20,10 +21,10 @@
     <ng-template #login>
       <section class="buttons" *ngIf="showBigButtons | async; else iconButtons">
         <button mat-raised-button color="primary" (click)="onLogInClick()">
-          {{ 'welcomePage.logInButtonLabel' | translate }}
+          {{ 'header.logInButtonLabel' | translate }}
         </button>
         <button mat-raised-button color="warn" (click)="onSignUpClick()">
-          {{ 'welcomePage.signUpButtonLabel' | translate }}
+          {{ 'header.signUpButtonLabel' | translate }}
         </button>
       </section>
       <ng-template #iconButtons>
@@ -31,7 +32,7 @@
           <button
             mat-icon-button
             aria-label="Login"
-            matTooltip="{{ 'welcomePage.logInButtonLabel' | translate }}"
+            matTooltip="{{ 'header.logInButtonLabel' | translate }}"
             matTooltipPosition="above"
             color="primary"
             (click)="onLogInClick()"
@@ -45,7 +46,7 @@
           <button
             mat-icon-button
             aria-label="SignUp"
-            matTooltip="{{ 'welcomePage.signUpButtonLabel' | translate }}"
+            matTooltip="{{ 'header.signUpButtonLabel' | translate }}"
             matTooltipPosition="above"
             color="primary"
             (click)="onSignUpClick()"

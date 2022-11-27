@@ -1,10 +1,14 @@
 @import "abstracts/variables";
 
 .boards {
+  box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2rem;
+  height: 100%;
+  padding-bottom: 5px;
+  overflow-y: auto;
   cursor: pointer;
 }
 
@@ -20,11 +24,6 @@
   }
 }
 
-.board__header {
-  display: flex;
-  justify-content: center;
-}
-
 .buttons-group {
   display: flex;
   justify-content: right;
@@ -35,6 +34,21 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+  .board__header {
+    display: flex;
+    justify-content: center;
+
+    .board__title {
+      width: 250px;
+      word-wrap: break-word;
+    }
+  }
+
+  .content {
+    width: 250px;
+    word-wrap: break-word;
+  }
 }
 
 // TODO: duplicate with boards component
@@ -45,4 +59,11 @@
   top: 0;
   bottom: 0;
   margin: auto;
+}
+.container {
+  box-sizing: border-box;
+  padding: $wrapper-padding;
+  @include media-mobile {
+    padding: 2vw;
+  }
 }

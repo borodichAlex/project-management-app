@@ -1,14 +1,43 @@
 {
   "appTitle": "Project management app",
   "welcomePage": {
-    "logInButtonLabel": "Sign In",
-    "signUpButtonLabel": "Sign Up",
-    "welcome": "WELCOME!! We are glad to see you! Please, log in or sign up!"
+    "welcome": "WELCOME!! We are glad to see you! Please, log in or sign up!",
+    "headling2": "",
+    "aboutApp": "Organization of the work of the team is the key to success.\nOur project management system based on kanban boards will help you with this.\nCreate boards, schedule tasks, track progress.",
+    "about rsschool": "The project was created as part of the Angular course at the Rolling-Scope School.\nIt is intended for front-end developers who wants to learn a new framework and expand their knowledge in modern web development (material design, redux, typescript, and more).",
+    "about team": "About team",
+    "tryit": "Try it!"
+  },
+  "team":{
+    "member0":{
+      "name" : "Alexander",
+      "github": "https://github.com/borodichAlex",
+      "role": "- teamlead, teamwork organization (Jira, Discord, meetings), code reviews\n - project setup: webpack, eslint & other dependencies\n - localization, \n - user profile, \n - authorization"
+    },
+    "member1":{
+      "name" : "Pavel",
+      "github": "https://github.com/PavelZabalotny",
+      "role": "- Boards, Board pages\n - columns & tasks\n - modal windows"
+    },
+    "member2":{
+      "name" : "Yury",
+      "github": "https://github.com/Manofsky",
+      "role": "- authorization, registration\n - columns & tasks\n - drag-n-drop\n - errors handling"
+    },
+    "member3":{
+      "name" : "Nataliya",
+      "github": "https://github.com/BlueOwll",
+      "role": "- welcome page\n - header, footer\n - errors handling"
+    }
   },
   "header": {
+    "logInButtonLabel": "Sign In",
+    "signUpButtonLabel": "Sign Up",
     "editProfile": "Edit Profile",
     "logout": "Log  Out",
-    "Would you like to log out?": "Would you like to log out?"
+    "Would you like to log out?": "Would you like to log out?",
+    "New board": "New board",
+    "Back to boards": "Back to boards"
   },
   "signupPage": {
     "title": "Sign up",
@@ -39,7 +68,11 @@
   "errors": {
     "User was not founded!": "Login or password is incorrect!",
     "User login already exists!": "User login already exists!",
-    "Board was not founded!": "Board was not found!"
+    "Board was not founded!": "Board was not found!",
+    "Task was not founded!": "Task was not found!",
+    "No answer from server": "No answer from server",
+    "Unknown error": "Unknown error",
+    "Bad Request": "Bad Request"
   },
   "userSettingsPage": {
     "userGeneralSection": {
@@ -62,10 +95,24 @@
           "btn": "Delete"
         }
       }
+    },
+    "confirmationPasswordDialog": {
+      "titleText": "Enter your password",
+      "confirmButtonText": "Confirm",
+      "rejectButtonText": "Cancel",
+      "inputPlaceholder": "Please enter a password"
+    },
+    "deleteUserDialog": {
+      "title": "Delete account",
+      "description": "Would you like to delete your account?"
     }
   },
   "notFoundPage": {
     "notFound": "The page not found"
+  },
+  "confirmationComponent": {
+    "confirmButtonText": "Yes",
+    "rejectButtonText": "No"
   },
   "boardsPage": {
     "title": "Boards",

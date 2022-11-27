@@ -11,6 +11,7 @@ import { UserTokenService } from '../services/user-token.service';
 import { UserAuthenticationService } from '../services/user-auth.service';
 
 const UNAUTHORIZED_STATUS_CODE = 401;
+const ZERO_STATUS_CODE = 0;
 
 @Injectable()
 export class AuthTokenInterceptor implements HttpInterceptor {
@@ -47,7 +48,10 @@ export class AuthTokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return source.pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === UNAUTHORIZED_STATUS_CODE) {
+        if (
+          error.status === UNAUTHORIZED_STATUS_CODE ||
+          error.status === ZERO_STATUS_CODE
+        ) {
           this.authService.logout();
           return EMPTY;
         }

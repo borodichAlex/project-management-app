@@ -18,6 +18,7 @@ import {
 
 import { ColumnsModalComponent } from '../../modals/columns/columns-modal.component';
 import { MODAL_WIDTH } from '../../../shared/constants';
+import { BoardsService } from '../../services/boards.service';
 
 @Component({
   selector: 'app-board',
@@ -28,6 +29,8 @@ import { MODAL_WIDTH } from '../../../shared/constants';
 export class BoardComponent implements OnInit, OnDestroy {
   public boardId: string = this.route.snapshot.params['id'];
 
+  public boardTitle!: string;
+
   public columns$!: Observable<IColumnFull[]>;
 
   public isLoading$!: Observable<boolean>;
@@ -36,6 +39,7 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    private boardsService: BoardsService,
     private columnsService: ColumnsService,
     private matDialog: MatDialog,
     private translate: TranslateService,
@@ -45,6 +49,14 @@ export class BoardComponent implements OnInit, OnDestroy {
     this.isLoading$ = this.columnsService.isLoading$;
     this.subscription.add(this.columnsService.loadAll(this.boardId));
     this.columns$ = this.columnsService.columns$;
+    this.subscription.add(
+      this.boardsService.boards$.subscribe((boards) => {
+        const currentBoard = boards.find((board) => board.id === this.boardId);
+        if (currentBoard) {
+          this.boardTitle = currentBoard.title;
+        }
+      }),
+    );
   }
 
   public ngOnDestroy(): void {

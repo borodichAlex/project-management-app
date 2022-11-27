@@ -8,6 +8,10 @@
         <path d="M0 0h24v24H0z" fill="none"></path>
       </svg>
     </div>
+    <button class="addTaskBtn" mat-icon-button (click)="onClickCreateTask()">
+      <mat-icon color="primary">note_add</mat-icon>
+      {{ 'modal.buttons.addTask' | translate }}
+    </button>
     <button
       mat-icon-button
       color="warn"
@@ -24,18 +28,19 @@
       *ngIf="!isShowTitleInput"
       class="column__title"
       matTooltip="{{ 'icons.changeColumnTitle' | translate }}"
-      matTooltipPosition="above"
+      matTooltipPosition="below"
       (click)="onClickTitle()"
       >{{ column.title }}</mat-card-title
     >
     <!-- Input -->
     <div *ngIf="isShowTitleInput" class="input-container">
-      <input
+      <textarea
         #titleInput
-        class="title-input"
+        class="title-textarea"
         [value]="column.title"
         (keyup.enter)="onClickButtonDoneInput(titleInput.value)"
-      />
+        maxlength="50"
+      ></textarea>
       <div class="buttons-input-group">
         <button
           class="button-input"
@@ -80,8 +85,4 @@
       (click)="onClickTask($event, task)"
     ></app-task>
   </mat-card-content>
-  <button mat-icon-button (click)="onClickCreateTask()">
-    <mat-icon color="primary">note_add</mat-icon>
-    {{ 'modal.buttons.addTask' | translate }}
-  </button>
 </mat-card>
