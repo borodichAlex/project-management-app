@@ -1,8 +1,2 @@
 @import "abstracts/modal";
 @import "abstracts/variables";
-
-.mat-raised-button {
-  @include media-mobile {
-    padding: 0 15px;
-  }
-}

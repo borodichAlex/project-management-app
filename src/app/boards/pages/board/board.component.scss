@@ -9,7 +9,7 @@
 }
 
 .board {
-  display: flex;
+  display: inline-flex;
   gap: 0.5rem;
   max-height: calc(100% - 40px - 1vh);
 }
