@@ -29,7 +29,7 @@ export class BoardsModalComponent {
   });
 
   public maxLength = {
-    title: 50,
+    title: 20,
     description: 150,
   };
 
