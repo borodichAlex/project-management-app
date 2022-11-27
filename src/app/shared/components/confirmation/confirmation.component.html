@@ -3,6 +3,10 @@
   {{ data.description }}
 </div>
 <div class="dialog-actions" mat-dialog-actions>
-  <button mat-raised-button [mat-dialog-close]="false">No</button>
-  <button mat-raised-button [mat-dialog-close]="true" color="warn">Yes</button>
+  <button mat-raised-button [mat-dialog-close]="false">
+    {{ 'modal.buttons.no' | translate }}
+  </button>
+  <button mat-raised-button [mat-dialog-close]="true" color="warn">
+    {{ 'modal.buttons.yes' | translate }}
+  </button>
 </div>

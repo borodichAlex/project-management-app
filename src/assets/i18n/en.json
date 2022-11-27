@@ -97,7 +97,9 @@
       "update": "Update",
       "cancel": "Cancel",
       "addTask": "Add a Task",
-      "createColumn": "Create Column"
+      "createColumn": "Create Column",
+      "yes": "Yes",
+      "no": "No"
     },
     "confirmationTitleText": {
       "create": "Create new Board",

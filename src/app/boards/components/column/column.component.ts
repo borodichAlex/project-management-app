@@ -212,7 +212,9 @@ export class ColumnComponent implements OnDestroy {
       title,
       description,
       userId,
-      confirmationTitleText: 'Update the Task',
+      confirmationTitleText: this.translate.instant(
+        'modal.confirmationTitleText.updateTask',
+      ),
       confirmationButtonText: this.translate.instant('modal.buttons.update'),
     };
     this.openModalWindow(modalConfig).subscribe((newTask) => {

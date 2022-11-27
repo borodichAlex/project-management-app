@@ -97,7 +97,9 @@
       "update": "Применить",
       "cancel": "Отменить",
       "addTask": "Добавить Задачу",
-      "createColumn": "Создать Колонку"
+      "createColumn": "Создать Колонку",
+      "yes": "Да",
+      "no": "Нет"
     },
     "confirmationTitleText": {
       "create": "Создать новую доску",
