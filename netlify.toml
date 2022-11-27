@@ -1,6 +1,10 @@
 # The following redirect is intended for use with most SPAs that handle
 # routing internally.
 
+[build]
+  command="ng build"
+  publish="dist/project-management-app"
+
 [[redirects]]
   from = "/api/*"
   to = "http://localhost:4000/"
@@ -11,6 +15,15 @@
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[plugins]]
+  package = "netlify-plugin-cypress"
+
+  [plugins.inputs.postBuild]
+    enable = true
+
+  [plugins.inputs]
+    enable = false
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
