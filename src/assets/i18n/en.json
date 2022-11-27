@@ -113,6 +113,10 @@
       "column": {
         "title": "Delete Column",
         "description": "Would you like to delete this Column?"
+      },
+      "task": {
+        "title": "Delete the Task",
+        "description": "Would you like to delete this Task?"
       }
     }
   }
