@@ -4,6 +4,7 @@
 
 .wrapper {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
@@ -12,4 +13,11 @@
   margin: .25em 0; // fix mat-form-field margin
   font-size: 0.85rem;
   padding: 0.2em 1.5em;
+}
+
+@media (max-width: 414.98px) {
+  .wrapper {
+    flex-wrap: wrap;
+    gap: 0;
+  }
 }

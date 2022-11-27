@@ -17,3 +17,15 @@
 .user-edit-input {
   font-size: 1rem;
 }
+
+@media (max-width: 414.98px) {
+  .user-general-form {
+    box-sizing: border-box;
+    width: 300px;
+  }
+
+  .heading {
+    font-size: 28px;
+    text-align: center
+  }
+}
