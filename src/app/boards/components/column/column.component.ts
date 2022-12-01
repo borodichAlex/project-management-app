@@ -142,7 +142,8 @@ export class ColumnComponent implements OnDestroy {
     currentOrder,
     item,
   }: ITransferTaskData): void {
-    const { id: itemId, description, title, userId } = item.data;
+    const { id: itemId, description, title } = item.data;
+    const userId: string = this.userStateService.user!.id;
     const newTask = {
       title,
       description,
