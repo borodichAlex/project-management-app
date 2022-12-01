@@ -47,8 +47,12 @@
     "passwordLable": "пароль",
     "signup": "Зарегистрироваться",
     "loginHintLabel": "Минимум 5 символов",
-    "passwordHintLabel": "Минимум 6 символов",
-    "You must enter a value": "Вы должны ввести значение"
+    "passwordHintLabel": "Необходима смесь букв и цифр, как минимум один специальный символ и минимум 8 символов",
+    "You must enter a value": "Вы должны ввести значение",
+    "Please enter a password": "Пожалуйста, введите пароль",
+    "It's at least one special character, e.g., ! @ # ? ]": "Как минимум один специальный символ: ! @ # ? ]",
+    "It's necessary a mixture of letters and numbers": "Необходима смесь букв и цифр",
+    "It's necessary at least 8 characters": "Необходимо как минимум 8 символов"
   },
   "loginPage": {
     "title": "Авторизация",
