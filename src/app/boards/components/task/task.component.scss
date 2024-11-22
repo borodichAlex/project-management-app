@@ -1,0 +1,12 @@
+:host {
+  word-wrap: break-word;
+
+  .buttons-group {
+    display: flex;
+    justify-content: right;
+  }
+
+  mat-card-title {
+    width: 200px;
+  }
+}

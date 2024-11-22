@@ -1,0 +1,44 @@
+<ng-container class="buttons" *ngIf="showBigButtons | async; else iconButtons">
+  <button
+    *ngIf="isParentPage | async; else backBtn"
+    mat-stroked-button
+    color="primary"
+    (click)="onClickCreateBoard()"
+  >
+    {{ 'header.New board' | translate }}
+  </button>
+  <ng-template #backBtn>
+    <button
+      mat-stroked-button
+      color="primary"
+      (click)="onClickBackToTheBoards()"
+    >
+      {{ 'header.Back to boards' | translate }}
+    </button>
+  </ng-template>
+</ng-container>
+<ng-template #iconButtons>
+  <button
+    *ngIf="isParentPage | async; else backBtn"
+    mat-icon-button
+    aria-label="newBoard"
+    matTooltip="{{ 'header.New board' | translate }}"
+    matTooltipPosition="above"
+    color="primary"
+    (click)="onClickCreateBoard()"
+  >
+    <mat-icon color="primary" class="icon">library_add</mat-icon>
+  </button>
+  <ng-template #backBtn>
+    <button
+      mat-icon-button
+      aria-label="Back"
+      matTooltip="{{ 'header.Back to boards' | translate }}"
+      matTooltipPosition="above"
+      color="primary"
+      (click)="onClickBackToTheBoards()"
+    >
+      <mat-icon color="primary" class="icon">arrow_back</mat-icon>
+    </button>
+  </ng-template>
+</ng-template>

@@ -1,0 +1,9 @@
+:host ::ng-deep{
+  mat-button-toggle {
+    .mat-button-toggle-label-content {
+      padding: 0 0.3rem !important;
+      line-height: 1rem !important;
+      font-size: 0.8rem;
+    }
+  }
+}

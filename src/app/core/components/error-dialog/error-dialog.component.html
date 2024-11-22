@@ -1,0 +1,10 @@
+<div>
+  <h2>{{ 'errorDialog.error' | translate }}</h2>
+  <div>
+    <p>
+      {{ 'errorDialog.reason' | translate }}
+      {{ 'errors.' + data.reason | translate }}
+    </p>
+    <p>{{ 'errorDialog.status' | translate }} {{ data.status }}</p>
+  </div>
+</div>

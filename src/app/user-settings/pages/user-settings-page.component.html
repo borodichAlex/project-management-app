@@ -1,0 +1,32 @@
+<section class="page">
+  <app-user-general-form
+    (changeUserField)="handleChangeField($event)"
+    [userName]="user.name"
+    [userLogin]="user.login"
+  ></app-user-general-form>
+
+  <div class="danger-zone">
+    <h2 class="mat-display-1 danger-zone__heading">
+      {{ 'userSettingsPage.userDangerSection.heading' | translate }}
+    </h2>
+    <div class="danger-zone__inner">
+      <div class="item">
+        <h3 class="mat-title item__title">
+          {{
+            'userSettingsPage.userDangerSection.fields.delete.title' | translate
+          }}
+        </h3>
+        <button
+          class="item__btn"
+          (click)="onDeleteClick()"
+          mat-stroked-button
+          color="warn"
+        >
+          {{
+            'userSettingsPage.userDangerSection.fields.delete.btn' | translate
+          }}
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

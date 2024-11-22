@@ -1,0 +1,69 @@
+@import "abstracts/variables";
+
+.boards {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  height: 100%;
+  padding-bottom: 5px;
+  overflow-y: auto;
+  cursor: pointer;
+}
+
+.board {
+  width: 250px;
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  transition: 0.2s;
+
+  &:hover {
+    filter: drop-shadow(2px 4px 6px $borders-drop-shadow-color);
+  }
+}
+
+.buttons-group {
+  display: flex;
+  justify-content: right;
+  padding-bottom: 1rem;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .board__header {
+    display: flex;
+    justify-content: center;
+
+    .board__title {
+      width: 250px;
+      word-wrap: break-word;
+    }
+  }
+
+  .content {
+    width: 250px;
+    word-wrap: break-word;
+  }
+}
+
+// TODO: duplicate with boards component
+.spinner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+.container {
+  box-sizing: border-box;
+  padding: $wrapper-padding;
+  @include media-mobile {
+    padding: 2vw;
+  }
+}

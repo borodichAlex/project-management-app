@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="board-title">
+    <h2>{{ boardTitle }}</h2>
+    <button
+      mat-mini-fab
+      color="primary"
+      aria-label="Add new column"
+      (click)="onClickCreateColumn()"
+      matTooltip="{{ 'modal.buttons.createColumn' | translate }}"
+      matTooltipPosition="above"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <!-- Spinner -->
+  <mat-spinner
+    class="spinner"
+    *ngIf="isLoading$ | async; else columnsContainer"
+  ></mat-spinner>
+  <!-- END Spinner -->
+  <!-- Columns -->
+  <ng-template #columnsContainer>
+    <!-- [column]="column" -->
+    <div
+      class="board"
+      *ngIf="columns$ | async as columns"
+      cdkDropListGroup
+      cdkDropList
+      [cdkDropListData]="columns"
+      cdkDropListOrientation="horizontal"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-column
+        *ngFor="let column of columns | sortByOrder"
+        [attr.columnId]="column.id"
+        [column]="column"
+        [boardId]="boardId"
+      ></app-column>
+    </div>
+  </ng-template>
+  <!-- END Columns -->
+</div>
