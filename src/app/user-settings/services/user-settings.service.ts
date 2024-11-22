@@ -42,10 +42,8 @@ export class UserSettingsService {
   public deleteUser(): void {
     const { id } = this.userStateService.user!;
 
-    this.usersApiService.delete(id).subscribe((res) => {
-      if (res === 204) {
-        this.userAuthService.logout();
-      }
+    this.usersApiService.delete(id).subscribe(() => {
+      this.userAuthService.logout();
     });
   }
 }

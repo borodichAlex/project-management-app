@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { UserAuthenticationService } from 'src/app/core/services/user-auth.service';
+import { isLettNumbMix } from '../../validators/lettNumbMix';
 
 @Component({
   selector: 'app-signup',
@@ -9,35 +15,34 @@ import { UserAuthenticationService } from 'src/app/core/services/user-auth.servi
   styleUrls: ['./signup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignupComponent implements OnDestroy {
+export class SignupComponent implements OnInit, OnDestroy {
+  public user!: FormGroup;
+
   public hide = true;
 
   public buttonDisabled = true;
 
-  public user = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    login: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    password: new FormControl('', [
-      Validators.required,
-      Validators.minLength(6),
-    ]),
-  });
-
-  public get name() {
-    return this.user.get('name')!;
-  }
-
-  public get login() {
-    return this.user.get('login')!;
-  }
-
-  public get password() {
-    return this.user.get('password')!;
-  }
-
   private subscription!: Subscription;
 
-  constructor(private userAuthService: UserAuthenticationService) {
+  constructor(
+    private userAuthService: UserAuthenticationService,
+    private formBuilder: FormBuilder,
+  ) {}
+
+  public ngOnInit(): void {
+    this.user = this.formBuilder.group({
+      name: ['', [Validators.required]],
+      login: ['', [Validators.required, Validators.minLength(5)]],
+      password: [
+        '',
+        [
+          Validators.required,
+          isLettNumbMix,
+          Validators.pattern(/[^\p{L}\p{N}]/u),
+          Validators.minLength(8),
+        ],
+      ],
+    });
     this.initFormStatusChangesObserver();
   }
 
@@ -58,11 +63,28 @@ export class SignupComponent implements OnDestroy {
   }
 
   public getErrorMessage() {
-    if (this.name.hasError('required')) {
+    if (
+      this.user.controls['name'].hasError('required') ||
+      this.user.controls['login'].hasError('required')
+    ) {
       return 'You must enter a value';
     }
 
     return '';
+  }
+
+  public getPasswordErrorMessage(): string {
+    let result = '';
+    if (this.user.controls['password'].hasError('required')) {
+      result = 'Please enter a password';
+    } else if (this.user.controls['password'].hasError('lettNumbMix')) {
+      result = "It's necessary a mixture of letters and numbers";
+    } else if (this.user.controls['password'].hasError('pattern')) {
+      result = "It's at least one special character, e.g., ! @ # ? ]";
+    } else if (this.user.controls['password'].hasError('minlength')) {
+      result = "It's necessary at least 8 characters";
+    } else result = '';
+    return result;
   }
 
   private initFormStatusChangesObserver(): void {

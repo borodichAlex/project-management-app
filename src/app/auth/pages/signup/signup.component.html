@@ -3,7 +3,7 @@
   <mat-form-field appearance="fill">
     <mat-label>{{ 'signupPage.nameLable' | translate }}</mat-label>
     <input formControlName="name" matInput autocomplete="off" />
-    <mat-error *ngIf="name.errors?.['required']">{{
+    <mat-error *ngIf="user.controls['name'].errors">{{
       'signupPage.' + getErrorMessage() | translate
     }}</mat-error>
   </mat-form-field>
@@ -13,8 +13,10 @@
   >
     <mat-label>{{ 'signupPage.loginLable' | translate }}</mat-label>
     <input formControlName="login" matInput autocomplete="off" />
-    <mat-hint align="end">{{ login.value?.length || 0 }}/5</mat-hint>
-    <mat-error *ngIf="login.errors?.['required']">{{
+    <mat-hint align="end"
+      >{{ user.controls['login'].value.length || 0 }}/5</mat-hint
+    >
+    <mat-error *ngIf="user.controls['login'].errors">{{
       'signupPage.' + getErrorMessage() | translate
     }}</mat-error>
   </mat-form-field>
@@ -29,9 +31,11 @@
       autocomplete="off"
       [type]="hide ? 'password' : 'text'"
     />
-    <mat-hint align="end">{{ password.value?.length || 0 }}/6</mat-hint>
-    <mat-error *ngIf="password.errors?.['required']">{{
-      'signupPage.' + getErrorMessage() | translate
+    <mat-hint align="end"
+      >{{ user.controls['password'].value.length || 0 }}/8</mat-hint
+    >
+    <mat-error *ngIf="user.controls['password'].errors">{{
+      'signupPage.' + getPasswordErrorMessage() | translate
     }}</mat-error>
     <button
       mat-icon-button
